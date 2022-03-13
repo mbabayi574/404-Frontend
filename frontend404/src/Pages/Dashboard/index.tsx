@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { styled, createTheme, ThemeProvider } from '@mui/material/styles';
+import { styled, createTheme, ThemeProvider, makeStyles, createStyles, Theme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import MuiDrawer from '@mui/material/Drawer';
 import Box from '@mui/material/Box';
@@ -20,6 +20,28 @@ import NotificationsIcon from '@mui/icons-material/Notifications';
 import { mainListItems, secondaryListItems } from './listItems';
 import { Logout } from '@mui/icons-material';
 import { height } from '@mui/system';
+
+
+
+// const useStyles = makeStyles((theme: Theme) =>
+//   createStyles({
+//     footer: {
+//       margin: 10,
+//       position: 'fixed',
+//       height: 40,
+//     },
+//   })
+// );
+
+const Footer = (): React.ReactElement => {
+  return (
+    <div
+      style={{ bottom: 0, height: 40, display: 'flex', justifyContent: 'left', marginTop: 30 }}
+    >
+      <Copyright />
+    </div>
+  )
+}
 
 const Copyright = (props: any) => {
   return (
@@ -63,13 +85,6 @@ const AppBar = styled(MuiAppBar, {
   }),
 }));
 
-const Footer = () => {
-  return (
-    <footer style={{position: "fixed", bottom: 0, height: 40}}>
-      <Copyright/>
-    </footer>
-  )
-}
 
 const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' })(
   ({ theme, open }) => ({
@@ -101,9 +116,12 @@ const mdTheme = createTheme();
 
 const Dashboard = () => {
   const [open, setOpen] = React.useState(true);
+  // const classes = useStyles();
   const toggleDrawer = () => {
     setOpen(!open);
   };
+
+
 
   return (
     <ThemeProvider theme={mdTheme}>
@@ -191,14 +209,14 @@ const Dashboard = () => {
           }}
         >
           <Toolbar />
-          <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
+          <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }} style={{ marginBottom: 50 }}>
             <Grid container spacing={3}>
               <CompanyName />
               {/* Text */}
               <Grid item xs={12}>
                 <Typography
-                variant="body1"
-                height={200}
+                  variant="body1"
+                  height={200}
                 >
                   This is a placeholder text according to the UX document. The exact data which will be displayed on here is yet to be determined.
                 </Typography>
@@ -233,7 +251,7 @@ const Dashboard = () => {
               <Grid item xs={12}>
                 <Paper sx={{
                   p: 2,
-                  display:'flex',
+                  display: 'flex',
                   flexDirection: 'column',
                   height: 200,
                 }}>
@@ -242,7 +260,7 @@ const Dashboard = () => {
               </Grid>
             </Grid>
             {/* <Copyright sx={{ pt: 4 }} /> */}
-            <Footer/>
+            <Footer />
           </Container>
         </Box>
       </Box>
