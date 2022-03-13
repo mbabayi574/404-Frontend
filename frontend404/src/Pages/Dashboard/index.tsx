@@ -36,7 +36,17 @@ import { height } from '@mui/system';
 const Footer = (): React.ReactElement => {
   return (
     <div
-      style={{ bottom: 0, height: 40, display: 'flex', justifyContent: 'left', marginTop: 30 }}
+      style={{
+        bottom: 0,
+        paddingTop: 10,
+        marginLeft: -70,
+        width: '100%',
+        height: 40,
+        textAlign: 'left',
+        marginTop: 30,
+        position: 'fixed',
+        backgroundColor: '#e6e3e3',
+      }}
     >
       <Copyright />
     </div>
@@ -45,7 +55,7 @@ const Footer = (): React.ReactElement => {
 
 const Copyright = (props: any) => {
   return (
-    <Typography variant="body2" color="text.secondary" align="center" {...props}>
+    <Typography variant="body2" color="text.secondary" align="center" {...props} style={{ textAlign: 'left', marginLeft: 80, }}>
       {'Copyright © 404! Automation '}
       {new Date().getFullYear()}
       {'.'}
