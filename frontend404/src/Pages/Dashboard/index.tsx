@@ -1,5 +1,6 @@
 import * as React from 'react';
-import { styled, createTheme, ThemeProvider, makeStyles, createStyles, Theme } from '@mui/material/styles';
+import { styled, createTheme, ThemeProvider } from '@material-ui/core/styles';
+import { makeStyles, createStyles, Theme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import MuiDrawer from '@mui/material/Drawer';
 import Box from '@mui/material/Box';
@@ -33,105 +34,69 @@ import { height } from '@mui/system';
 //   })
 // );
 
-const Footer = (): React.ReactElement => {
-  return (
-    <div
-      style={{
-        bottom: 0,
-        paddingTop: 10,
-        marginLeft: -70,
-        width: '100%',
-        height: 40,
-        textAlign: 'left',
-        marginTop: 30,
-        position: 'fixed',
-        backgroundColor: '#e6e3e3',
-      }}
-    >
-      <Copyright />
-    </div>
-  )
-}
 
-const Copyright = (props: any) => {
-  return (
-    <Typography variant="body2" color="text.secondary" align="center" {...props} style={{ textAlign: 'left', marginLeft: 80, }}>
-      {'Copyright © 404! Automation '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-};
-
-const CompanyName = () => {
-  return (
-    <Typography variant="h3" color="text.primary" >
-      Company Name
-    </Typography>
-  )
-};
-
-const drawerWidth: number = 240;
 
 interface AppBarProps extends MuiAppBarProps {
   open?: boolean;
 }
 
-const AppBar = styled(MuiAppBar, {
-  shouldForwardProp: (prop) => prop !== 'open',
-})<AppBarProps>(({ theme, open }) => ({
-  zIndex: theme.zIndex.drawer + 1,
-  transition: theme.transitions.create(['width', 'margin'], {
-    easing: theme.transitions.easing.sharp,
-    duration: theme.transitions.duration.leavingScreen,
-  }),
-  ...(open && {
-    marginLeft: drawerWidth,
-    width: `calc(100% - ${drawerWidth}px)`,
-    transition: theme.transitions.create(['width', 'margin'], {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-  }),
-}));
-
-
-const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' })(
-  ({ theme, open }) => ({
-    '& .MuiDrawer-paper': {
-      position: 'relative',
-      whiteSpace: 'nowrap',
-      width: drawerWidth,
-      transition: theme.transitions.create('width', {
-        easing: theme.transitions.easing.sharp,
-        duration: theme.transitions.duration.enteringScreen,
-      }),
-      boxSizing: 'border-box',
-      ...(!open && {
-        overflowX: 'hidden',
-        transition: theme.transitions.create('width', {
-          easing: theme.transitions.easing.sharp,
-          duration: theme.transitions.duration.leavingScreen,
-        }),
-        width: theme.spacing(7),
-        [theme.breakpoints.up('sm')]: {
-          width: theme.spacing(9),
-        },
-      }),
-    },
-  }),
-);
-
-const mdTheme = createTheme();
 
 const Dashboard = () => {
+  const mdTheme = createTheme();
+  const drawerWidth: number = 240;
   const [open, setOpen] = React.useState(true);
   // const classes = useStyles();
+
+
   const toggleDrawer = () => {
     setOpen(!open);
   };
 
 
+  const AppBar = styled(MuiAppBar, {
+    shouldForwardProp: (prop) => prop !== 'open',
+  })<AppBarProps>(({ theme, open }) => ({
+    zIndex: theme.zIndex.drawer + 1,
+    transition: theme.transitions.create(['width', 'margin'], {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.leavingScreen,
+    }),
+    ...(open && {
+      marginLeft: drawerWidth,
+      width: `calc(100% - ${drawerWidth}px)`,
+      transition: theme.transitions.create(['width', 'margin'], {
+        easing: theme.transitions.easing.sharp,
+        duration: theme.transitions.duration.enteringScreen,
+      }),
+    }),
+  }));
+
+
+  const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' })(
+    ({ theme, open }) => ({
+      '& .MuiDrawer-paper': {
+        position: 'relative',
+        whiteSpace: 'nowrap',
+        width: drawerWidth,
+        transition: theme.transitions.create('width', {
+          easing: theme.transitions.easing.sharp,
+          duration: theme.transitions.duration.enteringScreen,
+        }),
+        boxSizing: 'border-box',
+        ...(!open && {
+          overflowX: 'hidden',
+          transition: theme.transitions.create('width', {
+            easing: theme.transitions.easing.sharp,
+            duration: theme.transitions.duration.leavingScreen,
+          }),
+          width: theme.spacing(7),
+          [theme.breakpoints.up('sm')]: {
+            width: theme.spacing(9),
+          },
+        }),
+      },
+    }),
+  );
 
   return (
     <ThemeProvider theme={mdTheme}>
@@ -221,7 +186,9 @@ const Dashboard = () => {
           <Toolbar />
           <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }} style={{ marginBottom: 50 }}>
             <Grid container spacing={3}>
-              <CompanyName />
+              <Typography variant="h3" color="text.primary" >
+                Company Name
+              </Typography>
               {/* Text */}
               <Grid item xs={12}>
                 <Typography
@@ -269,8 +236,25 @@ const Dashboard = () => {
                 </Paper>
               </Grid>
             </Grid>
-            {/* <Copyright sx={{ pt: 4 }} /> */}
-            <Footer />
+            <div
+              style={{
+                bottom: 0,
+                paddingTop: 10,
+                marginLeft: -70,
+                width: '100%',
+                height: 40,
+                textAlign: 'left',
+                marginTop: 30,
+                position: 'fixed',
+                backgroundColor: '#e6e3e3',
+              }}
+            >
+              <Typography variant="body2" color="text.secondary" align="center" style={{ textAlign: 'left', marginLeft: 80, }}>
+                {'Copyright © 404! Automation '}
+                {new Date().getFullYear()}
+                {'.'}
+              </Typography>
+            </div>
           </Container>
         </Box>
       </Box>
