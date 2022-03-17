@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { styled, createTheme, ThemeProvider } from '@material-ui/core/styles';
-import { makeStyles, createStyles, Theme } from '@mui/material/styles';
+import { makeStyles, createStyles } from '@mui/styles';
+import { styled, createTheme, ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import MuiDrawer from '@mui/material/Drawer';
 import Box from '@mui/material/Box';
@@ -24,16 +24,28 @@ import { height } from '@mui/system';
 
 
 
-// const useStyles = makeStyles((theme: Theme) =>
-//   createStyles({
-//     footer: {
-//       margin: 10,
-//       position: 'fixed',
-//       height: 40,
-//     },
-//   })
-// );
-
+const useStyles = makeStyles(() =>
+  createStyles({
+    footer: {
+      bottom: 0,
+      paddingTop: 10,
+      marginLeft: -70,
+      width: '100%',
+      height: 40,
+      textAlign: 'left',
+      marginTop: 30,
+      position: 'fixed',
+      backgroundColor: '#e6e3e3',
+    },
+    copyRight: {
+      textAlign: 'left',
+      marginLeft: 80
+    },
+    container: {
+      marginBottom: 50,
+    },
+  })
+);
 
 
 interface AppBarProps extends MuiAppBarProps {
@@ -45,7 +57,7 @@ const Dashboard = () => {
   const mdTheme = createTheme();
   const drawerWidth: number = 240;
   const [open, setOpen] = React.useState(true);
-  // const classes = useStyles();
+  const classes = useStyles();
 
 
   const toggleDrawer = () => {
@@ -184,7 +196,7 @@ const Dashboard = () => {
           }}
         >
           <Toolbar />
-          <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }} style={{ marginBottom: 50 }}>
+          <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }} className={classes.container}>
             <Grid container spacing={3}>
               <Typography variant="h3" color="text.primary" >
                 Company Name
@@ -237,19 +249,9 @@ const Dashboard = () => {
               </Grid>
             </Grid>
             <div
-              style={{
-                bottom: 0,
-                paddingTop: 10,
-                marginLeft: -70,
-                width: '100%',
-                height: 40,
-                textAlign: 'left',
-                marginTop: 30,
-                position: 'fixed',
-                backgroundColor: '#e6e3e3',
-              }}
+              className={classes.footer}
             >
-              <Typography variant="body2" color="text.secondary" align="center" style={{ textAlign: 'left', marginLeft: 80, }}>
+              <Typography variant="body2" color="text.secondary" align="center" className={classes.copyRight}>
                 {'Copyright © 404! Automation '}
                 {new Date().getFullYear()}
                 {'.'}
