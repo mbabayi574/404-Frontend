@@ -55,26 +55,25 @@ const Dashboard = () => {
     setOpen(!open);
   };
 
-  // const AppBar =
-  //   styled(MuiAppBar, {
-  //     shouldForwardProp: (prop) => prop !== "open",
-  //   }) <
-  //   MuiAppBarProps >
-  //   (({ theme, open }) => ({
-  //     zIndex: theme.zIndex.drawer + 1,
-  //     transition: theme.transitions.create(["width", "margin"], {
-  //       easing: theme.transitions.easing.sharp,
-  //       duration: theme.transitions.duration.leavingScreen,
-  //     }),
-  //     ...(open && {
-  //       marginLeft: drawerWidth,
-  //       width: `calc(100% - ${drawerWidth}px)`,
-  //       transition: theme.transitions.create(["width", "margin"], {
-  //         easing: theme.transitions.easing.sharp,
-  //         duration: theme.transitions.duration.enteringScreen,
-  //       }),
-  //     }),
-  //   }));
+  const AppBar =
+    styled(MuiAppBar, {
+      shouldForwardProp: (prop) => prop !== "open",
+    })
+    (({ theme, open }) => ({
+      zIndex: theme.zIndex.drawer + 1,
+      transition: theme.transitions.create(["width", "margin"], {
+        easing: theme.transitions.easing.sharp,
+        duration: theme.transitions.duration.leavingScreen,
+      }),
+      ...(open && {
+        marginLeft: drawerWidth,
+        width: `calc(100% - ${drawerWidth}px)`,
+        transition: theme.transitions.create(["width", "margin"], {
+          easing: theme.transitions.easing.sharp,
+          duration: theme.transitions.duration.enteringScreen,
+        }),
+      }),
+    }));
 
   const Drawer = styled(MuiDrawer, {
     shouldForwardProp: (prop) => prop !== "open",
@@ -106,7 +105,7 @@ const Dashboard = () => {
     <ThemeProvider theme={mdTheme}>
       <Box sx={{ display: "flex" }}>
         <CssBaseline />
-        {/* <AppBar position="absolute" open={open}>
+        <AppBar position="absolute" open={open}>
           <Toolbar
             sx={{
               pr: "24px", // keep right padding when drawer closed
@@ -151,7 +150,7 @@ const Dashboard = () => {
               <Logout />
             </IconButton>
           </Toolbar>
-        </AppBar> */}
+        </AppBar>
         <Drawer variant="permanent" open={open}>
           <Toolbar
             sx={{
