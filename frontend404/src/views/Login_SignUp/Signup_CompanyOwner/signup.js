@@ -17,9 +17,10 @@ import Container from "@mui/material/Container";
 import MenuItem from "@mui/material/MenuItem";
 import Card from "@mui/material/Card";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-// import backgroundimage from "./signupbgcolor.png";
+import axios, { Axios } from "axios";
+import { useHistory } from "react-router-dom";
 
-function Copyright(props: any) {
+function Copyright(props) {
   return (
     <Typography align="center" {...props}>
       MADE WITH ❤️ IN 2022
@@ -30,27 +31,76 @@ function Copyright(props: any) {
 const theme = createTheme({});
 
 function SignUp() {
+  let history = useHistory();
+
   const [registrant_role, setRegistrant_Role] = React.useState("owner");
 
-  const handle_Role_Change = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setRegistrant_Role((event.target as HTMLInputElement).value);
+  const handle_Role_Change = (event) => {
+    setRegistrant_Role(event.target.value);
   };
 
   const companies = ["BMW Co", "Mazmaz Company", "Pepsi"];
 
   const [company, setCompany] = React.useState("BMW Co");
 
-  const handleChangeCompany = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChangeCompany = (event) => {
     setCompany(event.target.value);
   };
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get("email"),
-      password: data.get("password"),
-    });
+
+    if (registrant_role === "owner") {
+      // var request_data = {
+      //   company: {
+      //     company_name: data.get("company-name"),
+      //     company_biography: data.get("company-biography"),
+      //   },
+      //   first_name: data.get("firstName"),
+      //   last_name: data.get("lastName"),
+      //   phone: data.get("phonenumber"),
+      //   email: data.get("email"),
+      //   password: data.get("password"),
+      // };
+
+      var myHeaders = new Headers();
+      myHeaders.append("Content-Type", "application/json");
+
+      var raw = JSON.stringify({
+        company: {
+          company_name: data.get("company-name"),
+          company_biography: data.get("company-biography"),
+        },
+        first_name: data.get("firstName"),
+        last_name: data.get("lastName"),
+        phone: data.get("phonenumber"),
+        email: data.get("email"),
+        password: data.get("password"),
+      });
+
+      var requestOptions = {
+        method: "POST",
+        headers: myHeaders,
+        body: raw,
+        redirect: "follow",
+      };
+
+      fetch("http://127.0.0.1:8000/api/company-owner/signup/", requestOptions)
+        .then((response) => response.text())
+        .then((result) => console.log(result))
+        .catch((error) => console.log("error", error));
+    }
+
+    // console.log({
+    //   email: data.get("email"),
+    //   password: data.get("password"),
+    //   phonenumber: data.get("phonenumber"),
+    //   companybiography: data.get("company-biography"),
+    //   companyname: data.get("company-name"),
+    //   firstname: data.get("firstName"),
+    //   lastname: data.get("lastName"),
+    // });
   };
 
   return (
@@ -190,7 +240,7 @@ function SignUp() {
                       <React.Fragment>
                         <Grid item xs={12}>
                           <TextField
-                            id="outlined-select-copany"
+                            id="outlined-select-company"
                             select
                             label="Select"
                             value={company}

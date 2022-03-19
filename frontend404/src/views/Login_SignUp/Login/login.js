@@ -11,7 +11,7 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
-function Copyright(props: any) {
+function Copyright(props) {
   return (
     <Typography align="center" {...props}>
       MADE WITH ❤️ IN 2022
@@ -22,7 +22,7 @@ function Copyright(props: any) {
 const theme = createTheme({});
 
 function SignInSide() {
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     console.log({
@@ -99,7 +99,7 @@ function SignInSide() {
                 variant="contained"
                 sx={{ mt: 3, mb: 2 }}
               >
-                Login{" "}
+                Login
               </Button>
               <Grid container>
                 <Grid item xs>
