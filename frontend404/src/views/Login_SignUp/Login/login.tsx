@@ -13,17 +13,13 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 function Copyright(props: any) {
   return (
-    <div dir="rtl">
-      <Typography align="center" {...props}>
-        ساخته شده با ❤️ در ۱۴۰۱
-      </Typography>
-    </div>
+    <Typography align="center" {...props}>
+      MADE WITH ❤️ IN 2022
+    </Typography>
   );
 }
 
-const theme = createTheme({
-  direction: "rtl",
-});
+const theme = createTheme({});
 
 function SignInSide() {
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -69,7 +65,7 @@ function SignInSide() {
               <LockOutlinedIcon />
             </Avatar>
             <Typography component="h1" variant="h5">
-              وارد شوید
+              Login
             </Typography>
             <Box
               component="form"
@@ -82,7 +78,7 @@ function SignInSide() {
                 required
                 fullWidth
                 id="phonenumber"
-                label="تلفن همراه"
+                label="Phone Number"
                 name="phonenumber"
                 autoFocus
               />
@@ -91,7 +87,7 @@ function SignInSide() {
                 required
                 fullWidth
                 name="password"
-                label="رمز عبور"
+                label="Password"
                 type="password"
                 id="password"
                 autoComplete="current-password"
@@ -103,17 +99,17 @@ function SignInSide() {
                 variant="contained"
                 sx={{ mt: 3, mb: 2 }}
               >
-                وارد شوید
+                Login{" "}
               </Button>
               <Grid container>
                 <Grid item xs>
                   <Link href="#" variant="body2">
-                    رمز عبور خود را فراموش کرده اید؟؟
+                    Forget Your Password?? Click Here
                   </Link>
                 </Grid>
                 <Grid item>
                   <Link href="/signup" variant="body2">
-                    {"حساب کاربری ندارید؟ ثبت نام کنید"}
+                    {"Do not have an account? Sign Up."}
                   </Link>
                 </Grid>
               </Grid>
