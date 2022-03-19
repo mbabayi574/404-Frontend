@@ -52,22 +52,7 @@ function SignUp() {
     const data = new FormData(event.currentTarget);
 
     if (registrant_role === "owner") {
-      // var request_data = {
-      //   company: {
-      //     company_name: data.get("company-name"),
-      //     company_biography: data.get("company-biography"),
-      //   },
-      //   first_name: data.get("firstName"),
-      //   last_name: data.get("lastName"),
-      //   phone: data.get("phonenumber"),
-      //   email: data.get("email"),
-      //   password: data.get("password"),
-      // };
-
-      var myHeaders = new Headers();
-      myHeaders.append("Content-Type", "application/json");
-
-      var raw = JSON.stringify({
+      var request_data = JSON.stringify({
         company: {
           company_name: data.get("company-name"),
           company_biography: data.get("company-biography"),
@@ -79,17 +64,48 @@ function SignUp() {
         password: data.get("password"),
       });
 
-      var requestOptions = {
-        method: "POST",
-        headers: myHeaders,
-        body: raw,
-        redirect: "follow",
+      var config = {
+        method: "post",
+        url: "http://127.0.0.1:8000/api/company-owner/signup/",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        data: request_data,
       };
 
-      fetch("http://127.0.0.1:8000/api/company-owner/signup/", requestOptions)
-        .then((response) => response.text())
-        .then((result) => console.log(result))
-        .catch((error) => console.log("error", error));
+      axios(config)
+        .then(function (response) {
+          console.log(JSON.stringify(response.data));
+          history.push("/");
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    } else if (registrant_role === "employee") {
+      var employeerequest_data = JSON.stringify({
+        first_name: data.get("firstName"),
+        last_name: data.get("lastName"),
+        phone: data.get("phonenumber"),
+        email: data.get("email"),
+        company: "company",
+        password: data.get("password"),
+      });
+      var employeeconfig = {
+        method: "post",
+        url: "http://127.0.0.1:8000/api/employee/signup/",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        data: employeerequest_data,
+      };
+      axios(employeeconfig)
+        .then(function (response) {
+          console.log(JSON.stringify(response.data));
+          history.push("/");
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
     }
 
     // console.log({
