@@ -57,7 +57,7 @@ function SignUp() {
           company_name: data.get("company-name"),
           company_biography: data.get("company-biography"),
         },
-        first_name: data.get("firstName2"),
+        first_name: data.get("firstName"),
         last_name: data.get("lastName"),
         phone: data.get("phonenumber"),
         email: data.get("email"),
