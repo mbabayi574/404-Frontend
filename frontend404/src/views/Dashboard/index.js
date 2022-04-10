@@ -190,56 +190,7 @@ const Dashboard = () => {
             className={classes.container}
           >
             <Grid container spacing={3}>
-              <Typography variant="h3" color="text.primary">
-                Company Name
-              </Typography>
-              {/* Text */}
-              <Grid item xs={12}>
-                <Typography variant="body1" height={200}>
-                  This is a placeholder text according to the UX document. The
-                  exact data which will be displayed on here is yet to be
-                  determined.
-                </Typography>
-              </Grid>
-              {/* Chart */}
-              <Grid item xs={12} md={8} lg={9}>
-                <Paper
-                  sx={{
-                    p: 2,
-                    display: "flex",
-                    flexDirection: "column",
-                    height: 240,
-                  }}
-                >
-                  Section 1
-                </Paper>
-              </Grid>
-              {/* Recent Deposits */}
-              <Grid item xs={12} md={4} lg={3}>
-                <Paper
-                  sx={{
-                    p: 2,
-                    display: "flex",
-                    flexDirection: "column",
-                    height: 240,
-                  }}
-                >
-                  Section 2
-                </Paper>
-              </Grid>
-              {/* Recent Orders */}
-              <Grid item xs={12}>
-                <Paper
-                  sx={{
-                    p: 2,
-                    display: "flex",
-                    flexDirection: "column",
-                    height: 200,
-                  }}
-                >
-                  Section 3
-                </Paper>
-              </Grid>
+
             </Grid>
             <div className={classes.footer}>
               <Typography
