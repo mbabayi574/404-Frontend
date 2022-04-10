@@ -21,6 +21,7 @@ import NotificationsIcon from "@mui/icons-material/Notifications";
 import { mainListItems, secondaryListItems } from "./listItems";
 import { Logout } from "@mui/icons-material";
 import { height } from "@mui/system";
+import NotificationList from './notificationList';
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -190,7 +191,9 @@ const Dashboard = () => {
             className={classes.container}
           >
             <Grid container spacing={3}>
-
+              <Grid item xs={4}>
+                <NotificationList />
+              </Grid>
             </Grid>
             <div className={classes.footer}>
               <Typography
