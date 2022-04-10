@@ -192,7 +192,11 @@ const Dashboard = () => {
           >
             <Grid container spacing={3}>
               <Grid item xs={4}>
-                <NotificationList />
+                <NotificationList notifications={[
+                  {title: "Title", date: "4-20"},
+                  {title: "Title", date: "4-20"},
+                  {title: "Title", date: "4-20"},
+                ]}/>
               </Grid>
             </Grid>
             <div className={classes.footer}>
