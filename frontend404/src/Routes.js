@@ -2,7 +2,7 @@ import React from "react";
 import { Switch, Route, BrowserRouter as Router } from "react-router-dom";
 import Login from "./views/Login_SignUp/Login/login";
 import Signup from "./views/Login_SignUp/Signup_CompanyOwner/signup";
-import Dashboard from "./Pages";
+import Dashboard from "./views/Dashboard";
 
 const Routes = () => {
   return (
