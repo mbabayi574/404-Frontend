@@ -7,6 +7,7 @@ import Link from "@mui/material/Link";
 import Paper from "@mui/material/Paper";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
+import { useHistory } from "react-router-dom";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
@@ -30,7 +31,7 @@ function SignInSide() {
       password: data.get("password"),
     });
   };
-
+  let history = useHistory();
   return (
     <ThemeProvider theme={theme}>
       <Grid container component="main" sx={{ height: "100vh" }}>
@@ -93,25 +94,50 @@ function SignInSide() {
                 autoComplete="current-password"
               />
 
-              <Button
+              {/* <Button
                 type="submit"
                 fullWidth
                 variant="contained"
                 sx={{ mt: 3, mb: 2 }}
               >
                 Login
-              </Button>
+              </Button> */}
+              <Grid container spacing={34}>
+                <Grid item>
+                  <Button
+                    item
+                    type="submit"
+                    variant="contained"
+                    sx={{ mt: 3, mb: 2 }}
+                  >
+                    Submit
+                  </Button>
+                </Grid>
+                <Grid item>
+                  <Button
+                    item
+                    type="submit"
+                    variant="outlined"
+                    onClick={() => {
+                      history.push("/signup");
+                    }}
+                    sx={{ mt: 3, mb: 2 }}
+                  >
+                    Sign up
+                  </Button>
+                </Grid>
+              </Grid>
               <Grid container>
                 <Grid item xs>
                   <Link href="#" variant="body2">
                     Forget Your Password?? Click Here
                   </Link>
                 </Grid>
-                <Grid item>
+                {/* <Grid item>
                   <Link href="/signup" variant="body2">
                     {"Do not have an account? Sign Up."}
                   </Link>
-                </Grid>
+                </Grid> */}
               </Grid>
               <Copyright sx={{ mt: 5 }} />
             </Box>

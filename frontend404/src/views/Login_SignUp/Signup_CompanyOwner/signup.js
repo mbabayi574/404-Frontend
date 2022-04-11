@@ -19,6 +19,41 @@ import Card from "@mui/material/Card";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import axios, { Axios } from "axios";
 import { useHistory } from "react-router-dom";
+import PropTypes from "prop-types";
+import Tabs from "@mui/material/Tabs";
+import Tab from "@mui/material/Tab";
+import { ColorButton } from "@mui/material/Button";
+function TabPanel(props) {
+  const { children, value, index, ...other } = props;
+
+  return (
+    <div
+      role="tabpanel"
+      hidden={value !== index}
+      id={`simple-tabpanel-${index}`}
+      aria-labelledby={`simple-tab-${index}`}
+      {...other}
+    >
+      {value === index && (
+        <Box sx={{ p: 3 }}>
+          <Typography>{children}</Typography>
+        </Box>
+      )}
+    </div>
+  );
+}
+
+TabPanel.propTypes = {
+  children: PropTypes.node,
+  index: PropTypes.number.isRequired,
+  value: PropTypes.number.isRequired,
+};
+function a11yProps(index) {
+  return {
+    id: `simple-tab-${index}`,
+    "aria-controls": `simple-tabpanel-${index}`,
+  };
+}
 
 function Copyright(props) {
   return (
@@ -34,11 +69,16 @@ function SignUp() {
   let history = useHistory();
 
   const [registrant_role, setRegistrant_Role] = React.useState("owner");
+  const [value, setValue] = React.useState(0);
 
+  const handleChange = (event, newValue) => {
+    const new_role_value = newValue == 0 ? "owner" : "employee";
+    setRegistrant_Role(new_role_value);
+    setValue(newValue);
+  };
   const handle_Role_Change = (event) => {
     setRegistrant_Role(event.target.value);
   };
-
   const companies = ["BMW Co", "Mazmaz Company", "Pepsi"];
 
   const [company, setCompany] = React.useState("BMW Co");
@@ -124,7 +164,11 @@ function SignUp() {
       <div
         style={{
           backgroundImage:
-            "url(https://s6.uupload.ir/files/signupbgcolor_l3ar.png)",
+            "url(https://supremepools.com.au/wp-content/uploads/2016/06/supreme-pools-free-pool-magazine-background-large.jpg)",
+          // width: "100%",
+          height: "100%",
+          backgroundSize: "cover",
+          backgroundRepeat: "no-repeat",
         }}
       >
         <Container component="main" maxWidth="xs">
@@ -149,11 +193,23 @@ function SignUp() {
                   component="form"
                   noValidate
                   onSubmit={handleSubmit}
-                  sx={{ mt: 3 }}
+                  // sx={{ mt: 3 }}
                 >
                   <Grid container spacing={2}>
-                    <Grid item xs={12}>
-                      <FormControl>
+                    <Grid item xs={12} sx={{ mb: -5 }}>
+                      <Tabs
+                        variant="fullWidth"
+                        value={value}
+                        onChange={handleChange}
+                        aria-label="basic tabs example"
+                      >
+                        <Tab label="Owner" {...a11yProps(0)} />
+                        <Tab label="Employee" {...a11yProps(1)} />
+                      </Tabs>
+                      <TabPanel value={value} index={0}></TabPanel>
+                      <TabPanel value={value} index={1}></TabPanel>
+
+                      {/* <FormControl>
                         <FormLabel id="registrant-role-radio-buttons-group">
                           Role :
                         </FormLabel>
@@ -174,8 +230,9 @@ function SignUp() {
                             label="Employee"
                           />
                         </RadioGroup>
-                      </FormControl>
+                      </FormControl> */}
                     </Grid>
+
                     <Grid item xs={12} sm={6}>
                       <TextField
                         autoComplete="given-name"
@@ -274,21 +331,39 @@ function SignUp() {
                       </React.Fragment>
                     )}
                   </Grid>
-                  <Button
-                    type="submit"
-                    fullWidth
-                    variant="contained"
-                    sx={{ mt: 3, mb: 2 }}
-                  >
-                    Submit
-                  </Button>
-                  <Grid container justifyContent="flex-end">
+                  <Grid container spacing={25}>
+                    <Grid item>
+                      <Button
+                        item
+                        type="submit"
+                        variant="contained"
+                        sx={{ mt: 3, mb: 2 }}
+                      >
+                        Submit
+                      </Button>
+                    </Grid>
+                    <Grid item>
+                      <Button
+                        item
+                        type="submit"
+                        onClick={() => {
+                          history.push("/");
+                        }}
+                        variant="outlined"
+                        sx={{ mt: 3, mb: 2 }}
+                      >
+                        Login
+                      </Button>
+                    </Grid>
+                  </Grid>
+
+                  {/* <Grid container justifyContent="flex-end">
                     <Grid item>
                       <Link href="/" variant="body2">
                         Do you have an account? Login
                       </Link>
                     </Grid>
-                  </Grid>
+                  </Grid> */}
                 </Box>
               </Box>
               <Copyright sx={{ mt: 5 }} />
