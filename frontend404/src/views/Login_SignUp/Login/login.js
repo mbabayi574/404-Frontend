@@ -10,6 +10,8 @@ import Grid from "@mui/material/Grid";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import axios, { Axios } from "axios";
+import { useHistory } from "react-router-dom";
 
 function Copyright(props) {
   return (
@@ -22,13 +24,39 @@ function Copyright(props) {
 const theme = createTheme({});
 
 function SignInSide() {
+  let history = useHistory();
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log({
-      phonenumber: data.get("phonenumber"),
+
+    var request_data = JSON.stringify({
+      phone: data.get("phonenumber"),
       password: data.get("password"),
     });
+
+    var config = {
+      method: "post",
+      url: "http://127.0.0.1:8000/auth/jwt/create/",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      data: request_data,
+    };
+
+    axios(config)
+      .then(function (response) {
+        console.log(JSON.stringify(response.data));
+        history.push("/home");
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+
+    // console.log({
+    //   phonenumber: data.get("phonenumber"),
+    //   password: data.get("password"),
+    // });
   };
 
   return (
