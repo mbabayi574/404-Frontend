@@ -22,6 +22,7 @@ import { mainListItems, secondaryListItems } from "./listItems";
 import { Logout } from "@mui/icons-material";
 import { height } from "@mui/system";
 import NotificationList from './notificationList';
+import TodoList from './todoList';
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -196,6 +197,14 @@ const Dashboard = () => {
                   {title: "Title", date: "4-20"},
                   {title: "Title", date: "4-20"},
                   {title: "Title", date: "4-20"},
+                ]}/>
+              </Grid>
+              <Grid item xs={4}>
+                <TodoList todos={[
+                  {title: "Title", priority: "low", done: true},
+                  {title: "Title", priority: "lds", done: false},
+                  {title: "Title", priority: "high", done: false},
+                  {title: "Title", priority: "medium", done: true},
                 ]}/>
               </Grid>
             </Grid>
