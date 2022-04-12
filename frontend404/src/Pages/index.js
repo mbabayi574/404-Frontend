@@ -47,7 +47,7 @@ const useStyles = makeStyles(() =>
 
 const Dashboard = () => {
   const mdTheme = createTheme();
-  const drawerWidth = 240;
+  const drawerWidth = 240; 
   const [open, setOpen] = React.useState(true);
   const classes = useStyles();
 
