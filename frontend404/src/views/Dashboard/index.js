@@ -23,6 +23,8 @@ import { Logout } from "@mui/icons-material";
 import { height } from "@mui/system";
 import NotificationList from './notificationList';
 import TodoList from './todoList';
+import ProfileCard from "./profileCard";
+import profileImage from "../../data/profile-image.png"
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -193,6 +195,18 @@ const Dashboard = () => {
           >
             <Grid container spacing={3}>
               <Grid container item spacing={3}>
+                <Grid item xs={4}>
+                  <ProfileCard profile={{
+                    image: profileImage,
+                    name: "Diyar Hamedi",
+                    role: "React Developer",
+                    birthDate: "2002-8-18",
+                    phoneNumber: "+98 930 454 3403",
+                    email: "diyar_hamedi@comp.iust.ac.ir",
+                    joinDate: "2019-9-23",
+                    }}
+                  />
+                </Grid>
                 <Grid item xs={4}>
                   <NotificationList notifications={[
                     {title: "very long title which shows multiline titles are supported", date: "4-20"},
