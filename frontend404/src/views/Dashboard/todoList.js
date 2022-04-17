@@ -9,7 +9,6 @@ import Todo from './todo';
 const TodoList = ({todos}) => {
     return <Paper sx={{
         padding: 2,
-        height: "40vh"
     }}>
         <Box style={{
             display: "flex",
@@ -26,8 +25,8 @@ const TodoList = ({todos}) => {
             </Box>
         </Box>
         <Stack marginTop={1} spacing={0.5} style={{
-            maxHeight: "30vh",
-            overflowY: "scroll"
+            height: "65vh",
+            overflowY: "auto"
         }}>
         {
             todos.map((todo) => {

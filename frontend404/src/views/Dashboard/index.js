@@ -194,37 +194,35 @@ const Dashboard = () => {
             className={classes.container}
           >
             <Grid container spacing={3}>
-              <Grid container item spacing={3}>
-                <Grid item xs={4}>
-                  <ProfileCard profile={{
-                    image: profileImage,
-                    name: "Diyar Hamedi",
-                    role: "React Developer",
-                    birthDate: "2002-8-18",
-                    phoneNumber: "+98 930 454 3403",
-                    email: "diyar_hamedi@comp.iust.ac.ir",
-                    joinDate: "2019-9-23",
-                    }}
-                  />
-                </Grid>
-                <Grid item xs={4}>
-                  <NotificationList notifications={[
-                    {title: "very long title which shows multiline titles are supported", date: "4-20"},
-                    {title: "Title", date: "4-20"},
-                    {title: "Title", date: "4-20"},
-                    {title: "Title", date: "4-20"},
-                    {title: "Title", date: "4-20"},
-                  ]}/>
-                </Grid>
-                <Grid item xs={4}>
-                  <TodoList todos={[
-                    {title: "Title", priority: "low", done: true},
-                    {title: "Title", priority: "lds", done: false},
-                    {title: "Title", priority: "high", done: false},
-                    {title: "Title", priority: "medium", done: true},
-                    {title: "Title", priority: "high", done: true},
-                  ]}/>
-                </Grid>
+              <Grid item xs={4}>
+                <ProfileCard profile={{
+                  image: profileImage,
+                  name: "Diyar Hamedi",
+                  role: "React Developer",
+                  birthDate: "2002-8-18",
+                  phoneNumber: "+98 930 454 3403",
+                  email: "diyar_hamedi@comp.iust.ac.ir",
+                  joinDate: "2019-9-23",
+                  }}
+                />
+              </Grid>
+              <Grid item xs={4}>
+                <NotificationList notifications={[
+                  {title: "very long title which shows multiline titles are supported", date: "4-20"},
+                  {title: "Title", date: "4-20"},
+                  {title: "Title", date: "4-20"},
+                  {title: "Title", date: "4-20"},
+                  {title: "Title", date: "4-20"},
+                ]}/>
+              </Grid>
+              <Grid item xs={4}>
+                <TodoList todos={[
+                  {title: "Title", priority: "low", done: true},
+                  {title: "Title", priority: "lds", done: false},
+                  {title: "Title", priority: "high", done: false},
+                  {title: "Title", priority: "medium", done: true},
+                  {title: "Title", priority: "high", done: true},
+                ]}/>
               </Grid>
             </Grid>
             <div className={classes.footer}>
