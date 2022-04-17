@@ -25,6 +25,7 @@ import NotificationList from './notificationList';
 import TodoList from './todoList';
 import ProfileCard from "./profileCard";
 import profileImage from "../../data/profile-image.png"
+import TimeTrackerCard from "./timeTrackerCard";
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -194,17 +195,26 @@ const Dashboard = () => {
             className={classes.container}
           >
             <Grid container spacing={3}>
-              <Grid item xs={4}>
-                <ProfileCard profile={{
-                  image: profileImage,
-                  name: "Diyar Hamedi",
-                  role: "React Developer",
-                  birthDate: "2002-8-18",
-                  phoneNumber: "+98 930 454 3403",
-                  email: "diyar_hamedi@comp.iust.ac.ir",
-                  joinDate: "2019-9-23",
-                  }}
-                />
+              <Grid item container direction="column" xs={4} spacing={3}>
+                <Grid item>
+                  <ProfileCard profile={{
+                    image: profileImage,
+                    name: "Diyar Hamedi",
+                    role: "React Developer",
+                    birthDate: "2002-8-18",
+                    phoneNumber: "+98 930 454 3403",
+                    email: "diyar_hamedi@comp.iust.ac.ir",
+                    joinDate: "2019-9-23",
+                    }}
+                  />
+                </Grid>
+                <Grid item>
+                  <TimeTrackerCard
+                    time={{hours: 2, minutes: 18}}
+                    expected={{hours: 8, minutes: 0}}
+                    running={false}
+                  />
+                </Grid>
               </Grid>
               <Grid item xs={4}>
                 <NotificationList notifications={[
