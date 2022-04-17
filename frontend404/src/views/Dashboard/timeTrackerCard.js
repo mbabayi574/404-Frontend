@@ -19,7 +19,7 @@ const TimeTrackerCard = ({time, expected, running}) => {
                 justifyContent: "space-between"
             }}>
                 <Typography variant="h6" component="h1">
-                    Work Hours
+                    Time Tracker
                 </Typography>
                 <Typography variant="body1" component="h3">
                     {time.hours}h {time.minutes}mins
