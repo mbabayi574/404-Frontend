@@ -2,9 +2,11 @@ import * as React from "react";
 import { makeStyles, createStyles } from "@mui/styles";
 import { styled, createTheme, ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
-import MuiDrawer from "@mui/material/Drawer";
+// import MuiDrawer from "@mui/material/Drawer";
+import Drawer from "@mui/material/Drawer";
 import Box from "@mui/material/Box";
-import MuiAppBar from "@mui/material/AppBar";
+// import MuiAppBar from "@mui/material/AppBar";
+import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import List from "@mui/material/List";
 import Typography from "@mui/material/Typography";
@@ -26,6 +28,7 @@ import TodoList from './todoList';
 import ProfileCard from "./profileCard";
 import profileImage from "../../data/profile-image.png"
 import TimeTrackerCard from "./timeTrackerCard";
+import ChevronRightIcon from '@mui/icons-material/ChevronRight'
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -53,78 +56,74 @@ const useStyles = makeStyles(() =>
 const Dashboard = () => {
   const mdTheme = createTheme();
   const drawerWidth = 240;
-  const [open, setOpen] = React.useState(true);
+  const [open, setOpen] = React.useState(false);
   const classes = useStyles();
 
-  const toggleDrawer = () => {
-    setOpen(!open);
-  };
-
-  const AppBar =
-    styled(MuiAppBar, {
-      shouldForwardProp: (prop) => prop !== "open",
-    })
-    (({ theme, open }) => ({
-      zIndex: theme.zIndex.drawer + 1,
-      transition: theme.transitions.create(["width", "margin"], {
+  const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
+    ({ theme, open }) => ({
+      flexGrow: 1,
+      padding: theme.spacing(3),
+      transition: theme.transitions.create('margin', {
         easing: theme.transitions.easing.sharp,
         duration: theme.transitions.duration.leavingScreen,
       }),
+      marginLeft: `-${drawerWidth}px`,
       ...(open && {
-        marginLeft: drawerWidth,
-        width: `calc(100% - ${drawerWidth}px)`,
-        transition: theme.transitions.create(["width", "margin"], {
-          easing: theme.transitions.easing.sharp,
+        transition: theme.transitions.create('margin', {
+          easing: theme.transitions.easing.easeOut,
           duration: theme.transitions.duration.enteringScreen,
         }),
+        marginLeft: 0,
       }),
-    }));
+    }),
+  );
+  
+  // const AppBar = styled(MuiAppBar, {
+  //   shouldForwardProp: (prop) => prop !== 'open',
+  // })(({ theme, open }) => ({
+  //   transition: theme.transitions.create(['margin', 'width'], {
+  //     easing: theme.transitions.easing.sharp,
+  //     duration: theme.transitions.duration.leavingScreen,
+  //   }),
+  //   ...(open && {
+  //     width: `calc(100% - ${drawerWidth}px)`,
+  //     marginLeft: `${drawerWidth}px`,
+  //     transition: theme.transitions.create(['margin', 'width'], {
+  //       easing: theme.transitions.easing.easeOut,
+  //       duration: theme.transitions.duration.enteringScreen,
+  //     }),
+  //   }),
+  // }));
 
-  const Drawer = styled(MuiDrawer, {
-    shouldForwardProp: (prop) => prop !== "open",
-  })(({ theme, open }) => ({
-    "& .MuiDrawer-paper": {
-      position: "relative",
-      whiteSpace: "nowrap",
-      width: drawerWidth,
-      transition: theme.transitions.create("width", {
-        easing: theme.transitions.easing.sharp,
-        duration: theme.transitions.duration.enteringScreen,
-      }),
-      boxSizing: "border-box",
-      ...(!open && {
-        overflowX: "hidden",
-        transition: theme.transitions.create("width", {
-          easing: theme.transitions.easing.sharp,
-          duration: theme.transitions.duration.leavingScreen,
-        }),
-        width: theme.spacing(7),
-        [theme.breakpoints.up("sm")]: {
-          width: theme.spacing(9),
-        },
-      }),
-    },
+  const DrawerHeader = styled('div')(({ theme }) => ({
+    display: 'flex',
+    alignItems: 'center',
+    padding: theme.spacing(0, 1),
+    // necessary for content to be below app bar
+    ...theme.mixins.toolbar,
+    justifyContent: 'flex-end',
   }));
+
+  const handleDrawerOpen = () => {
+    setOpen(true);
+  };
+
+  const handleDrawerClose = () => {
+    setOpen(false);
+  };
 
   return (
     <ThemeProvider theme={mdTheme}>
       <Box sx={{ display: "flex" }}>
         <CssBaseline />
-        <AppBar position="absolute" open={open}>
-          <Toolbar
-            sx={{
-              pr: "24px", // keep right padding when drawer closed
-            }}
-          >
+        <AppBar position="fixed" open={open}>
+          <Toolbar>
             <IconButton
-              edge="start"
               color="inherit"
               aria-label="open drawer"
-              onClick={toggleDrawer}
-              sx={{
-                marginRight: "36px",
-                ...(open && { display: "none" }),
-              }}
+              onClick={handleDrawerOpen}
+              edge="start"
+              sx={{ mr: 2, ...(open && { display: 'none' }) }}
             >
               <MenuIcon />
             </IconButton>
@@ -156,19 +155,24 @@ const Dashboard = () => {
             </IconButton>
           </Toolbar>
         </AppBar>
-        <Drawer variant="permanent" open={open}>
-          <Toolbar
-            sx={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "flex-end",
-              px: [1],
-            }}
-          >
-            <IconButton onClick={toggleDrawer}>
-              <ChevronLeftIcon />
+        <Drawer
+          sx={{
+            width: drawerWidth,
+            flexShrink: 0,
+            '& .MuiDrawer-paper': {
+              width: drawerWidth,
+              boxSizing: 'border-box',
+            },
+          }}
+          variant="persistent"
+          anchor="left"
+          open={open}
+        >
+          <DrawerHeader>
+            <IconButton onClick={handleDrawerClose}>
+              {mdTheme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
             </IconButton>
-          </Toolbar>
+          </DrawerHeader>
           <Divider />
           <List component="nav">
             {mainListItems}
@@ -176,8 +180,7 @@ const Dashboard = () => {
             {secondaryListItems}
           </List>
         </Drawer>
-        <Box
-          component="main"
+        <Main open={open}
           sx={{
             backgroundColor: (theme) =>
               theme.palette.mode === "light"
@@ -188,7 +191,7 @@ const Dashboard = () => {
             overflow: "auto",
           }}
         >
-          <Toolbar />
+          <DrawerHeader />
           <Container
             maxWidth="lg"
             sx={{ mt: 4, mb: 4 }}
@@ -248,7 +251,7 @@ const Dashboard = () => {
               </Typography>
             </div>
           </Container>
-        </Box>
+        </Main>
       </Box>
     </ThemeProvider>
   );
