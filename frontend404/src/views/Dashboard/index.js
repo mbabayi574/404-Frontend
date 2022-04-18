@@ -177,7 +177,7 @@ const Dashboard = () => {
           <DrawerHeader />
           <Container
             maxWidth="lg"
-            sx={{ mt: 4, mb: 4 }}
+            sx={{ mt: 2, mb: 6 }}
             className={classes.container}
           >
             <Grid container spacing={3}>
@@ -221,18 +221,6 @@ const Dashboard = () => {
                 ]}/>
               </Grid>
             </Grid>
-            <div className={classes.footer}>
-              <Typography
-                variant="body2"
-                color="text.secondary"
-                align="center"
-                className={classes.copyRight}
-              >
-                {"Copyright © 404! Automation "}
-                {new Date().getFullYear()}
-                {"."}
-              </Typography>
-            </div>
           </Container>
         </Main>
       </Box>
