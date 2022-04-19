@@ -9,6 +9,7 @@ import Todo from './todo';
 const TodoList = ({todos}) => {
     return <Paper sx={{
         padding: 2,
+        height: "100%"
     }}>
         <Box style={{
             display: "flex",
@@ -25,7 +26,8 @@ const TodoList = ({todos}) => {
             </Box>
         </Box>
         <Stack marginTop={1} spacing={0.5} style={{
-            height: "65vh",
+            flexGrow: 1,
+            maxHeight: "100%",
             overflowY: "auto"
         }}>
         {

@@ -6,6 +6,8 @@ import CssBaseline from "@mui/material/CssBaseline";
 import Drawer from "@mui/material/Drawer";
 import Box from "@mui/material/Box";
 // import MuiAppBar from "@mui/material/AppBar";
+import BottomNavigation from "@mui/material/BottomNavigation";
+import BottomNavigationAction from "@mui/material/BottomNavigationAction";
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import List from "@mui/material/List";
@@ -16,8 +18,11 @@ import Badge from "@mui/material/Badge";
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
-import Link from "@mui/material/Link";
+import Slide from "@mui/material/Slide";
 import MenuIcon from "@mui/icons-material/Menu";
+import HomeIcon from "@mui/icons-material/Home";
+import PersonIcon from "@mui/icons-material/Person";
+import BarChartIcon from "@mui/icons-material/BarChart";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import { mainListItems, secondaryListItems } from "./listItems";
@@ -57,6 +62,7 @@ const Dashboard = () => {
   const mdTheme = createTheme();
   const drawerWidth = 240;
   const [open, setOpen] = React.useState(false);
+  const [page, setPage] = React.useState("home");
   const classes = useStyles();
 
   const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
@@ -94,6 +100,94 @@ const Dashboard = () => {
   const handleDrawerClose = () => {
     setOpen(false);
   };
+
+  const homePage = (
+    <Grid container spacing={3}>
+      <Grid item container direction="column" xs={4} spacing={3}>
+        <Grid item>
+          <ProfileCard profile={{
+              image: profileImage,
+              name: "Diyar Hamedi",
+              role: "React Developer",
+              birthDate: "2002-8-18",
+              phoneNumber: "+98 930 454 3403",
+              email: "diyar_hamedi@comp.iust.ac.ir",
+              joinDate: "2019-9-23",
+            }}
+          />
+        </Grid>
+        <Grid item>
+          <TimeTrackerCard
+            time={{hours: 2, minutes: 18}}
+            expected={{hours: 8, minutes: 0}}
+            running={false}
+          />
+        </Grid>
+      </Grid>
+      <Grid item xs={4}>
+        <NotificationList notifications={[
+          {title: "very long title which shows multiline titles are supported", date: "4-20"},
+          {title: "Title", date: "4-20"},
+          {title: "Title", date: "4-20"},
+          {title: "Title", date: "4-20"},
+          {title: "Title", date: "4-20"},
+        ]}/>
+      </Grid>
+      <Grid item xs={4}>
+        <TodoList todos={[
+          {title: "Title", priority: "low", done: true},
+          {title: "Title", priority: "lds", done: false},
+          {title: "Title", priority: "high", done: false},
+          {title: "Title", priority: "medium", done: true},
+          {title: "Title", priority: "high", done: true},
+        ]}/>
+      </Grid>
+    </Grid>
+  );
+
+  const servicesPage = (
+    <Grid container spacing={3}>
+      <Grid item container direction="column" xs={4} spacing={3}>
+        <Grid item>
+          <ProfileCard profile={{
+              image: profileImage,
+              name: "Diyar Hamedi",
+              role: "React Developer",
+              birthDate: "2002-8-18",
+              phoneNumber: "+98 930 454 3403",
+              email: "diyar_hamedi@comp.iust.ac.ir",
+              joinDate: "2019-9-23",
+            }}
+          />
+        </Grid>
+        <Grid item>
+          <TimeTrackerCard
+            time={{hours: 2, minutes: 18}}
+            expected={{hours: 8, minutes: 0}}
+            running={false}
+          />
+        </Grid>
+      </Grid>
+      <Grid item xs={4}>
+        <NotificationList notifications={[
+          {title: "very long title which shows multiline titles are supported", date: "4-20"},
+          {title: "Title", date: "4-20"},
+          {title: "Title", date: "4-20"},
+          {title: "Title", date: "4-20"},
+          {title: "Title", date: "4-20"},
+        ]}/>
+      </Grid>
+      <Grid item xs={4}>
+        <TodoList todos={[
+          {title: "Title", priority: "low", done: true},
+          {title: "Title", priority: "lds", done: false},
+          {title: "Title", priority: "high", done: false},
+          {title: "Title", priority: "medium", done: true},
+          {title: "Title", priority: "high", done: true},
+        ]}/>
+      </Grid>
+    </Grid>
+  );
 
   return (
     <ThemeProvider theme={mdTheme}>
@@ -170,57 +264,35 @@ const Dashboard = () => {
                 ? theme.palette.grey[100]
                 : theme.palette.grey[900],
             flexGrow: 1,
-            height: "100vh",
+            maxHeight: "100%",
             overflow: "auto",
           }}
         >
           <DrawerHeader />
           <Container
             maxWidth="lg"
-            sx={{ mt: 2, mb: 6 }}
-            className={classes.container}
+            sx={{ mt: 2, mb: 2 }}
           >
-            <Grid container spacing={3}>
-              <Grid item container direction="column" xs={4} spacing={3}>
-                <Grid item>
-                  <ProfileCard profile={{
-                    image: profileImage,
-                    name: "Diyar Hamedi",
-                    role: "React Developer",
-                    birthDate: "2002-8-18",
-                    phoneNumber: "+98 930 454 3403",
-                    email: "diyar_hamedi@comp.iust.ac.ir",
-                    joinDate: "2019-9-23",
-                    }}
-                  />
-                </Grid>
-                <Grid item>
-                  <TimeTrackerCard
-                    time={{hours: 2, minutes: 18}}
-                    expected={{hours: 8, minutes: 0}}
-                    running={false}
-                  />
-                </Grid>
-              </Grid>
-              <Grid item xs={4}>
-                <NotificationList notifications={[
-                  {title: "very long title which shows multiline titles are supported", date: "4-20"},
-                  {title: "Title", date: "4-20"},
-                  {title: "Title", date: "4-20"},
-                  {title: "Title", date: "4-20"},
-                  {title: "Title", date: "4-20"},
-                ]}/>
-              </Grid>
-              <Grid item xs={4}>
-                <TodoList todos={[
-                  {title: "Title", priority: "low", done: true},
-                  {title: "Title", priority: "lds", done: false},
-                  {title: "Title", priority: "high", done: false},
-                  {title: "Title", priority: "medium", done: true},
-                  {title: "Title", priority: "high", done: true},
-                ]}/>
-              </Grid>
-            </Grid>
+            <Box>
+              <Slide direction="right" in={page === "home"} mountOnEnter unmountOnExit>
+                {homePage}
+              </Slide>
+              <Slide direction="left" in={page === "services"} mountOnEnter unmountOnExit>
+                {servicesPage}
+              </Slide>
+            </Box>
+            <Paper sx={{ position: 'fixed', bottom: 0, left: 0, right: 0 }} elevation={3}>
+              <BottomNavigation
+                showLabels
+                value={page}
+                onChange={(event, newPage) => {
+                  setPage(newPage);
+                }}
+              >
+                <BottomNavigationAction value="home" label="Home" icon={<HomeIcon />} />
+                <BottomNavigationAction value="services" label="Services" icon={<PersonIcon />} />
+              </BottomNavigation>
+            </Paper>
           </Container>
         </Main>
       </Box>
