@@ -34,6 +34,7 @@ import ProfileCard from "./profileCard";
 import profileImage from "../../data/profile-image.png"
 import TimeTrackerCard from "./timeTrackerCard";
 import ChevronRightIcon from '@mui/icons-material/ChevronRight'
+import TimeTrackerReportCard from "./timeTrackerReportCard";
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -147,18 +148,9 @@ const Dashboard = () => {
 
   const servicesPage = (
     <Grid container spacing={3}>
-      <Grid item container direction="column" xs={4} spacing={3}>
+      <Grid item container direction="column" xs={6} spacing={3}>
         <Grid item>
-          <ProfileCard profile={{
-              image: profileImage,
-              name: "Diyar Hamedi",
-              role: "React Developer",
-              birthDate: "2002-8-18",
-              phoneNumber: "+98 930 454 3403",
-              email: "diyar_hamedi@comp.iust.ac.ir",
-              joinDate: "2019-9-23",
-            }}
-          />
+          <TimeTrackerReportCard />
         </Grid>
         <Grid item>
           <TimeTrackerCard
@@ -168,7 +160,7 @@ const Dashboard = () => {
           />
         </Grid>
       </Grid>
-      <Grid item xs={4}>
+      <Grid item xs={3}>
         <NotificationList notifications={[
           {title: "very long title which shows multiline titles are supported", date: "4-20"},
           {title: "Title", date: "4-20"},
@@ -177,7 +169,7 @@ const Dashboard = () => {
           {title: "Title", date: "4-20"},
         ]}/>
       </Grid>
-      <Grid item xs={4}>
+      <Grid item xs={3}>
         <TodoList todos={[
           {title: "Title", priority: "low", done: true},
           {title: "Title", priority: "lds", done: false},
