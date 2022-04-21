@@ -153,7 +153,7 @@ const Dashboard = () => {
     </Grid>
   );
 
-  const servicesPage = (
+  const reportsPage = (
     <Grid container spacing={3}>
       <Grid item container direction="column" xs={6} spacing={3}>
         <Grid item>
@@ -263,7 +263,7 @@ const Dashboard = () => {
                 {homePage}
               </Slide>
               <Slide direction="left" in={page === "reports"} mountOnEnter unmountOnExit>
-                {servicesPage}
+                {reportsPage}
               </Slide>
             </Box>
             <Paper sx={{ position: 'fixed', bottom: 0, left: 0, right: 0 }} elevation={3}>

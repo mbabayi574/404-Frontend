@@ -36,7 +36,8 @@ const ServiceCounterCard = () => {
     const [data, setData] = React.useState(requests);
     return (
       <Paper sx={{
-        padding: 2
+        padding: 2,
+        height: "100%",
       }}>
         <Box display="flex" flexDirection="row" alignItems="center">
           <Typography variant="h5" component="h1">
@@ -51,7 +52,7 @@ const ServiceCounterCard = () => {
           </Box>
         </Box>
         <Grid container spacing={1} marginTop={0.5} sx={{
-            height: "24vh",
+            height: "27vh",
             overflowY: "auto"
         }}>
             {

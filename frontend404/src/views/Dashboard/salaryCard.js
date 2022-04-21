@@ -22,7 +22,8 @@ const rows = [
   createData('Lv. 1 Employee', 30, 6_000_000, 180_000_000),
   createData('Lv. 2 Employee', 10, 10_000_000, 100_000_000),
   createData('Lv. 3 Employee', 3, 20_000_000, 60_000_000),
-  createData('Total', 43, null, 340_000_000),
+  createData('CEO', 1, 30_000_000, 30_000_000),
+  createData('Total', 44, null, 370_000_000),
 ];
 
 const SalaryCard = () => {

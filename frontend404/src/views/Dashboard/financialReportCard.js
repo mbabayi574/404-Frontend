@@ -55,14 +55,14 @@ const FinancialReportCard = () => {
           </Box>
         </Box>
         <Box marginTop={2} display="flex" flexDirection="row">
-            <PieChart width={250} height={250}>
+            <PieChart width={240} height={240}>
                 <Pie
                     data={expenses}
                     cx="50%"
                     cy="50%"
                     labelLine={false}
                     label={renderCustomizedLabel}
-                    outerRadius={120}
+                    outerRadius={115}
                     fill="#8884d8"
                     nameKey="type"
                     dataKey="amount"
