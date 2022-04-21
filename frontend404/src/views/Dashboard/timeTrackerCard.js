@@ -23,7 +23,7 @@ const TimeTrackerCard = ({time, expected}) => {
                 alignItems: "center",
                 justifyContent: "space-between"
             }}>
-                <Typography variant="h6" component="h1">
+                <Typography variant="h5" component="h1" fontWeight="bolder">
                     Time Tracker
                 </Typography>
                 <Typography variant="body1" component="h3">

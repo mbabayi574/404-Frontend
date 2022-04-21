@@ -27,10 +27,8 @@ const TimeTrackerReportCard = () => {
         padding: 2
       }}>
         <Box display="flex" flexDirection="row" alignItems="center">
-          <Typography variant="h5" component="h1">
-            <Box fontWeight="bolder">
-              Time Tracking Report
-            </Box>
+          <Typography variant="h5" component="h1" fontWeight="bolder">
+            Time Tracking Report
           </Typography>
           <Box marginLeft="auto">
             <Button>

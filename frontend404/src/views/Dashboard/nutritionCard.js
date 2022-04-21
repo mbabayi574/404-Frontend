@@ -16,8 +16,8 @@ const NutritionCard = () => {
                 flexDirection="row"
                 alignItems="center"
             >
-                <Typography variant="h6" component="h1">
-                    Food & Snacks
+                <Typography variant="h5" component="h1" fontWeight="bolder">
+                    Nutrition
                 </Typography>
                 <Button variant="contained" sx={{marginLeft: "auto"}}>
                     Reserve

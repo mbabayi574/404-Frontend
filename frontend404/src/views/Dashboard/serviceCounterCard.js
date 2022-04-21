@@ -40,14 +40,12 @@ const ServiceCounterCard = () => {
         height: "100%",
       }}>
         <Box display="flex" flexDirection="row" alignItems="center">
-          <Typography variant="h5" component="h1">
-            <Box fontWeight="bolder">
-              Service Counter
-            </Box>
+          <Typography variant="h5" component="h1" fontWeight="bolder">
+            Service Counter
           </Typography>
           <Box marginLeft="auto">
             <Button>
-                View All
+              View All
             </Button>
           </Box>
         </Box>

@@ -16,7 +16,7 @@ const NotificationList = ({notifications}) => {
             flexDirection: "row",
             alignItems: "center",
         }}>
-            <Typography variant="h5" component="h1">
+            <Typography variant="h5" component="h1" fontWeight="bolder">
                 Notifications
             </Typography>
             <Box marginLeft="auto">

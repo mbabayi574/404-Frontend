@@ -16,7 +16,7 @@ const TodoList = ({todos}) => {
             flexDirection: "row",
             alignItems: "center",
         }}>
-            <Typography variant="h5" component="h1">
+            <Typography variant="h5" component="h1" fontWeight="bolder">
                 Todos
             </Typography>
             <Box marginLeft="auto">
