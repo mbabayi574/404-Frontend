@@ -38,6 +38,7 @@ import TimeTrackerReportCard from "./timeTrackerReportCard";
 import FinancialReportCard from "./financialReportCard";
 import ServiceCounterCard from "./serviceCounterCard";
 import SalaryCard from "./salaryCard";
+import NutritionCard from "./nutritionCard";
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -126,6 +127,9 @@ const Dashboard = () => {
             expected={{hours: 8, minutes: 0}}
             running={false}
           />
+        </Grid>
+        <Grid item>
+          <NutritionCard />
         </Grid>
       </Grid>
       <Grid item xs={4}>
@@ -252,7 +256,7 @@ const Dashboard = () => {
           <DrawerHeader />
           <Container
             maxWidth="lg"
-            sx={{ mt: 2, mb: 2 }}
+            sx={{ mt: 0, mb: 2 }}
           >
             <Box>
               <Slide direction="right" in={page === "home"} mountOnEnter unmountOnExit>
