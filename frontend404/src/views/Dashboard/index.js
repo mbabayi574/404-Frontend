@@ -35,6 +35,7 @@ import profileImage from "../../data/profile-image.png"
 import TimeTrackerCard from "./timeTrackerCard";
 import ChevronRightIcon from '@mui/icons-material/ChevronRight'
 import TimeTrackerReportCard from "./timeTrackerReportCard";
+import FinancialReportCard from "./financialReportCard";
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -160,23 +161,8 @@ const Dashboard = () => {
           />
         </Grid>
       </Grid>
-      <Grid item xs={3}>
-        <NotificationList notifications={[
-          {title: "very long title which shows multiline titles are supported", date: "4-20"},
-          {title: "Title", date: "4-20"},
-          {title: "Title", date: "4-20"},
-          {title: "Title", date: "4-20"},
-          {title: "Title", date: "4-20"},
-        ]}/>
-      </Grid>
-      <Grid item xs={3}>
-        <TodoList todos={[
-          {title: "Title", priority: "low", done: true},
-          {title: "Title", priority: "lds", done: false},
-          {title: "Title", priority: "high", done: false},
-          {title: "Title", priority: "medium", done: true},
-          {title: "Title", priority: "high", done: true},
-        ]}/>
+      <Grid item xs={6}>
+        <FinancialReportCard />
       </Grid>
     </Grid>
   );
