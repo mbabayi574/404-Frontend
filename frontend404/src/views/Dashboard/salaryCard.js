@@ -10,7 +10,7 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 
 function createData(type, count, salary, total) {
-  return {
+    return {
         type: type,
         count: count,
         salary: (salary ? salary.toLocaleString() : ''),

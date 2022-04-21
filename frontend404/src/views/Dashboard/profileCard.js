@@ -32,7 +32,7 @@ const ProfileCard = ({profile}) => {
             <Box display="flex" flexDirection="row" marginTop={1}>
                 <Box>
                     <Typography variant="body1" component="h3">
-                        {profile.role}
+                        {profile.company}
                     </Typography>
                 </Box>
                 <Box marginLeft="auto">
