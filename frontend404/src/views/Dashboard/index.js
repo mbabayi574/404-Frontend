@@ -36,6 +36,7 @@ import TimeTrackerCard from "./timeTrackerCard";
 import ChevronRightIcon from '@mui/icons-material/ChevronRight'
 import TimeTrackerReportCard from "./timeTrackerReportCard";
 import FinancialReportCard from "./financialReportCard";
+import ServiceCounterCard from "./serviceCounterCard";
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -154,11 +155,7 @@ const Dashboard = () => {
           <TimeTrackerReportCard />
         </Grid>
         <Grid item>
-          <TimeTrackerCard
-            time={{hours: 2, minutes: 18}}
-            expected={{hours: 8, minutes: 0}}
-            running={false}
-          />
+          <ServiceCounterCard />
         </Grid>
       </Grid>
       <Grid item xs={6}>
