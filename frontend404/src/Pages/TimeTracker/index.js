@@ -244,7 +244,7 @@ const TimeTracker = (props) => {
         end_point: endPoint,
         wasted_time: Wasted.toString(),
       });
-      console.log("data is : ", request_data);
+      console.log("request data is : ", request_data);
       const config = {
         method: "post",
         url: "http://127.0.0.1:8000/auth/jwt/create/",
