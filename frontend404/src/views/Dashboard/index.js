@@ -258,7 +258,7 @@ const Dashboard = () => {
               <Slide direction="right" in={page === "home"} mountOnEnter unmountOnExit>
                 {homePage}
               </Slide>
-              <Slide direction="left" in={page === "services"} mountOnEnter unmountOnExit>
+              <Slide direction="left" in={page === "reports"} mountOnEnter unmountOnExit>
                 {servicesPage}
               </Slide>
             </Box>
@@ -271,7 +271,7 @@ const Dashboard = () => {
                 }}
               >
                 <BottomNavigationAction value="home" label="Home" icon={<HomeIcon />} />
-                <BottomNavigationAction value="services" label="Services" icon={<PersonIcon />} />
+                <BottomNavigationAction value="reports" label="Reports" icon={<BarChartIcon />} />
               </BottomNavigation>
             </Paper>
           </Container>
