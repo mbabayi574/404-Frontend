@@ -37,6 +37,7 @@ import ChevronRightIcon from '@mui/icons-material/ChevronRight'
 import TimeTrackerReportCard from "./timeTrackerReportCard";
 import FinancialReportCard from "./financialReportCard";
 import ServiceCounterCard from "./serviceCounterCard";
+import SalaryCard from "./salaryCard";
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -158,8 +159,13 @@ const Dashboard = () => {
           <ServiceCounterCard />
         </Grid>
       </Grid>
-      <Grid item xs={6}>
-        <FinancialReportCard />
+      <Grid item container direction="column" xs={6} spacing={3}>
+        <Grid item>
+          <FinancialReportCard />
+        </Grid>
+        <Grid item>
+          <SalaryCard />
+        </Grid>
       </Grid>
     </Grid>
   );
