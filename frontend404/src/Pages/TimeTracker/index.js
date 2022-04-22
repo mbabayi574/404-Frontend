@@ -118,6 +118,7 @@ const useStyles = makeStyles(() =>
       borderColor: "#24a0ed",
       // #D4D4D4
       // marginTop: "20px",
+      marginBottom: 5,
       outline: "10mm",
       color: "#4a546b",
       // padding: "21px 30px",
@@ -205,6 +206,7 @@ const TimeTracker = (props) => {
   const [ExitHour, setExitHour] = React.useState(0);
   const [ExitMin, setExitMin] = React.useState(0);
   const [Wasted, setWasted] = React.useState(0);
+  const [PId, setPId] = React.useState(0);
   const [PYear, setPYear] = React.useState(0);
   const [PMonth, setPMonth] = React.useState(0);
   const [PDate, setPDate] = React.useState(0);
@@ -222,32 +224,20 @@ const TimeTracker = (props) => {
   });
 
   const ApplyHandler = () => {
-    if (inputValidatinTime(EnterHour, EnterMin, ExitHour, ExitMin, Wasted)) {
-      var startPoint;
-      if (EnterHour > 12) {
-        startPoint = (EnterHour - 12).toString() + ":" + EnterMin + "PM";
-      } else {
-        startPoint = EnterHour.toString() + ":" + EnterMin + "AM";
-      }
+    if (inputValidatinTime(Number(EnterHour), Number(EnterMin), Number(ExitHour), Number(ExitMin), Wasted)) {
 
-      var endPoint;
-      if (ExitHour > 12) {
-        endPoint = (ExitHour - 12).toString() + ":" + ExitMin + "PM";
-      } else {
-        endPoint = ExitHour.toString() + ":" + ExitMin + "AM";
-      }
-
-      const request_data = JSON.stringify({
-        data:
-          today.getMonth() + "/" + today.getDate() + "/" + today.getFullYear(),
-        start_point: startPoint,
-        end_point: endPoint,
-        wasted_time: Wasted.toString(),
+      const month = today.getMonth() +1 ;
+      var request_data = JSON.stringify({
+        date:
+          today.getFullYear() + "-" + month  + "-" + today.getDate(),
+        start_point: EnterHour.toString() + ":" + EnterMin.toString(),
+        end_point: ExitHour.toString() + ":" + ExitMin.toString(),
+        wasted_time: Wasted,
       });
       console.log("request data is : ", request_data);
       const config = {
         method: "post",
-        url: "http://127.0.0.1:8000/auth/jwt/create/",
+        url: "http://127.0.0.1:8000/tracker/me/",
         headers: {
           "Content-Type": "application/json",
         },
@@ -255,48 +245,39 @@ const TimeTracker = (props) => {
       };
       axios(config)
         .then(function (response) {
-          console.log(JSON.stringify(response.data));
+          console.log(response.data);
+          setIsOpenSnackbar(true);
         })
         .catch(function (error) {
           console.log(error);
+          setErrorMessage("Request failed");
+          console.log(error);
+          setDialogOpen(true);
         });
-      console.log("now you can call the apis...");
-      setIsOpenSnackbar(true);
     } else {
       setDialogOpen(true);
     }
   };
 
   const PApplyHandler = () => {
-    if (inputValidationDate(PYear, PMonth, PDate)) {
+    if (inputValidationDate(Number(PYear), Number(PMonth), Number(PDate))) {
       if (
-        inputValidatinTime(PEnterHour, PEnterMin, PExitHour, PExitMin, PWasted)
+        inputValidatinTime(Number(PEnterHour), Number(PEnterMin), Number(PExitHour), Number(PExitMin), Number(PWasted))
       ) {
-        var startPoint;
-        if (PEnterHour > 12) {
-          startPoint = (PEnterHour - 12).toString() + ":" + PEnterMin + "PM";
-        } else {
-          startPoint = PEnterHour.toString() + ":" + PEnterMin + "AM";
-        }
 
-        var endPoint;
-        if (PExitHour > 12) {
-          endPoint = (PExitHour - 12).toString() + ":" + PExitMin + "PM";
-        } else {
-          endPoint = PExitHour.toString() + ":" + PExitMin + "AM";
-        }
-
-        const request_data = JSON.stringify({
-          data:
-            PMonth.toString() + "/" + PDate.toString() + "/" + PYear.toString(),
-          start_point: startPoint,
-          end_point: endPoint,
-          wasted_time: PWasted.toString(),
+        
+        var request_data = JSON.stringify({
+          id: PId,
+          date:
+            PYear.toString() + "-" + PMonth.toString() + "-" + PDate.toString(),
+          start_point: PEnterHour.toString() + ":" + PEnterMin.toString(),
+          end_point: PExitHour.toString() + ":" + PExitMin.toString(),
+          wasted_time: PWasted,
         });
         console.log("data is : ", request_data);
         const config = {
-          method: "post",
-          url: "http://127.0.0.1:8000/auth/jwt/create/",
+          method: "put",
+          url: "http://127.0.0.1:8000/tracker/update/me/",
           headers: {
             "Content-Type": "application/json",
           },
@@ -304,13 +285,14 @@ const TimeTracker = (props) => {
         };
         axios(config)
           .then(function (response) {
-            console.log(JSON.stringify(response.data));
+            console.log(response.data);
+            setIsOpenSnackbar(true);
           })
           .catch(function (error) {
+            setErrorMessage("Request failed");
             console.log(error);
+            setDialogOpen(true);
           });
-        console.log("now you can call the apis...");
-        setIsOpenSnackbar(true);
       } else {
         setDialogOpen(true);
       }
@@ -320,6 +302,10 @@ const TimeTracker = (props) => {
   };
 
   const inputValidationDate = (y, m, d) => {
+    if(PId <= 0){
+      setErrorMessage("ID should be a positive number");
+      return false;
+    }
     if (y < 0 || m < 0 || d < 0) {
       setErrorMessage("numbers should be positive");
       return false;
@@ -410,6 +396,7 @@ const TimeTracker = (props) => {
   };
 
   const inputValidatinTime = (sh, sm, fh, fm, w) => {
+    console.log("sh, sm, eh, em :" ,sh, sm, fh, fm);
     if (sh === 0 || fh === 0) {
       setErrorMessage("You should first fill out the inputs");
       return false;
@@ -558,7 +545,7 @@ const TimeTracker = (props) => {
         </div>
         <div className={classes.rightBody}>
           <p className={classes.title}>
-            {today.getFullYear()}/{today.getMonth()}/{today.getDate()}
+            {today.getFullYear()}/{today.getMonth()+1}/{today.getDate()}
           </p>
           <div className={classes.line}></div>
           <div className={classes.skeleton}>
@@ -575,6 +562,15 @@ const TimeTracker = (props) => {
             </div>
             <Collapse in={previousDays}>
               <div className={classes.skeleton}>
+              <p className={classes.desc}>ID:</p>
+                <input
+                  className={classes.input}
+                  autoCapitalize="false"
+                  placeholder="m"
+                  type="number"
+                  value={PId}
+                  onChange={(e) => setPId(e.target.value)}
+                />
                 <p className={classes.desc}>Date(yaer/month/date):</p>
                 <div className={classes.horizontalKeeper}>
                   <input
