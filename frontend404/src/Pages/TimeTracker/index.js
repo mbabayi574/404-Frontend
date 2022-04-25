@@ -224,12 +224,18 @@ const TimeTracker = (props) => {
   });
 
   const ApplyHandler = () => {
-    if (inputValidatinTime(Number(EnterHour), Number(EnterMin), Number(ExitHour), Number(ExitMin), Wasted)) {
-
-      const month = today.getMonth() +1 ;
+    if (
+      inputValidatinTime(
+        Number(EnterHour),
+        Number(EnterMin),
+        Number(ExitHour),
+        Number(ExitMin),
+        Wasted
+      )
+    ) {
+      const month = today.getMonth() + 1;
       var request_data = JSON.stringify({
-        date:
-          today.getFullYear() + "-" + month  + "-" + today.getDate(),
+        date: today.getFullYear() + "-" + month + "-" + today.getDate(),
         start_point: EnterHour.toString() + ":" + EnterMin.toString(),
         end_point: ExitHour.toString() + ":" + ExitMin.toString(),
         wasted_time: Wasted,
@@ -240,6 +246,9 @@ const TimeTracker = (props) => {
         url: "http://127.0.0.1:8000/tracker/me/",
         headers: {
           "Content-Type": "application/json",
+          Authorization:
+            "Bearer " +
+            "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjU2MDU4MjYyLCJqdGkiOiI4NDk2MTU3MWVhNTA0YzViYmFlNGMxOWRmZTJkZDdmMiIsInVzZXJfaWQiOjF9.M0M_zo7VOPZQVTNU8CWw0ts6uMsbNpsWT0TkCsXE1PM",
         },
         data: request_data,
       };
@@ -251,7 +260,6 @@ const TimeTracker = (props) => {
         .catch(function (error) {
           console.log(error);
           setErrorMessage("Request failed");
-          console.log(error);
           setDialogOpen(true);
         });
     } else {
@@ -262,10 +270,14 @@ const TimeTracker = (props) => {
   const PApplyHandler = () => {
     if (inputValidationDate(Number(PYear), Number(PMonth), Number(PDate))) {
       if (
-        inputValidatinTime(Number(PEnterHour), Number(PEnterMin), Number(PExitHour), Number(PExitMin), Number(PWasted))
+        inputValidatinTime(
+          Number(PEnterHour),
+          Number(PEnterMin),
+          Number(PExitHour),
+          Number(PExitMin),
+          Number(PWasted)
+        )
       ) {
-
-        
         var request_data = JSON.stringify({
           id: PId,
           date:
@@ -302,7 +314,7 @@ const TimeTracker = (props) => {
   };
 
   const inputValidationDate = (y, m, d) => {
-    if(PId <= 0){
+    if (PId <= 0) {
       setErrorMessage("ID should be a positive number");
       return false;
     }
@@ -396,7 +408,7 @@ const TimeTracker = (props) => {
   };
 
   const inputValidatinTime = (sh, sm, fh, fm, w) => {
-    console.log("sh, sm, eh, em :" ,sh, sm, fh, fm);
+    console.log("sh, sm, eh, em :", sh, sm, fh, fm);
     if (sh === 0 || fh === 0) {
       setErrorMessage("You should first fill out the inputs");
       return false;
@@ -545,7 +557,7 @@ const TimeTracker = (props) => {
         </div>
         <div className={classes.rightBody}>
           <p className={classes.title}>
-            {today.getFullYear()}/{today.getMonth()+1}/{today.getDate()}
+            {today.getFullYear()}/{today.getMonth() + 1}/{today.getDate()}
           </p>
           <div className={classes.line}></div>
           <div className={classes.skeleton}>
@@ -562,7 +574,7 @@ const TimeTracker = (props) => {
             </div>
             <Collapse in={previousDays}>
               <div className={classes.skeleton}>
-              <p className={classes.desc}>ID:</p>
+                <p className={classes.desc}>ID:</p>
                 <input
                   className={classes.input}
                   autoCapitalize="false"
