@@ -277,7 +277,7 @@ const useStyles = makeStyles(() =>
   })
 );
 
-const TimeTracker = (props) => {
+const Temp = (props) => {
   const theme = useTheme();
 
   const { history } = props;
@@ -746,4 +746,4 @@ const TimeTracker = (props) => {
   );
 };
 
-export default TimeTracker;
+export default Temp;
