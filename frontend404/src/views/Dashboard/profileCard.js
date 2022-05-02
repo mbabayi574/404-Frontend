@@ -2,8 +2,20 @@ import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
+import profileImage from "../../data/profile-image.png";
 
-const ProfileCard = ({profile}) => {
+const profile = {
+    image: profileImage,
+    name: "Diyar Hamedi",
+    company: "404! Group",
+    role: "React Developer",
+    birthDate: "2002-8-18",
+    phoneNumber: "+98 930 454 3403",
+    email: "diyar_hamedi@comp.iust.ac.ir",
+    joinDate: "2022-2-23",
+};
+
+const ProfileCard = () => {
     return <Paper sx={{
         padding: 2
     }}>

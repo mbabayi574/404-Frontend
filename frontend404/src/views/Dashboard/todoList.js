@@ -6,7 +6,15 @@ import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import Todo from './todo';
 
-const TodoList = ({todos}) => {
+const todos = [
+    {title: "Title", priority: "low", done: true},
+    {title: "Title", priority: "lds", done: false},
+    {title: "Title", priority: "high", done: false},
+    {title: "Title", priority: "medium", done: true},
+    {title: "Title", priority: "high", done: true},
+]
+
+const TodoList = () => {
     return <Paper sx={{
         padding: 2,
         height: "100%"

@@ -5,7 +5,11 @@ import Box from '@mui/material/Box';
 import LinearProgress from '@mui/material/LinearProgress';
 import { useState } from "react";
 
-const TimeTrackerCard = ({time, expected}) => {
+
+const time={hours: 2, minutes: 18}
+const expected={hours: 8, minutes: 0}
+
+const TimeTrackerCard = () => {
     const [running, setRunning] = useState(false);
     const handleToggle = () => {
         setRunning(!running);

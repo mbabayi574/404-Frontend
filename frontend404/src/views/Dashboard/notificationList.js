@@ -6,7 +6,15 @@ import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import Notification from './notification';
 
-const NotificationList = ({notifications}) => {
+const notifications = [
+    {title: "very long title which shows multiline titles are supported", date: "4-20"},
+    {title: "Title", date: "4-20"},
+    {title: "Title", date: "4-20"},
+    {title: "Title", date: "4-20"},
+    {title: "Title", date: "4-20"},
+]
+
+const NotificationList = () => {
     return <Paper sx={{
         padding: 2,
         height: "100%"
