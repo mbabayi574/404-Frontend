@@ -5,8 +5,9 @@ import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
 import IconButton from "@mui/material/IconButton";
 import Toolbar from '@mui/material/Toolbar';
+import Box from '@mui/material/Box';
 import { Logout } from "@mui/icons-material";
-import { mainListItems, secondaryListItems } from "./listItems";
+import { mainListItems, managerListItems } from "./listItems";
 
 const drawerWidth = 240;
 
@@ -50,9 +51,10 @@ export const MyDrawer = () => {
             <Toolbar />
             <Divider />
             <List component="nav">
-                {mainListItems}
-                <Divider sx={{ my: 1 }} />
-                {secondaryListItems}
+                <Box marginLeft={1}>
+                    {mainListItems}
+                    {managerListItems}
+                </Box>
             </List>
         </Drawer>
     )

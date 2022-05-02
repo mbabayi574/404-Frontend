@@ -2,14 +2,16 @@ import * as React from "react";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
-import ListSubheader from "@mui/material/ListSubheader";
 import DashboardIcon from "@mui/icons-material/Dashboard";
-import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
-import PeopleIcon from "@mui/icons-material/People";
-import BarChartIcon from "@mui/icons-material/BarChart";
-import LayersIcon from "@mui/icons-material/Layers";
-import AssignmentIcon from "@mui/icons-material/Assignment";
-import { Person, Settings } from "@mui/icons-material";
+import AccessTimeIcon from '@mui/icons-material/AccessTime';
+import AssignmentIcon from '@mui/icons-material/Assignment';
+import SettingsIcon from '@mui/icons-material/Settings';
+import PeopleIcon from '@mui/icons-material/People';
+import BarChartIcon from '@mui/icons-material/BarChart';
+import FastfoodIcon from '@mui/icons-material/Fastfood';
+import PersonIcon from '@mui/icons-material/Person';
+import NotificationsIcon from '@mui/icons-material/Notifications';
+import DirectionsBusIcon from '@mui/icons-material/DirectionsBus';
 
 export const mainListItems = (
   <React.Fragment>
@@ -21,47 +23,62 @@ export const mainListItems = (
     </ListItemButton>
     <ListItemButton>
       <ListItemIcon>
-        <Person />
+        <PersonIcon />
       </ListItemIcon>
-      <ListItemText primary="Account" />
+      <ListItemText primary="Edit Profile" />
     </ListItemButton>
     <ListItemButton>
       <ListItemIcon>
-        <BarChartIcon />
+        <AccessTimeIcon />
       </ListItemIcon>
-      <ListItemText primary="Reports" />
+      <ListItemText primary="Time Tracker" />
     </ListItemButton>
     <ListItemButton>
       <ListItemIcon>
-        <Settings />
+        <AssignmentIcon/>
+      </ListItemIcon>
+      <ListItemText primary="Todos" />
+    </ListItemButton>
+    <ListItemButton>
+      <ListItemIcon>
+        <SettingsIcon />
       </ListItemIcon>
       <ListItemText primary="Settings" />
+    </ListItemButton>
+    <ListItemButton>
+      <ListItemIcon>
+        <NotificationsIcon />
+      </ListItemIcon>
+      <ListItemText primary="Bulletin Board" />
+    </ListItemButton>
+    <ListItemButton>
+      <ListItemIcon>
+        <DirectionsBusIcon />
+      </ListItemIcon>
+      <ListItemText primary="Transportation" />
+    </ListItemButton>
+    <ListItemButton>
+      <ListItemIcon>
+        <FastfoodIcon />
+      </ListItemIcon>
+      <ListItemText primary="Food & Nutrition" />
     </ListItemButton>
   </React.Fragment>
 );
 
-export const secondaryListItems = (
+export const managerListItems = (
   <React.Fragment>
-    <ListSubheader component="div" inset>
-      Saved reports
-    </ListSubheader>
     <ListItemButton>
       <ListItemIcon>
-        <AssignmentIcon />
+        <BarChartIcon />
       </ListItemIcon>
-      <ListItemText primary="Current week" />
+      <ListItemText primary="Financial Reports" />
     </ListItemButton>
     <ListItemButton>
       <ListItemIcon>
-        <AssignmentIcon />
+        <PeopleIcon />
       </ListItemIcon>
-      <ListItemText primary="Current month" />
-    </ListItemButton>
-    <ListItemButton>
-      <ListItemIcon>
-        <AssignmentIcon />
-      </ListItemIcon>
-      <ListItemText primary="Current year" />
+      <ListItemText primary="Human Resources" />
     </ListItemButton>
   </React.Fragment>
 );
