@@ -94,8 +94,10 @@ const useStyles = makeStyles(() =>
       // flexDirection: "column",
     },
     rightBody: {
+      // overflow: "scroll",
       // display: "flex",
       // flexDirection: "column",
+      backgroundColor: "#FAEBD7",
       margin: 10,
       marginTop: 50,
       marginLeft: 50,
@@ -274,12 +276,49 @@ const useStyles = makeStyles(() =>
       // borderColor: "#24a0ed",
       // borderRadius: "4px",
     },
+    list: {
+      margin: 0,
+      height: "90%",
+      overflowY: "auto",
+      borderTopStyle: "solid",
+      borderTopWidth: 1,
+      borderTopColor: "#aaaa",
+    },
+    listItem: {
+      marginLeft: 5,
+    },
+    itemDate: {
+      fontSize: 18,
+      fontWeight: "bold",
+      fontFamily: "Helvetica",
+    },
+    line: {
+      borderTopWidth: 1,
+      borderTopColor: "#aaaa",
+      borderTopStyle: "solid",
+      // width: "%10",
+      marginRight: 30,
+      marginLeft: 5,
+    },
   })
 );
 
 const TimeTracker = (props) => {
   const theme = useTheme();
-
+  var list = [
+    { date: "2022/5/4", start: "13:30", end: "15:00", wasted: 15 },
+    { date: "2022/8/4", start: "9:10", end: "17:00", wasted: 0 },
+    { date: "2022/18/4", start: "12:45", end: "21:05", wasted: 120 },
+    { date: "2022/5/4", start: "13:30", end: "15:00", wasted: 15 },
+    { date: "2022/8/4", start: "9:10", end: "17:00", wasted: 0 },
+    { date: "2022/18/4", start: "12:45", end: "21:05", wasted: 120 },
+    { date: "2022/5/4", start: "13:30", end: "15:00", wasted: 15 },
+    { date: "2022/8/4", start: "9:10", end: "17:00", wasted: 0 },
+    { date: "2022/18/4", start: "12:45", end: "21:05", wasted: 120 },
+    { date: "2022/5/4", start: "13:30", end: "15:00", wasted: 15 },
+    { date: "2022/8/4", start: "9:10", end: "17:00", wasted: 0 },
+    { date: "2022/18/4", start: "12:45", end: "21:05", wasted: 120 },
+  ];
   const { history } = props;
   const minute = [];
   for (var i = 0; i <= 120; i += 5) minute.push(i);
@@ -297,6 +336,28 @@ const TimeTracker = (props) => {
   const [errorMessage, setErrorMessage] = React.useState("");
   const [dialogOpen, setDialogOpen] = React.useState(false);
   const [isOpenSnackbar, setIsOpenSnackbar] = React.useState(false);
+
+  React.useEffect(() => {
+    getReportList();
+  }, []);
+
+  const getReportList = () => {
+    axios({
+      method: "get",
+      url: "http://127.0.0.1:8000/tracker/get/me/",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then(function (response) {
+        list = response.data[1];
+      })
+      .catch(function (error) {
+        console.log(error);
+        setErrorMessage("cannot get the report");
+        setDialogOpen(true);
+      });
+  };
 
   const Alert = React.forwardRef(function Alert(props, ref) {
     return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
@@ -338,6 +399,7 @@ const TimeTracker = (props) => {
           console.log(error);
           setErrorMessage("Request failed");
           setDialogOpen(true);
+          getReportList();
         });
     } else {
       setDialogOpen(true);
@@ -384,6 +446,7 @@ const TimeTracker = (props) => {
           .then(function (response) {
             console.log(response.data);
             setIsOpenSnackbar(true);
+            getReportList();
           })
           .catch(function (error) {
             setErrorMessage("Request failed");
@@ -595,7 +658,6 @@ const TimeTracker = (props) => {
           </div>
           <div className={classes.leftBody}>
             <p className={classes.title}>Time Tracker</p>
-            <div className={classes.line}></div>
             <Card className={classes.card} sx={{ backgroundColor: "#e8fdff" }}>
               <p className={classes.date}>
                 {today.getFullYear()}/{today.getMonth() + 1}/{today.getDate()}
@@ -739,7 +801,27 @@ const TimeTracker = (props) => {
               </Collapse>
             </div>
           </div>
-          <Card className={classes.rightBody}>Report</Card>
+          <Card
+            className={classes.rightBody}
+            sx={{ backgroundColor: "#e8fdff" }}
+          >
+            <p className={classes.date}>Report:</p>
+            <div className={classes.list}>
+              {list.map((item) => {
+                return (
+                  <div className={classes.listItem}>
+                    <p className={classes.itemDate}>{item.date}:</p>
+                    <p>
+                      from {item.start} until {item.end}
+                    </p>
+                    <p></p>
+                    <p>wasted time: {item.wasted}</p>
+                    <div className={classes.line}></div>
+                  </div>
+                );
+              })}
+            </div>
+          </Card>
         </div>
       </MuiPickersUtilsProvider>
     </div>
