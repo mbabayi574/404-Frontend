@@ -344,7 +344,7 @@ const TimeTracker = (props) => {
   const getReportList = () => {
     axios({
       method: "get",
-      url: "http://127.0.0.1:8000/tracker/get/me/",
+      url: "http://127.0.0.1:8000/tracker/me/",
       headers: {
         "Content-Type": "application/json",
       },
