@@ -11,7 +11,7 @@ import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import { useState } from 'react';
 
-const ScheduleCard = (props) => {
+const ServiceCard = (props) => {
     // const address = 'Tehran, Iran University of Science and Technology, Computer Engineering Department';
     // const arrivalTime = {hour: 7, minute: 0};
     // const returnTime = {hour: 16, minute: 30};
@@ -26,9 +26,9 @@ const ScheduleCard = (props) => {
     //     'Fri': false
     // };
     // const details = '    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.';
-    // const {schedule} = props;
+    // const {service} = props;
     console.log(props)
-    const {address, arrivalTime, returnTime, capacity, days, details} = props.schedule;
+    const {address, arrivalTime, returnTime, capacity, days, details} = props.service;
     
     const formatTime = (time) => {
         return time.hour.toLocaleString('en-US', {
@@ -91,4 +91,4 @@ const ScheduleCard = (props) => {
     )
 }
 
-export default ScheduleCard;
+export default ServiceCard;

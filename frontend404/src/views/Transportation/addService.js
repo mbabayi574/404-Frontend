@@ -22,7 +22,7 @@ import CssBaseline from '@mui/material/CssBaseline';
 import { useState } from 'react';
 import mapPlaceholder from '../../images/map-placeholder-2.png';
 
-const AddTransportationScheduleView = () => {
+const AddTransportationServiceView = () => {
     const [capacity, setCapacity] = useState(0);
     const [arrivalTime, setArrivalTime] = useState({hour: 0, minute: 0});
     const [returnTime, setReturnTime] = useState({hour: 0, minute: 0});
@@ -90,7 +90,7 @@ const AddTransportationScheduleView = () => {
                             <Typography
                                 variant="h4"
                             >
-                                Add New Schedule
+                                Add New Service
                             </Typography>
                         </Box>
 
@@ -115,7 +115,7 @@ const AddTransportationScheduleView = () => {
                                     variant="h5"
                                     sx={{p: 2}}
                                 >
-                                    Schedule Info
+                                    Service Info
                                 </Typography>
                                 <Divider />
                                 <Stack spacing={2} sx={{p: 3}}>
@@ -267,12 +267,12 @@ const AddTransportationScheduleView = () => {
     )
 };
 
-const AddTransportationSchedulePage = () => {
+const AddTransportationServicePage = () => {
     return (
         <DashboardLayout>
-            <AddTransportationScheduleView />
+            <AddTransportationServiceView />
         </DashboardLayout>
     )
 };
 
-export default AddTransportationSchedulePage;
+export default AddTransportationServicePage;

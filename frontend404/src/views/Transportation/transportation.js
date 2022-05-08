@@ -23,12 +23,12 @@ import { DashboardLayout } from "../../components/dashboard-layout";
 import { ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import { useState } from "react";
-import ScheduleCard from "../../components/transportation/scheduleCard";
+import ServiceCard from "../../components/transportation/serviceCard";
 import mapPlaceholder from "../../images/map-placeholder-1.png";
 
 const lorem = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.";
 
-const schedules = [
+const services = [
     {
         address: "Location 1",
         arrivalTime: {hour: 7, minute: 0},
@@ -116,8 +116,8 @@ const schedules = [
     },
 ]
 
-const ViewTransportationSchedulesView = () => {
-    const pageCount = Math.ceil(schedules.length / 2);
+const ViewTransportationServicesView = () => {
+    const pageCount = Math.ceil(services.length / 2);
     const [page, setPage] = useState(1);
 
     const handlePageChange = (e, p) => {
@@ -142,7 +142,7 @@ const ViewTransportationSchedulesView = () => {
                             <Typography
                                 variant="h4"
                             >
-                                View Schedules
+                                View Services
                             </Typography>
                         </Box>
 
@@ -175,7 +175,7 @@ const ViewTransportationSchedulesView = () => {
                                         variant="outlined"
                                         />
                                         <Button variant="contained" startIcon={<AddIcon />}>
-                                            Add Schedule
+                                            Add Service
                                         </Button>
                                     </Stack>
                                 </Card>
@@ -189,7 +189,7 @@ const ViewTransportationSchedulesView = () => {
                                         flexBasis: 0,
                                         maxHeight: "auto",
                                     }}>
-                                        <ScheduleCard schedule={schedules[page * 2 - 2]}/>
+                                        <ServiceCard service={services[page * 2 - 2]}/>
                                     </Box>
                                     <Box sx={{
                                         flexGrow: 1,
@@ -197,8 +197,8 @@ const ViewTransportationSchedulesView = () => {
                                         maxHeight: "auto",
                                     }}>
                                         {
-                                            page * 2 <= schedules.length
-                                            && <ScheduleCard schedule={schedules[page * 2 - 1]}/>
+                                            page * 2 <= services.length
+                                            && <ServiceCard service={services[page * 2 - 1]}/>
                                         }
                                     </Box>
                                 </Stack>
@@ -234,12 +234,12 @@ const ViewTransportationSchedulesView = () => {
     )
 };
 
-const ViewTransportationSchedulesPage = () => {
+const ViewTransportationServicesPage = () => {
     return (
         <DashboardLayout>
-            <ViewTransportationSchedulesView />
+            <ViewTransportationServicesView />
         </DashboardLayout>
     )
 };
 
-export default ViewTransportationSchedulesPage;
+export default ViewTransportationServicesPage;
