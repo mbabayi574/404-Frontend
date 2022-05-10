@@ -4,7 +4,7 @@ import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
+import Card from '@mui/material/Card';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
@@ -28,7 +28,7 @@ const rows = [
 
 const SalaryCard = () => {
     return (
-        <Paper sx={{
+        <Card sx={{
             padding: 2
         }}>
             <Box style={{
@@ -72,7 +72,7 @@ const SalaryCard = () => {
                 </TableBody>
                 </Table>
             </Box>
-        </Paper>
+        </Card>
     );
 };
 

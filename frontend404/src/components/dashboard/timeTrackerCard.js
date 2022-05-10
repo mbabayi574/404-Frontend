@@ -1,4 +1,4 @@
-import Paper from "@mui/material/Paper";
+import Card from "@mui/material/Card";
 import Typography from "@mui/material/Typography";
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
@@ -17,7 +17,7 @@ const TimeTrackerCard = () => {
     const getProgressValue = (time, expected) => {
         return (time.hours * 60.0 + time.minutes) / (expected.hours * 60.0 + time.minutes) * 100.0;
     }
-    return <Paper sx={{
+    return <Card sx={{
         padding: 2,
     }}>
         <Box>
@@ -41,7 +41,7 @@ const TimeTrackerCard = () => {
                 <LinearProgress variant="determinate" value={getProgressValue(time, expected)} />
             </Box>
         </Box>
-    </Paper>;
+    </Card>;
 };
 
 export default TimeTrackerCard;

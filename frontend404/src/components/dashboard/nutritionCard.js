@@ -1,4 +1,4 @@
-import Paper from "@mui/material/Paper";
+import Card from "@mui/material/Card";
 import Typography from "@mui/material/Typography";
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
@@ -7,7 +7,7 @@ const lunch = "Kebab";
 const dinner = "Spaghetti";
 
 const NutritionCard = () => {
-    return <Paper sx={{
+    return <Card sx={{
         padding: 2,
     }}>
         <Box>
@@ -38,7 +38,7 @@ const NutritionCard = () => {
                 </Typography>
             </Box>
         </Box>
-    </Paper>;
+    </Card>;
 };
 
 export default NutritionCard;

@@ -1,4 +1,4 @@
-import Paper from "@mui/material/Paper";
+import Card from "@mui/material/Card";
 import Stack from "@mui/material/Stack";
 import Item from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
@@ -15,7 +15,7 @@ const todos = [
 ]
 
 const TodoList = () => {
-    return <Paper sx={{
+    return <Card sx={{
         padding: 2,
         height: "100%"
     }}>
@@ -48,7 +48,7 @@ const TodoList = () => {
             })
         }
         </Stack>
-    </Paper>
+    </Card>
 };
 
 export default TodoList;

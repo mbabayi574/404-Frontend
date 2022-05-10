@@ -1,4 +1,4 @@
-import Paper from "@mui/material/Paper";
+import Card from "@mui/material/Card";
 import Typography from "@mui/material/Typography";
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
@@ -16,7 +16,7 @@ const profile = {
 };
 
 const ProfileCard = () => {
-    return <Paper sx={{
+    return <Card sx={{
         padding: 2
     }}>
         <Box style={{
@@ -78,7 +78,7 @@ const ProfileCard = () => {
                 </Box>
             </Box>
         </Box>
-    </Paper>
+    </Card>
 };
 
 export default ProfileCard;

@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import Paper from '@mui/material/Paper';
+import Card from '@mui/material/Card';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
@@ -23,7 +23,7 @@ const TimeTrackerReportCard = () => {
       return data.reduce((prevSum, next) => prevSum + next.workhours, 0);
     }
     return (
-      <Paper sx={{
+      <Card sx={{
         padding: 2
       }}>
         <Box display="flex" flexDirection="row" alignItems="center">
@@ -55,7 +55,7 @@ const TimeTrackerReportCard = () => {
             </Typography>
           </Box>
         </Box>
-      </Paper>
+      </Card>
     );
 };
 

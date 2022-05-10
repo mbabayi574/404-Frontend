@@ -1,5 +1,5 @@
 import React from 'react';
-import Paper from '@mui/material/Paper';
+import Card from '@mui/material/Card';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Grid from "@mui/material/Grid";
@@ -35,7 +35,7 @@ const requests = [
 const ServiceCounterCard = () => {
     const [data, setData] = React.useState(requests);
     return (
-      <Paper sx={{
+      <Card sx={{
         padding: 2,
         height: "100%",
       }}>
@@ -68,7 +68,7 @@ const ServiceCounterCard = () => {
                 })
             }
         </Grid>
-      </Paper>
+      </Card>
     );
 };
 

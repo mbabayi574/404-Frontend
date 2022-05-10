@@ -1,4 +1,4 @@
-import Paper from '@mui/material/Paper';
+import Card from '@mui/material/Card';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
@@ -39,7 +39,7 @@ const FinancialReportCard = () => {
       return expenses.reduce((prevSum, next) => prevSum + next.amount, 0);
     }
     return (
-      <Paper sx={{
+      <Card sx={{
         padding: 2
       }}>
         <Box display="flex" flexDirection="row" alignItems="center">
@@ -83,7 +83,7 @@ const FinancialReportCard = () => {
                 </Typography>
             </Box>
         </Box>
-      </Paper>
+      </Card>
     );
 };
 
