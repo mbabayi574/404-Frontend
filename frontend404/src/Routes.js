@@ -4,6 +4,7 @@ import Login from "./views/Login_SignUp/Login/login";
 import Signup from "./views/Login_SignUp/Signup_CompanyOwner/signup";
 import Dashboard from "./Pages";
 import TodoApp from "./views/TODOLIST";
+import RichtexteditorAnnouncment from "./views/AnnouncmentOwnerSide";
 
 const Routes = () => {
   return (
@@ -11,9 +12,14 @@ const Routes = () => {
       <div>
         <Switch>
           <Route exact path="/" component={Login} />
-          <Route path="/signup" component={Signup} />
+          <Route exact path="/signup" component={Signup} />
           <Route exact path="/home" component={Dashboard} />
           <Route exact path="/todoapp" component={TodoApp} />
+          <Route
+            exact
+            path="/announcmentsender"
+            component={RichtexteditorAnnouncment}
+          />
         </Switch>
       </div>
     </Router>

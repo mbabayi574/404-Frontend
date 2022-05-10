@@ -20,8 +20,8 @@ const AddTodo = React.memo(
     onButtonClick,
   }) => (
     <Paper style={{ margin: 16, padding: 16 }}>
-      <Grid container>
-        <Grid xs={8} md={9} item style={{ paddingRight: 16 }}>
+      <Grid container spacing={1}>
+        <Grid xs={12} md={12} item>
           <TextField
             placeholder="Add ToDo here"
             value={inputValue}
@@ -31,8 +31,8 @@ const AddTodo = React.memo(
             size="small"
           />
         </Grid>
-        <Grid xs={2} md={2} item>
-          <FormControl sx={{ minWidth: "6.5vw" }} size="small">
+        <Grid xs={4} md={4} item>
+          <FormControl sx={{ minWidth: "12vw" }} size="small">
             <InputLabel id="priority-change-element">Priority</InputLabel>
             <Select
               labelId="priority-change-element"
@@ -42,16 +42,16 @@ const AddTodo = React.memo(
               onChange={onPriorityChange}
             >
               <MenuItem value={1}>
-                <b>🔴 1</b>
+                <b>🔴 High</b>
               </MenuItem>
               <MenuItem value={2}>
-                <b>🟡 2</b>
+                <b>🟡 Medium</b>
               </MenuItem>
               <MenuItem value={3}>
-                <b>🟢 3</b>
+                <b>🟢 Low</b>
               </MenuItem>
               <MenuItem value={4}>
-                <b>🔵 4</b>
+                <b>🔵 Not Matters</b>
               </MenuItem>
             </Select>
           </FormControl>

@@ -37,7 +37,7 @@ function SignInSide() {
 
     var config = {
       method: "post",
-      url: "http://127.0.0.1:8000/auth/jwt/create/",
+      url: "http://404g.pythonanywhere.com/auth/jwt/create/",
       headers: {
         "Content-Type": "application/json",
       },

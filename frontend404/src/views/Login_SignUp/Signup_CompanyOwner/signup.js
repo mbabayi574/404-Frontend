@@ -66,7 +66,7 @@ function SignUp() {
 
       var config = {
         method: "post",
-        url: "http://127.0.0.1:8000/api/company-owner/signup/",
+        url: "http://404g.pythonanywhere.com/api/company-owner/signup/",
         headers: {
           "Content-Type": "application/json",
         },
@@ -92,7 +92,7 @@ function SignUp() {
       });
       var employeeconfig = {
         method: "post",
-        url: "http://127.0.0.1:8000/api/employee/signup/",
+        url: "http://404g.pythonanywhere.com/api/employee/signup/",
         headers: {
           "Content-Type": "application/json",
         },

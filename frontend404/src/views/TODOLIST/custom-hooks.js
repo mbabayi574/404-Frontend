@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 
 const Access_Token =
-  "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjU1OTAwMzY1LCJqdGkiOiI3MmVjYzFjNGYyZGM0ZjA3OWJmMGZhNWY5ZGNiZmI0ZSIsInVzZXJfaWQiOjF9.UTdTCjUmWLQ7eRnUMGLrASmFbOKoLllZoSYjE_DYz4Q";
+  "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjU3Mzg3MDY0LCJqdGkiOiI0OWY2ZWMyODUzNzk0NWU5YTc0NjAwNTM3OWM1OTcxNSIsInVzZXJfaWQiOjV9.aqtWD-nPdzOzfQj3yrwgPlZdLb6HpFU_Y2EgiPJFdTc";
 
 export const useInputValue = (initialValue = "") => {
   const [inputValue, setInputValue] = useState(initialValue);
@@ -36,7 +36,7 @@ export const useTodos = (initialValue = []) => {
 
     var config = {
       method: "get",
-      url: "http://127.0.0.1:8000/todolist/mytodolist/",
+      url: "http://404g.pythonanywhere.com/todolist/mytodolist/",
       headers: {
         Authorization: "Bearer " + Access_Token,
         "Content-Type": "application/json",
@@ -67,7 +67,7 @@ export const useTodos = (initialValue = []) => {
 
     var config = {
       method: "post",
-      url: "http://127.0.0.1:8000/todolist/mytodolist/",
+      url: "http://404g.pythonanywhere.com/todolist/mytodolist/",
       headers: {
         Authorization: "Bearer " + Access_Token,
         "Content-Type": "application/json",
@@ -93,7 +93,7 @@ export const useTodos = (initialValue = []) => {
 
     var config = {
       method: "put",
-      url: "http://127.0.0.1:8000/todolist/mytodolist/update/" + id,
+      url: "http://404g.pythonanywhere.com/todolist/mytodolist/update/" + id,
       headers: {
         Authorization: "Bearer " + Access_Token,
         "Content-Type": "application/json",
@@ -115,7 +115,7 @@ export const useTodos = (initialValue = []) => {
 
     var config = {
       method: "delete",
-      url: "http://127.0.0.1:8000/todolist/mytodolist/update/" + id,
+      url: "http://404g.pythonanywhere.com/todolist/mytodolist/update/" + id,
       headers: {
         Authorization: "Bearer " + Access_Token,
         "Content-Type": "application/json",
@@ -132,7 +132,36 @@ export const useTodos = (initialValue = []) => {
       });
   };
 
+  const [open_checkbox_modal, setOpenCheckBoxModal] = useState(false);
+
+  const handleCloseCheckBoxModal = () => {
+    setOpenCheckBoxModal(false);
+  };
+
+  const [idx_store, setIdxStore] = useState(null);
+
+  const handleCheckTodo = () => {
+    updateToDo(
+      todos[idx_store].id,
+      todos[idx_store].priority,
+      todos[idx_store].description,
+      !todos[idx_store].checkbox
+    );
+    setTodos(
+      todos.map((todo, index) => {
+        if (idx_store === index) {
+          todo.checkbox = !todo.checkbox;
+        }
+        return todo;
+      })
+    );
+    setOpenCheckBoxModal(false);
+  };
+
   return {
+    open_checkbox_modal,
+    handleCheckTodo,
+    handleCloseCheckBoxModal,
     todos,
     addTodo: (description, priority) => {
       if (description !== "" && priority !== "") {
@@ -147,20 +176,8 @@ export const useTodos = (initialValue = []) => {
       }
     },
     checkTodo: (idx) => {
-      updateToDo(
-        todos[idx].id,
-        todos[idx].priority,
-        todos[idx].description,
-        !todos[idx].checkbox
-      );
-      setTodos(
-        todos.map((todo, index) => {
-          if (idx === index) {
-            todo.checkbox = !todo.checkbox;
-          }
-          return todo;
-        })
-      );
+      setIdxStore(idx);
+      setOpenCheckBoxModal(true);
     },
     removeTodo: (idx) => {
       deleteToDo(todos[idx].id);

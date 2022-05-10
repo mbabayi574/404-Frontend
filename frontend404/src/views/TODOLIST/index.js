@@ -4,7 +4,16 @@ import { useInputValue, useTodos } from "./custom-hooks";
 import Layout from "./components/Layout";
 import AddTodo from "./components/AddTodo";
 import TodoList from "./components/TodoList";
-import { Grid, Snackbar, Alert } from "@mui/material";
+import {
+  Grid,
+  Snackbar,
+  Alert,
+  Button,
+  Dialog,
+  DialogContent,
+  DialogContentText,
+  DialogActions,
+} from "@mui/material";
 
 const TodoApp = React.memo(() => {
   const {
@@ -15,7 +24,16 @@ const TodoApp = React.memo(() => {
     clearInput,
     keyInput,
   } = useInputValue();
-  const { todos, addTodo, checkTodo, removeTodo } = useTodos();
+
+  const {
+    open_checkbox_modal,
+    handleCheckTodo,
+    handleCloseCheckBoxModal,
+    todos,
+    addTodo,
+    checkTodo,
+    removeTodo,
+  } = useTodos();
 
   const [open, setOpen] = React.useState(false);
 
@@ -74,6 +92,18 @@ const TodoApp = React.memo(() => {
           Please fill text & priority !!!
         </Alert>
       </Snackbar>
+
+      <Dialog open={open_checkbox_modal} onClose={handleCloseCheckBoxModal}>
+        <DialogContent>
+          <DialogContentText>
+            Are you sure to do this action ?
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleCloseCheckBoxModal}>Disagree</Button>
+          <Button onClick={handleCheckTodo}>Agree</Button>
+        </DialogActions>
+      </Dialog>
     </Fragment>
   );
 });
