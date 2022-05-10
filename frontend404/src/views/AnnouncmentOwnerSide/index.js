@@ -24,6 +24,15 @@ const RichtexteditorAnnouncment = ({}) => {
     setOpen(false);
   };
 
+  const [openseccessfully, setOpenSeccessfully] = React.useState(false);
+
+  const handleCloseSeccessfully = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setOpenSeccessfully(false);
+  };
+
   const handleSubmit = () => {
     var request_data = {
       html_fields: content,
@@ -43,6 +52,7 @@ const RichtexteditorAnnouncment = ({}) => {
       .then(function (response) {
         console.log(response);
         setContent("");
+        setOpenSeccessfully(true);
       })
       .catch(function (error) {
         console.log(error);
@@ -61,10 +71,26 @@ const RichtexteditorAnnouncment = ({}) => {
         <Alert
           onClose={handleClose}
           variant="filled"
-          severity="warning"
+          severity="error"
           sx={{ width: "100%" }}
         >
-          Please fill text & priority !!!
+          {`We have error :(`}
+        </Alert>
+      </Snackbar>
+
+      <Snackbar
+        open={openseccessfully}
+        autoHideDuration={3000}
+        onClose={handleCloseSeccessfully}
+        anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+      >
+        <Alert
+          onClose={handleCloseSeccessfully}
+          variant="filled"
+          severity="success"
+          sx={{ width: "100%" }}
+        >
+          {`Announcement sent successfully :)`}
         </Alert>
       </Snackbar>
 
