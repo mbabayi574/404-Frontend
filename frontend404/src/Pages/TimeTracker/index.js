@@ -25,6 +25,7 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
+import TrackerList from './list';
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 0;
@@ -305,20 +306,21 @@ const useStyles = makeStyles(() =>
 
 const TimeTracker = (props) => {
   const theme = useTheme();
-  var list = [
-    { date: "2022/5/4", start: "13:30", end: "15:00", wasted: 15 },
-    { date: "2022/8/4", start: "9:10", end: "17:00", wasted: 0 },
-    { date: "2022/18/4", start: "12:45", end: "21:05", wasted: 120 },
-    { date: "2022/5/4", start: "13:30", end: "15:00", wasted: 15 },
-    { date: "2022/8/4", start: "9:10", end: "17:00", wasted: 0 },
-    { date: "2022/18/4", start: "12:45", end: "21:05", wasted: 120 },
-    { date: "2022/5/4", start: "13:30", end: "15:00", wasted: 15 },
-    { date: "2022/8/4", start: "9:10", end: "17:00", wasted: 0 },
-    { date: "2022/18/4", start: "12:45", end: "21:05", wasted: 120 },
-    { date: "2022/5/4", start: "13:30", end: "15:00", wasted: 15 },
-    { date: "2022/8/4", start: "9:10", end: "17:00", wasted: 0 },
-    { date: "2022/18/4", start: "12:45", end: "21:05", wasted: 120 },
-  ];
+  const [list] = React.useState([]);
+  // var list = [];
+  // const [list]  = React.useState([{ date: "2022/5/4", start: "13:30", end: "15:00", wasted: 15 },
+  //   { date: "2022/8/4", start: "9:10", end: "17:00", wasted: 0 },
+  //   { date: "2022/18/4", start: "12:45", end: "21:05", wasted: 120 },
+  //   { date: "2022/5/4", start: "13:30", end: "15:00", wasted: 15 },
+  //   { date: "2022/8/4", start: "9:10", end: "17:00", wasted: 0 },
+  //   { date: "2022/18/4", start: "12:45", end: "21:05", wasted: 120 },
+  //   { date: "2022/5/4", start: "13:30", end: "15:00", wasted: 15 },
+  //   { date: "2022/8/4", start: "9:10", end: "17:00", wasted: 0 },
+  //   { date: "2022/18/4", start: "12:45", end: "21:05", wasted: 120 },
+  //   { date: "2022/5/4", start: "13:30", end: "15:00", wasted: 15 },
+  //   { date: "2022/8/4", start: "9:10", end: "17:00", wasted: 0 },
+  //   { date: "2022/18/4", start: "12:45", end: "21:05", wasted: 120 },])
+  
   const { history } = props;
   const minute = [];
   for (var i = 0; i <= 120; i += 5) minute.push(i);
@@ -336,21 +338,25 @@ const TimeTracker = (props) => {
   const [errorMessage, setErrorMessage] = React.useState("");
   const [dialogOpen, setDialogOpen] = React.useState(false);
   const [isOpenSnackbar, setIsOpenSnackbar] = React.useState(false);
-
-  React.useEffect(() => {
-    getReportList();
-  }, []);
+  const [showReport, setShowReport] = React.useState(false);
 
   const getReportList = () => {
+    list.splice(0, list.length);
     axios({
       method: "get",
       url: "http://127.0.0.1:8000/tracker/me/",
       headers: {
         "Content-Type": "application/json",
+        Authorization:
+        "Bearer " +
+        "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjU2MDU4MjYyLCJqdGkiOiI4NDk2MTU3MWVhNTA0YzViYmFlNGMxOWRmZTJkZDdmMiIsInVzZXJfaWQiOjF9.M0M_zo7VOPZQVTNU8CWw0ts6uMsbNpsWT0TkCsXE1PM",  
       },
     })
       .then(function (response) {
-        list = response.data[1];
+        response.data.map((item) => {
+          list.push(item)
+        })
+        setShowReport(true);
       })
       .catch(function (error) {
         console.log(error);
@@ -358,6 +364,15 @@ const TimeTracker = (props) => {
         setDialogOpen(true);
       });
   };
+
+  React.useEffect(() =>{
+    getReportList();
+  },[]);
+
+
+
+
+
 
   const Alert = React.forwardRef(function Alert(props, ref) {
     return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
@@ -393,13 +408,15 @@ const TimeTracker = (props) => {
       axios(config)
         .then(function (response) {
           console.log(response.data);
+          getReportList();
           setIsOpenSnackbar(true);
+
         })
         .catch(function (error) {
           console.log(error);
           setErrorMessage("Request failed");
           setDialogOpen(true);
-          getReportList();
+          // getReportList();
         });
     } else {
       setDialogOpen(true);
@@ -439,6 +456,9 @@ const TimeTracker = (props) => {
           url: "http://127.0.0.1:8000/tracker/update/me/",
           headers: {
             "Content-Type": "application/json",
+            Authorization:
+            "Bearer " +
+            "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjU2MDU4MjYyLCJqdGkiOiI4NDk2MTU3MWVhNTA0YzViYmFlNGMxOWRmZTJkZDdmMiIsInVzZXJfaWQiOjF9.M0M_zo7VOPZQVTNU8CWw0ts6uMsbNpsWT0TkCsXE1PM",  
           },
           data: request_data,
         };
@@ -806,21 +826,22 @@ const TimeTracker = (props) => {
             sx={{ backgroundColor: "#e8fdff" }}
           >
             <p className={classes.date}>Report:</p>
-            <div className={classes.list}>
+            {showReport?(<div className={classes.list}>
               {list.map((item) => {
                 return (
-                  <div className={classes.listItem}>
-                    <p className={classes.itemDate}>{item.date}:</p>
-                    <p>
-                      from {item.start} until {item.end}
-                    </p>
-                    <p></p>
-                    <p>wasted time: {item.wasted}</p>
-                    <div className={classes.line}></div>
+                  <div>
+                  <TrackerList 
+                    key={item.id} 
+                    date={item.date} 
+                    start_point={item.start_point} 
+                    end_point={item.end_point} 
+                    wasted_time={item.wasted_time}
+                    className={classes.listItem}
+                  />
                   </div>
                 );
               })}
-            </div>
+            </div>) : null}
           </Card>
         </div>
       </MuiPickersUtilsProvider>
