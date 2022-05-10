@@ -1,5 +1,6 @@
 import * as React from 'react';
 import Grid from "@mui/material/Grid";
+import Container from "@mui/material/Container";
 import NotificationList from './notificationList';
 import TodoList from './todoList';
 import ProfileCard from "./profileCard";
@@ -13,19 +14,18 @@ import Box from '@mui/material/Box';
 import CssBaseline from '@mui/material/CssBaseline';
 import Toolbar from '@mui/material/Toolbar';
 
-import {MyAppBar, MyDrawer} from '../../components/layout'
+import { DashboardLayout } from '../../components/dashboard-layout';
 
-export default function Dashboard() {
+const DashboardView = () => {
   	return (
-    	<Box sx={{ display: 'flex' }}>
-			<CssBaseline />
-			<MyAppBar />
-			<MyDrawer />
-			<Box
-				component="main"
-				sx={{ flexGrow: 1, bgcolor: '#e9e9ec', p: 3 }}
-			>
-				<Toolbar />
+		<Box
+			component="main"
+			sx={{
+				flexGrow: 1,
+				py: 8
+			}}
+		>
+			<Container>
 				<Grid container spacing={3}>
 					<Grid item container direction="column" xs={4} spacing={3}>
 						<Grid item>
@@ -61,7 +61,15 @@ export default function Dashboard() {
 						</Grid>
 					</Grid>
 				</Grid>
-			</Box>
+			</Container>
 		</Box>
 	);
 }
+
+const Dashboard = () => (
+	<DashboardLayout>
+		<DashboardView />
+	</DashboardLayout>
+);
+
+export default Dashboard;
