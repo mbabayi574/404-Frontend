@@ -127,7 +127,7 @@ const ManageTransportationSeatsView = () => {
                                     </Typography>
                                 </Stack>
                                 <Divider />
-                                <List>
+                                <List sx={{maxHeight: '100%', overflowY: 'auto'}}>
                                     {
                                         registeredEmployees.map(employee => (
                                             <ListItem>
@@ -157,7 +157,7 @@ const ManageTransportationSeatsView = () => {
                                     </Typography>
                                 </Stack>
                                 <Divider />
-                                <List>
+                                <List sx={{maxHeight: '100%', overflowY: 'auto'}}>
                                     {
                                         unregisteredEmployees.map(employee => (
                                             <ListItem>
