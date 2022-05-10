@@ -1,18 +1,16 @@
 import * as React from 'react';
 import Grid from "@mui/material/Grid";
 import Container from "@mui/material/Container";
-import NotificationList from './notificationList';
-import TodoList from './todoList';
-import ProfileCard from "./profileCard";
-import TimeTrackerCard from "./timeTrackerCard";
-import TimeTrackerReportCard from "./timeTrackerReportCard";
-import FinancialReportCard from "./financialReportCard";
-import ServiceCounterCard from "./serviceCounterCard";
-import SalaryCard from "./salaryCard";
-import NutritionCard from "./nutritionCard";
+import NotificationList from '../../components/dashboard/notificationList';
+import TodoList from '../../components/dashboard/todoList';
+import ProfileCard from "../../components/dashboard/profileCard";
+import TimeTrackerCard from "../../components/dashboard/timeTrackerCard";
+import TimeTrackerReportCard from "../../components/dashboard/timeTrackerReportCard";
+import FinancialReportCard from "../../components/dashboard/financialReportCard";
+import ServiceCounterCard from "../../components/dashboard/serviceCounterCard";
+import SalaryCard from "../../components/dashboard/salaryCard";
+import NutritionCard from "../../components/dashboard/nutritionCard";
 import Box from '@mui/material/Box';
-import CssBaseline from '@mui/material/CssBaseline';
-import Toolbar from '@mui/material/Toolbar';
 
 import { DashboardLayout } from '../../components/dashboard-layout';
 
