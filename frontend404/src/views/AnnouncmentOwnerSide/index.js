@@ -5,7 +5,7 @@ import { Button, Grid, Paper, Snackbar, Alert } from "@mui/material";
 import axios from "axios";
 
 const Access_Token =
-  "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjU3Mzg3MDY0LCJqdGkiOiI0OWY2ZWMyODUzNzk0NWU5YTc0NjAwNTM3OWM1OTcxNSIsInVzZXJfaWQiOjV9.aqtWD-nPdzOzfQj3yrwgPlZdLb6HpFU_Y2EgiPJFdTc";
+  "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjU3NDM0NTUyLCJqdGkiOiJjYjA5YmE4MWRkOGY0NmU4ODc0NmI3OGM4ZDJkNDIxNyIsInVzZXJfaWQiOjR9.bl8SKbogtnwYn6JuBm298ocOIysFSqVGRseM9sHc_-8";
 
 const RichtexteditorAnnouncment = ({}) => {
   const editor = useRef(null);

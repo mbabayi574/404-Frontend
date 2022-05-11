@@ -43,18 +43,19 @@ const BoardEmp = (props) => {
 
   const initialize = () => {
     data.splice(0, data.length)
-    console.log("hello");
     axios({
       method: "get",
-      url: "http://404g.pythonanywhere.com//board",
+      url: "http://404g.pythonanywhere.com//BulletinBoard/get_bulletin_board",
       headers: {
         "Content-Type": "application/json",
         Authorization:
         "Bearer " +
-        "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjU2MDU4MjYyLCJqdGkiOiI4NDk2MTU3MWVhNTA0YzViYmFlNGMxOWRmZTJkZDdmMiIsInVzZXJfaWQiOjF9.M0M_zo7VOPZQVTNU8CWw0ts6uMsbNpsWT0TkCsXE1PM",  
+        "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjU3NDM0NTUyLCJqdGkiOiJjYjA5YmE4MWRkOGY0NmU4ODc0NmI3OGM4ZDJkNDIxNyIsInVzZXJfaWQiOjR9.bl8SKbogtnwYn6JuBm298ocOIysFSqVGRseM9sHc_-8",  
       },
     })
       .then(function (response) {
+        console.log('inside the succesful response')
+        console.log("response: ", response)
         response.data.map((item) => {
           data.push(item);
         })
