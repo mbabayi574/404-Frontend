@@ -2,9 +2,11 @@ import React from "react";
 import { Switch, Route, BrowserRouter as Router } from "react-router-dom";
 import Login from "./views/Login_SignUp/Login/login";
 import Signup from "./views/Login_SignUp/Signup_CompanyOwner/signup";
+import TimeTracker from "./Pages/TimeTracker/index";
 import Dashboard from "./Pages";
 import TodoApp from "./views/TODOLIST";
 import RichtexteditorAnnouncment from "./views/AnnouncmentOwnerSide";
+import BoardEmp from "./Pages/BoardEmp/index";
 
 const Routes = () => {
   return (
@@ -20,6 +22,8 @@ const Routes = () => {
             path="/announcmentsender"
             component={RichtexteditorAnnouncment}
           />
+          <Route path="/timetracker" component={TimeTracker} />
+          <Route path="/boardemp" component={BoardEmp} />
         </Switch>
       </div>
     </Router>
