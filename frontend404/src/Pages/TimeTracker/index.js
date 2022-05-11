@@ -344,7 +344,7 @@ const TimeTracker = (props) => {
     list.splice(0, list.length);
     axios({
       method: "get",
-      url: "http://127.0.0.1:8000/tracker/me/",
+      url: "http://404g.pythonanywhere.com/tracker/me/",
       headers: {
         "Content-Type": "application/json",
         Authorization:
@@ -396,7 +396,7 @@ const TimeTracker = (props) => {
       console.log("request data is : ", request_data);
       const config = {
         method: "post",
-        url: "http://127.0.0.1:8000/tracker/me/",
+        url: "http://404g.pythonanywhere.com/tracker/me/",
         headers: {
           "Content-Type": "application/json",
           Authorization:
@@ -453,7 +453,7 @@ const TimeTracker = (props) => {
         console.log("data is : ", request_data);
         const config = {
           method: "put",
-          url: "http://127.0.0.1:8000/tracker/update/me/",
+          url: "http://404g.pythonanywhere.com/tracker/update/me/",
           headers: {
             "Content-Type": "application/json",
             Authorization:

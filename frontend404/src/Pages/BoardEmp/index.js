@@ -46,7 +46,7 @@ const BoardEmp = (props) => {
     console.log("hello");
     axios({
       method: "get",
-      url: "http://127.0.0.1:8000/board",
+      url: "http://404g.pythonanywhere.com//board",
       headers: {
         "Content-Type": "application/json",
         Authorization:
