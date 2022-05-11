@@ -1,22 +1,12 @@
-// design #1
-
 import { theme } from "../../theme";
 import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
 import Stack from "@mui/material/Stack";
 import Button from "@mui/material/Button";
-import Select from "@mui/material/Select";
-import Divider from "@mui/material/Divider";
-import MenuItem from "@mui/material/MenuItem";
-import Checkbox from "@mui/material/Checkbox";
 import Container from "@mui/material/Container";
 import TextField from "@mui/material/TextField";
-import InputLabel from "@mui/material/InputLabel";
 import Typography from "@mui/material/Typography";
-import Pagination from "@mui/material/Pagination";
-import FormControlLabel from "@mui/material/FormControlLabel";
 import InputAdornment from "@mui/material/InputAdornment";
-import FormControl from "@mui/material/FormControl";
 import AddIcon from "@mui/icons-material/Add";
 import SearchIcon from "@mui/icons-material/Search";
 import { DashboardLayout } from "../../components/dashboard-layout";
@@ -24,7 +14,7 @@ import { ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import { useEffect, useState } from "react";
 import ServiceCard from "../../components/transportation/serviceCard";
-import mapPlaceholder from "../../images/map-placeholder-1.png";
+import mapPlaceholder from "../../images/map-placeholder.png";
 import axios from "axios";
 
 const ViewTransportationServicesView = () => {
@@ -60,6 +50,8 @@ const ViewTransportationServicesView = () => {
                 component="main"
                 sx={{
                     flexGrow: 1,
+                    display: "flex",
+                    flexDirection: "row"
                 }}
             >
                 <Container maxWidth={false} sx={{
@@ -118,19 +110,23 @@ const ViewTransportationServicesView = () => {
                                     }
                                 </Stack>
                             </Stack>
-                            <Box sx={{
-                                flexGrow: 1,
-                                maxWidth: "auto",
-                                bgcolor: "#dddddd",
-                            }}>
-                                <img
-                                    styles={{width: "100%", height: "100%"}}
-                                    src={mapPlaceholder} 
-                                />
-                            </Box>
                         </Stack>
                     </Stack>
                 </Container>
+                <Box sx={{
+                    flexGrow: 1,
+                    maxWidth: "auto",
+                    height: "885px",
+                }}>
+                    <img
+                        style={{
+                            width: "760px",
+                            height: "100%",
+                            objectFit: "none",
+                        }}
+                        src={mapPlaceholder} 
+                    />
+                </Box>
             </Box>
         </ThemeProvider>
     )

@@ -17,7 +17,7 @@ import { DashboardLayout } from '../../components/dashboard-layout';
 import { ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import { useState } from 'react';
-import mapPlaceholder from '../../images/map-placeholder-2.png';
+import mapPlaceholder from '../../images/map-placeholder.png';
 import { useHistory } from "react-router-dom";
 import axios from "axios";
 
@@ -152,6 +152,8 @@ const AddTransportationServiceView = () => {
                 component="main"
                 sx={{
                     flexGrow: 1,
+                    display: "flex",
+                    flexDirection: "row"
                 }}
             >
                 <Container maxWidth={false} sx={{
@@ -314,26 +316,23 @@ const AddTransportationServiceView = () => {
                                     </Stack>
                                 </Stack>
                             </Card>
-                            <Box sx={{
-                                // width: '100%',
-                                // width: 600,
-                                flexGrow: 1,
-                                maxWidth: 'auto',
-                                // height: 320,
-                                height: '100%',
-                                bgcolor: '#dddddd',
-                                // position: 'sticky',
-                                // top: 88,
-                                zIndex: -1
-                            }}>
-                                <img
-                                    // styles={{width: 'auto', height: 'auto'}}
-                                    src={mapPlaceholder}
-                                />
-                            </Box>
                         </Stack>
                     </Stack>
                 </Container>
+                <Box sx={{
+                    flexGrow: 1,
+                    maxWidth: "auto",
+                    height: "880px",
+                }}>
+                    <img
+                        style={{
+                            width: "700px",
+                            height: "100%",
+                            objectFit: "none",
+                        }}
+                        src={mapPlaceholder} 
+                    />
+                </Box>
             </Box>
         </ThemeProvider>
     )
