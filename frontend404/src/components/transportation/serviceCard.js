@@ -45,7 +45,7 @@ const ServiceCard = (props) => {
     const handleDelete = (e) => {
         var config = {
             method: "delete",
-            url: "http://127.0.0.1:8000/ServiceCounter/admintransportations/" + id.toString(),
+            url: "http://404g.pythonanywhere.com//ServiceCounter/admintransportations/" + id.toString(),
             headers: {
               "Authorization": "Bearer " + "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjU3NDQ1MjYzLCJqdGkiOiI0YjRiYmJhMWRmNzY0ODNiYWU1ZDJhMjI1MDc1YmFhZiIsInVzZXJfaWQiOjF9.ZxT5PX0vD014dblqpVw-RC82mvGhRNME7aUIq2KE_wc"
             },

@@ -23,7 +23,7 @@ const ViewTransportationServicesView = () => {
     useEffect(() => {
         var config = {
             method: "get",
-            url: "http://127.0.0.1:8000/ServiceCounter/admintransportations/",
+            url: "http://404g.pythonanywhere.com//ServiceCounter/admintransportations/",
             headers: {
               "Accept": "application/json",
               "Authorization": "Bearer " + "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjU3NDQ1MjYzLCJqdGkiOiI0YjRiYmJhMWRmNzY0ODNiYWU1ZDJhMjI1MDc1YmFhZiIsInVzZXJfaWQiOjF9.ZxT5PX0vD014dblqpVw-RC82mvGhRNME7aUIq2KE_wc"
@@ -117,6 +117,8 @@ const ViewTransportationServicesView = () => {
                     flexGrow: 1,
                     maxWidth: "auto",
                     height: "885px",
+                    position: "sticky",
+                    top: 88
                 }}>
                     <img
                         style={{
