@@ -12,33 +12,32 @@ import LocationOnIcon from '@mui/icons-material/LocationOn';
 import { useState } from 'react';
 
 const ServiceCard = (props) => {
-    // const address = 'Tehran, Iran University of Science and Technology, Computer Engineering Department';
-    // const arrivalTime = {hour: 7, minute: 0};
-    // const returnTime = {hour: 16, minute: 30};
-    // const capacity = 250;
-    // const days = {
-    //     'Sat': true,
-    //     'Sun': true,
-    //     'Mon': true,
-    //     'Teu': true,
-    //     'Wed': true,
-    //     'Thu': false,
-    //     'Fri': false
-    // };
-    // const details = '    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.';
-    // const {service} = props;
-    console.log(props)
-    const {address, arrivalTime, returnTime, capacity, days, details} = props.service;
+    const {
+        id,
+        address,
+        arrival_time,
+        Return_time,
+        maximum_capacity,
+        details,
+        saturday,
+        sunday,
+        monday,
+        tuesday,
+        wedensday,
+        thursday,
+        friday,
+        ...others} = props.service;
     
-    const formatTime = (time) => {
-        return time.hour.toLocaleString('en-US', {
-            minimumIntegerDigits: 2,
-            useGrouping: false
-        }) + ':' + time.minute.toLocaleString('en-US', {
-            minimumIntegerDigits: 2,
-            useGrouping: false
-        });
+    const days = {
+        'Sat': saturday,
+        'Sun': sunday,
+        'Mon': monday,
+        'Tue': tuesday,
+        'Wed': wedensday,
+        'Thu': thursday,
+        'Fri': friday,
     }
+    
     return (
         <Card
             sx={{
@@ -58,7 +57,7 @@ const ServiceCard = (props) => {
                         <Stack direction='row' spacing={1} sx={{alignItems: 'center'}}>
                             <AccessTimeIcon fontSize='small' />
                             <Typography variant='body1' sx={{width: 'max-content'}}>
-                                {formatTime(arrivalTime)} - {formatTime(returnTime)}
+                                {arrival_time.slice(0, -3)} - {Return_time.slice(0, -3)}
                             </Typography>
                         </Stack>
                         <Stack direction='row' spacing={0.5}>
@@ -70,7 +69,7 @@ const ServiceCard = (props) => {
                         </Stack>
                     </Stack>
                     <Typography variant='h6' sx={{flexShrink: 0, width: 120, textAlign: 'end'}}>
-                        {capacity === 0 ? 'No': capacity} Seats Left
+                        {maximum_capacity === 0 ? 'No': maximum_capacity} Seats Left
                     </Typography>
                 </Stack>
                 <Divider />

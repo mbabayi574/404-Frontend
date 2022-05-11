@@ -22,107 +22,36 @@ import SearchIcon from "@mui/icons-material/Search";
 import { DashboardLayout } from "../../components/dashboard-layout";
 import { ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ServiceCard from "../../components/transportation/serviceCard";
 import mapPlaceholder from "../../images/map-placeholder-1.png";
-
-const lorem = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.";
-
-const services = [
-    {
-        address: "Location 1",
-        arrivalTime: {hour: 7, minute: 0},
-        returnTime: {hour: 16, minute: 30},
-        capacity: 25,
-        capacityMax: 30,
-        days: {
-            "Sat": true,
-            "Sun": true,
-            "Mon": true,
-            "Teu": true,
-            "Wed": true,
-            "Thu": false,
-            "Fri": false
-        },
-        details: lorem,
-    },
-    {
-        address: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor",
-        arrivalTime: {hour: 7, minute: 0},
-        returnTime: {hour: 16, minute: 30},
-        capacity: 25,
-        capacityMax: 30,
-        days: {
-            "Sat": true,
-            "Sun": true,
-            "Mon": true,
-            "Teu": true,
-            "Wed": true,
-            "Thu": false,
-            "Fri": false
-        },
-        details: lorem,
-    },
-    {
-        address: "Location 3",
-        arrivalTime: {hour: 7, minute: 0},
-        returnTime: {hour: 16, minute: 30},
-        capacity: 25,
-        capacityMax: 30,
-        days: {
-            "Sat": true,
-            "Sun": true,
-            "Mon": true,
-            "Teu": true,
-            "Wed": true,
-            "Thu": false,
-            "Fri": false
-        },
-        details: lorem,
-    },
-    {
-        address: "Location 4",
-        arrivalTime: {hour: 7, minute: 0},
-        returnTime: {hour: 16, minute: 30},
-        capacity: 25,
-        capacityMax: 30,
-        days: {
-            "Sat": true,
-            "Sun": true,
-            "Mon": true,
-            "Teu": true,
-            "Wed": true,
-            "Thu": false,
-            "Fri": false
-        },
-        details: lorem,
-    },
-    {
-        address: "Location 5",
-        arrivalTime: {hour: 7, minute: 0},
-        returnTime: {hour: 16, minute: 30},
-        capacity: 25,
-        capacityMax: 30,
-        days: {
-            "Sat": true,
-            "Sun": true,
-            "Mon": true,
-            "Teu": true,
-            "Wed": true,
-            "Thu": false,
-            "Fri": false
-        },
-        details: lorem,
-    },
-]
+import axios from "axios";
 
 const ViewTransportationServicesView = () => {
-    const pageCount = Math.ceil(services.length / 2);
-    const [page, setPage] = useState(1);
-
-    const handlePageChange = (e, p) => {
-        setPage(p);
-    }
+    const [services, SetServices] = useState([])
+    
+    useEffect(() => {
+        var config = {
+            method: "get",
+            url: "http://127.0.0.1:8000/ServiceCounter/admintransportations/",
+            headers: {
+              "Accept": "application/json",
+              "Authorization": "Bearer " + "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjU3NDQ1MjYzLCJqdGkiOiI0YjRiYmJhMWRmNzY0ODNiYWU1ZDJhMjI1MDc1YmFhZiIsInVzZXJfaWQiOjF9.ZxT5PX0vD014dblqpVw-RC82mvGhRNME7aUIq2KE_wc"
+            },
+        };
+        axios(config)
+            .then((response) => {
+                console.log(response);
+                console.log(response.data);
+                if (response.status == 200)
+                {
+                    SetServices(response.data.filter(service => service.address && service.Return_time));
+                }
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    }, [])
 
     return (
         <ThemeProvider theme={theme}>
@@ -181,45 +110,18 @@ const ViewTransportationServicesView = () => {
                                 </Card>
                                 <Stack spacing={2} sx={{
                                     width: "fit-content",
-                                    flexGrow: 1,
-                                    maxHeight: "auto"
                                 }}>
-                                    <Box sx={{
-                                        flexGrow: 1,
-                                        flexBasis: 0,
-                                        maxHeight: "auto",
-                                    }}>
-                                        <ServiceCard service={services[page * 2 - 2]}/>
-                                    </Box>
-                                    <Box sx={{
-                                        flexGrow: 1,
-                                        flexBasis: 0,
-                                        maxHeight: "auto",
-                                    }}>
-                                        {
-                                            page * 2 <= services.length
-                                            && <ServiceCard service={services[page * 2 - 1]}/>
-                                        }
-                                    </Box>
+                                    {
+                                        services.map(service => (
+                                            <ServiceCard service={service}/>
+                                        ))
+                                    }
                                 </Stack>
-                                <Pagination
-                                    count={pageCount}
-                                    color="primary"
-                                    page={page}
-                                    onChange={handlePageChange}
-                                />
                             </Stack>
                             <Box sx={{
-                                // width: "100%",
-                                // width: 600,
                                 flexGrow: 1,
                                 maxWidth: "auto",
-                                // height: 320,
-                                // height: "100%",
                                 bgcolor: "#dddddd",
-                                // position: "sticky",
-                                // top: 88,
-                                zIndex: -1
                             }}>
                                 <img
                                     styles={{width: "100%", height: "100%"}}
