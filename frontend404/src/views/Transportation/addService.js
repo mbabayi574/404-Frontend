@@ -5,24 +5,26 @@ import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
-import Select from '@mui/material/Select';
 import Divider from '@mui/material/Divider';
 import MenuItem from '@mui/material/MenuItem';
 import Checkbox from '@mui/material/Checkbox';
 import Container from '@mui/material/Container';
 import TextField from '@mui/material/TextField';
-import InputLabel from '@mui/material/InputLabel';
 import Typography from '@mui/material/Typography';
 import FormControlLabel from '@mui/material/FormControlLabel';
-import FormControl from '@mui/material/FormControl';
 import Search from '@mui/icons-material/Search';
 import { DashboardLayout } from '../../components/dashboard-layout';
 import { ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import { useState } from 'react';
 import mapPlaceholder from '../../images/map-placeholder-2.png';
+import { useHistory } from "react-router-dom";
+import axios from "axios";
 
 const AddTransportationServiceView = () => {
+    const history = useHistory();
+    const [error, setError] = useState({});
+    const [address, setAddress] = useState(null);
     const [capacity, setCapacity] = useState(0);
     const [arrivalTime, setArrivalTime] = useState({hour: 0, minute: 0});
     const [returnTime, setReturnTime] = useState({hour: 0, minute: 0});
@@ -35,7 +37,14 @@ const AddTransportationServiceView = () => {
         'Thu': false,
         'Fri': false
     })
+    const [details, setDetails] = useState(null);
 
+    const handleAddressChange = (e) => {
+        setAddress(e.target.value);
+    }
+    const handleDetailsChange = (e) => {
+        setDetails(e.target.value);
+    }
     const handleCapacityChange = (e) => {
         setCapacity(e.target.value);
     };
@@ -70,6 +79,71 @@ const AddTransportationServiceView = () => {
             'Fri': false
         });
     }
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+
+        const formatTime = (time) => {
+            return time.hour.toLocaleString('en-US', {
+                minimumIntegerDigits: 2,
+                useGrouping: false
+            }) + ':' + time.minute.toLocaleString('en-US', {
+                minimumIntegerDigits: 2,
+                useGrouping: false
+            });
+        }
+
+        let newError = {};
+        if (address === null || address === "")
+            newError.address = ["This field may not be null."];
+        if (parseInt(capacity) <= 0)
+            newError.maximum_capacity = ["Capacity must be a positive number."];
+        
+        console.log(newError);
+        if (Object.keys(newError).length !== 0)
+        {
+            setError(newError);
+            return;
+        }
+
+        var serviceData = JSON.stringify({
+            address: address,
+            maximum_capacity: capacity,
+            details: details,
+            address_search: null,
+            location: null,
+            arrival_time: formatTime(arrivalTime),
+            Return_time: formatTime(returnTime),
+            saturday: workingDays['Sat'],
+            sunday: workingDays['Sun'],
+            monday: workingDays['Mon'],
+            tuesday: workingDays['Tue'],
+            wedensday: workingDays['Wed'],
+            thursday: workingDays['Thu'],
+            friday: workingDays['Fri'],
+          });
+        
+          var config = {
+            method: "post",
+            url: "http://127.0.0.1:8000/ServiceCounter/admintransportations/",
+            headers: {
+              "Content-Type": "application/json",
+              "Authorization": "Bearer " + "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjU3NDQ1MjYzLCJqdGkiOiI0YjRiYmJhMWRmNzY0ODNiYWU1ZDJhMjI1MDc1YmFhZiIsInVzZXJfaWQiOjF9.ZxT5PX0vD014dblqpVw-RC82mvGhRNME7aUIq2KE_wc"
+            },
+            data: serviceData,
+          };
+    
+          axios(config)
+            .then((response) => {
+                if (response.status == 200)
+                {
+                    history.push("/transportation");
+                }
+            })
+            .catch((error) => {
+                setError(error.response.data);
+            });
+    }
     
     return (
         <ThemeProvider theme={theme}>
@@ -82,7 +156,6 @@ const AddTransportationServiceView = () => {
             >
                 <Container maxWidth={false} sx={{
                     p: 3,
-                    // height: 880,
                     height: '100%',
                 }}>
                     <Stack spacing={3} sx={{height: '100%', width: '100%'}}>
@@ -102,12 +175,6 @@ const AddTransportationServiceView = () => {
                             }}
                         >
                             <Card sx={{
-                                // [theme.breakpoints.down('md')]: {
-                                //     width: 600
-                                // },
-                                // [theme.breakpoints.up('md')]: {
-                                //     width: 800
-                                // },
                                 width: 'fit-content',
                                 height: 'fit-content'
                             }}>
@@ -120,24 +187,22 @@ const AddTransportationServiceView = () => {
                                 <Divider />
                                 <Stack spacing={2} sx={{p: 3}}>
                                     <Stack spacing={2} direction='row'>
-                                        <TextField required label='Address' sx={{flexGrow: 1, maxWidth: 'auto'}}/>
+                                        <TextField
+                                            required
+                                            label='Address'
+                                            onChange={handleAddressChange}
+                                            sx={{flexGrow: 1, maxWidth: 'auto'}}
+                                            error={error.hasOwnProperty('address')}
+                                            helperText={error.hasOwnProperty('address')
+                                                ? error.address[0] : " "}
+                                        />
                                         <Button variant='outlined' startIcon={<Search />}>Find Location</Button>
                                     </Stack>
-                                    {/* <TextField
-                                        label='Capacity'
-                                        select
-                                        fullWidth
-                                        value={capacity}
-                                        onChange={handleCapacityChange}
-                                        SelectProps={{ MenuProps: { PaperProps: { sx: { maxHeight: 200 } } }}}
-                                        // MenuProps={{ PaperProps: { sx: { maxHeight: 200 } } }}
-                                    >
-                                        {[...Array(100).keys()].map(n =>
-                                            <MenuItem value={n + 1}>{n + 1}</MenuItem>
-                                        )}
-                                    </TextField> */}
                                     <TextField 
                                         type="number"
+                                        error={error.hasOwnProperty('maximum_capacity')}
+                                        helperText={error.hasOwnProperty('maximum_capacity')
+                                            ? error.maximum_capacity[0] : " "}
                                         value={capacity}
                                         onChange={handleCapacityChange}
                                         InputProps={{
@@ -231,12 +296,19 @@ const AddTransportationServiceView = () => {
                                             Clear All
                                         </Button>
                                     </Stack>
-                                    <TextField label='Details' fullWidth multiline rows={7}/>
+                                    <TextField
+                                        label='Details'
+                                        onChange={handleDetailsChange}
+                                        fullWidth multiline rows={6}
+                                        error={error.hasOwnProperty('details')}
+                                        helperText={error.hasOwnProperty('details')
+                                            ? error.details[0] : " "}
+                                    />
                                     <Stack spacing={2} direction='row' sx={{justifyContent: 'flex-end'}}>
-                                        <Button variant='outlined'>
+                                        <Button href="/transportation" variant='outlined'>
                                             Cancel
                                         </Button>
-                                        <Button variant='contained'>
+                                        <Button onClick={handleSubmit} variant='contained'>
                                             Add
                                         </Button>
                                     </Stack>
