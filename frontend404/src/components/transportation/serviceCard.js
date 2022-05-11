@@ -5,13 +5,17 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import Divider from '@mui/material/Divider';
 import Typography from '@mui/material/Typography';
-import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/Delete';
 import CircleIcon from '@mui/icons-material/Circle';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import { useState } from 'react';
+import { useHistory } from "react-router-dom";
+import axios from "axios";
 
 const ServiceCard = (props) => {
+    const history = useHistory();
+
     const {
         id,
         address,
@@ -36,6 +40,26 @@ const ServiceCard = (props) => {
         'Wed': wedensday,
         'Thu': thursday,
         'Fri': friday,
+    }
+
+    const handleDelete = (e) => {
+        var config = {
+            method: "delete",
+            url: "http://127.0.0.1:8000/ServiceCounter/admintransportations/" + id.toString(),
+            headers: {
+              "Authorization": "Bearer " + "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjU3NDQ1MjYzLCJqdGkiOiI0YjRiYmJhMWRmNzY0ODNiYWU1ZDJhMjI1MDc1YmFhZiIsInVzZXJfaWQiOjF9.ZxT5PX0vD014dblqpVw-RC82mvGhRNME7aUIq2KE_wc"
+            },
+        };
+        axios(config)
+            .then((response) => {
+                if (response.status == 200)
+                {
+                    history.push("/transportation");
+                }
+            })
+            .catch((error) => {
+                console.log(error);
+            });
     }
     
     return (
@@ -78,8 +102,8 @@ const ServiceCard = (props) => {
                 </Typography>
                 <Divider />
                 <Stack direction='row' spacing={2} justifyContent='flex-end'>
-                    <Button variant='outlined' startIcon={<EditIcon />}>
-                        Edit
+                    <Button variant='outlined' startIcon={<DeleteIcon />} onClick={handleDelete}>
+                        Delete
                     </Button>
                     <Button variant='contained'>
                         Manage Seats
