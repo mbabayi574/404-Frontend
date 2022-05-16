@@ -1,11 +1,11 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import { Box } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import { DashboardNavbar } from './dashboard-navbar';
 import { DashboardSidebar } from './dashboard-sidebar';
-import { ThemeProvider } from '@mui/material/styles';
-import { theme } from '../theme'
+import { Outlet, useNavigate } from "react-router-dom";
+import { TokenContext } from 'App';
 
 const DashboardLayoutRoot = styled('div')(({ theme }) => ({
   display: 'flex',
@@ -17,32 +17,33 @@ const DashboardLayoutRoot = styled('div')(({ theme }) => ({
   }
 }));
 
-export const DashboardLayout = (props) => {
-  const { children } = props;
+export const DashboardLayout = () => {
+  const {setToken, } = useContext(TokenContext);
+  const navigate = useNavigate();
   const [isSidebarOpen, setSidebarOpen] = useState(true);
-
+  const handleLogout = () => {
+    setToken({refresh: null, access: null});
+  }
   return (
     <>
-      <ThemeProvider theme={theme}>
-        <CssBaseline />
-        <DashboardLayoutRoot>
-          <Box
-            sx={{
-              display: 'flex',
-              flex: '1 1 auto',
-              flexDirection: 'column',
-              width: '100%'
-            }}
-          >
-            {children}
-          </Box>
-        </DashboardLayoutRoot>
-        <DashboardNavbar onSidebarOpen={() => setSidebarOpen(true)} />
-        <DashboardSidebar
-          onClose={() => setSidebarOpen(false)}
-          open={isSidebarOpen}
-        />
-      </ThemeProvider>
+      <CssBaseline />
+      <DashboardLayoutRoot>
+        <Box
+          sx={{
+            display: 'flex',
+            flex: '1 1 auto',
+            flexDirection: 'column',
+            width: '100%'
+          }}
+        >
+          <Outlet />
+        </Box>
+      </DashboardLayoutRoot>
+      <DashboardNavbar onSidebarOpen={() => setSidebarOpen(true)} onLogout={handleLogout}/>
+      <DashboardSidebar
+        onClose={() => setSidebarOpen(false)}
+        open={isSidebarOpen}
+      />
     </>
   );
 };

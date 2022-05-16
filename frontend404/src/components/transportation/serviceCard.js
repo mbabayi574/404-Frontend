@@ -1,4 +1,3 @@
-import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
@@ -9,12 +8,14 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import CircleIcon from '@mui/icons-material/Circle';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
-import { useState } from 'react';
-import { useHistory } from "react-router-dom";
+import { useContext } from 'react';
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { TokenContext } from 'App';
 
 const ServiceCard = (props) => {
-    const history = useHistory();
+    const {token, } = useContext(TokenContext);
+    const navigate = useNavigate();
 
     const {
         id,
@@ -47,14 +48,14 @@ const ServiceCard = (props) => {
             method: "delete",
             url: "http://404g.pythonanywhere.com//ServiceCounter/admintransportations/" + id.toString(),
             headers: {
-              "Authorization": "Bearer " + "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjU3NDQ1MjYzLCJqdGkiOiI0YjRiYmJhMWRmNzY0ODNiYWU1ZDJhMjI1MDc1YmFhZiIsInVzZXJfaWQiOjF9.ZxT5PX0vD014dblqpVw-RC82mvGhRNME7aUIq2KE_wc"
+              "Authorization": "Bearer " + token,
             },
         };
         axios(config)
             .then((response) => {
                 if (response.status == 200)
                 {
-                    history.push("/transportation");
+                    navigate("/my/transportation");
                 }
             })
             .catch((error) => {
