@@ -19,7 +19,7 @@ function App() {
   
   useEffect(() => {
     console.log(token);
-    // console.log(location);
+    console.log(location);
     if (!token && !tokenlessPages.includes(location.pathname)) {
       navigate('/login');
     } else if (token && tokenlessPages.includes(location.pathname)) {
