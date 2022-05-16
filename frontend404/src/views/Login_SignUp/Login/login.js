@@ -31,7 +31,7 @@ function SignInSide() {
     const data = new FormData(event.currentTarget);
 
     var request_data = JSON.stringify({
-      phone: data.get("phonenumber"),
+      username: data.get("phonenumber"),
       password: data.get("password"),
     });
 
@@ -52,11 +52,6 @@ function SignInSide() {
       .catch(function (error) {
         console.log(error);
       });
-
-    // console.log({
-    //   phonenumber: data.get("phonenumber"),
-    //   password: data.get("password"),
-    // });
   };
 
   return (

@@ -7,18 +7,24 @@ import { Snackbar } from "@mui/material";
 import axios from "axios";
 import Collapse from "@mui/material/Collapse";
 import Dialog from "@mui/material/Dialog";
+import TextField from "@mui/material/TextField";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import back from "../../assets/image/back.png";
 import MuiAlert from "@mui/material/Alert";
+import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import DateMomentUtils from "@date-io/moment";
 import Card from "@mui/material/Card";
-import {
-  DatePicker,
-  TimePicker,
-  DateTimePicker,
-  MuiPickersUtilsProvider,
-} from "@material-ui/pickers";
+// import {
+//   DatePicker,
+//   TimePicker,
+//   DateTimePicker,
+//   MuiPickersUtilsProvider,
+// } from "@material-ui/pickers";
+// import { DatePicker, TimePicker } from "@mui/x-date-pickers";
+import { DesktopDatePicker as DatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
+import { TimePicker } from '@mui/x-date-pickers/TimePicker';
 import { useTheme } from "@mui/material/styles";
 import OutlinedInput from "@mui/material/OutlinedInput";
 import InputLabel from "@mui/material/InputLabel";
@@ -37,15 +43,6 @@ const MenuProps = {
     },
   },
 };
-
-// function getStyles(name, personName, theme) {
-//   return {
-//     fontWeight:
-//       personName.indexOf(name) === -1
-//         ? theme.typography.fontWeightRegular
-//         : theme.typography.fontWeightMedium,
-//   };
-// }
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -307,19 +304,6 @@ const useStyles = makeStyles(() =>
 const TimeTracker = (props) => {
   const theme = useTheme();
   const [list] = React.useState([]);
-  // var list = [];
-  // const [list]  = React.useState([{ date: "2022/5/4", start: "13:30", end: "15:00", wasted: 15 },
-  //   { date: "2022/8/4", start: "9:10", end: "17:00", wasted: 0 },
-  //   { date: "2022/18/4", start: "12:45", end: "21:05", wasted: 120 },
-  //   { date: "2022/5/4", start: "13:30", end: "15:00", wasted: 15 },
-  //   { date: "2022/8/4", start: "9:10", end: "17:00", wasted: 0 },
-  //   { date: "2022/18/4", start: "12:45", end: "21:05", wasted: 120 },
-  //   { date: "2022/5/4", start: "13:30", end: "15:00", wasted: 15 },
-  //   { date: "2022/8/4", start: "9:10", end: "17:00", wasted: 0 },
-  //   { date: "2022/18/4", start: "12:45", end: "21:05", wasted: 120 },
-  //   { date: "2022/5/4", start: "13:30", end: "15:00", wasted: 15 },
-  //   { date: "2022/8/4", start: "9:10", end: "17:00", wasted: 0 },
-  //   { date: "2022/18/4", start: "12:45", end: "21:05", wasted: 120 },])
   
   const { history } = props;
   const minute = [];
@@ -368,11 +352,6 @@ const TimeTracker = (props) => {
   React.useEffect(() =>{
     getReportList();
   },[]);
-
-
-
-
-
 
   const Alert = React.forwardRef(function Alert(props, ref) {
     return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
@@ -624,49 +603,49 @@ const TimeTracker = (props) => {
   };
 
   return (
-    <div className={classes.root}>
-      <Dialog
-        open={dialogOpen}
-        onClose={handleCloseDialog}
-        PaperProps={{
-          style: {
-            position: "relative",
-            borderRadius: 12,
-          },
-        }}
-      >
-        <DialogContent className={classes.dialogText}>
-          {errorMessage}
-        </DialogContent>
-        <DialogActions>
-          <Button className={classes.dialogButton} onClick={handleCloseDialog}>
-            OK
-          </Button>
-        </DialogActions>
-      </Dialog>
-      <Snackbar
-        anchorOrigin={{
-          vertical: "bottom",
-          horizontal: "left",
-        }}
-        open={isOpenSnackbar}
-        autoHideDuration={2000}
-        onClose={() => {
-          setIsOpenSnackbar(false);
-        }}
-        className={classes.snackBar}
-      >
-        <Alert
+    <LocalizationProvider dateAdapter={AdapterDateFns}>
+      <div className={classes.root}>
+        <Dialog
+          open={dialogOpen}
+          onClose={handleCloseDialog}
+          PaperProps={{
+            style: {
+              position: "relative",
+              borderRadius: 12,
+            },
+          }}
+        >
+          <DialogContent className={classes.dialogText}>
+            {errorMessage}
+          </DialogContent>
+          <DialogActions>
+            <Button className={classes.dialogButton} onClick={handleCloseDialog}>
+              OK
+            </Button>
+          </DialogActions>
+        </Dialog>
+        <Snackbar
+          anchorOrigin={{
+            vertical: "bottom",
+            horizontal: "left",
+          }}
+          open={isOpenSnackbar}
+          autoHideDuration={2000}
           onClose={() => {
             setIsOpenSnackbar(false);
           }}
-          severity="success"
-          sx={{ width: "100%" }}
+          className={classes.snackBar}
         >
-          Date Stored successfuly!
-        </Alert>
-      </Snackbar>
-      <MuiPickersUtilsProvider utils={DateMomentUtils}>
+          <Alert
+            onClose={() => {
+              setIsOpenSnackbar(false);
+            }}
+            severity="success"
+            sx={{ width: "100%" }}
+          >
+            Date Stored successfuly!
+          </Alert>
+        </Snackbar>
         <div className={classes.mainContainer}>
           <div className={classes.backContainer}>
             <img
@@ -690,6 +669,7 @@ const TimeTracker = (props) => {
                     className={classes.picker}
                     value={enterTime}
                     onChange={setEnterTime}
+                    renderInput={(params) => <TextField {...params} />}
                   />
                 </div>
                 <div className={classes.HKeeper}>
@@ -698,6 +678,7 @@ const TimeTracker = (props) => {
                     className={classes.picker}
                     value={exitTime}
                     onChange={setExitTime}
+                    renderInput={(params) => <TextField {...params} />}
                   />
                 </div>
                 <div className={classes.HKeeper}>
@@ -706,8 +687,6 @@ const TimeTracker = (props) => {
                     <InputLabel>Min</InputLabel>
                     <Select
                       className={classes.select}
-                      // labelId="demo-multiple-name-label"
-                      // id="demo-multiple-name"
                       value={wastedTime}
                       onChange={(e) => setWastedTime(e.target.value)}
                       input={<OutlinedInput label="Mins" />}
@@ -715,9 +694,7 @@ const TimeTracker = (props) => {
                     >
                       {minute.map((min) => (
                         <MenuItem
-                          // key={min}
                           value={min}
-                          // style={getStyles(name, wastedTime, theme)}
                         >
                           {min}
                         </MenuItem>
@@ -754,6 +731,7 @@ const TimeTracker = (props) => {
                         className={classes.Dpicker}
                         value={pdate}
                         onChange={setpdate}
+                        renderInput={(params) => <TextField {...params} />}
                       />
                     </div>
                     <div className={classes.HKeeperDate}>
@@ -775,6 +753,7 @@ const TimeTracker = (props) => {
                         className={classes.picker}
                         value={penterTime}
                         onChange={setpenterTime}
+                        renderInput={(params) => <TextField {...params} />}
                       />
                     </div>
                     <div className={classes.HKeeper}>
@@ -783,6 +762,7 @@ const TimeTracker = (props) => {
                         className={classes.picker}
                         value={pexitTime}
                         onChange={setpexitTime}
+                        renderInput={(params) => <TextField {...params} />}
                       />
                     </div>
                     <div className={classes.HKeeper}>
@@ -791,8 +771,6 @@ const TimeTracker = (props) => {
                         <InputLabel>Min</InputLabel>
                         <Select
                           className={classes.select}
-                          // labelId="demo-multiple-name-label"
-                          // id="demo-multiple-name"
                           value={pwastedTime}
                           onChange={(e) => setpWastedTime(e.target.value)}
                           input={<OutlinedInput label="Mins" />}
@@ -800,9 +778,7 @@ const TimeTracker = (props) => {
                         >
                           {minute.map((min) => (
                             <MenuItem
-                              // key={min}
                               value={min}
-                              // style={getStyles(name, wastedTime, theme)}
                             >
                               {min}
                             </MenuItem>
@@ -844,8 +820,8 @@ const TimeTracker = (props) => {
             </div>) : null}
           </Card>
         </div>
-      </MuiPickersUtilsProvider>
-    </div>
+      </div>
+    </LocalizationProvider>
   );
 };
 
