@@ -17,57 +17,67 @@ import DirectionsBusIcon from '@mui/icons-material/DirectionsBus';
 
 const mainItems = [
   {
-    href: '/home',
+    href: '/my/home',
     icon: (<DashboardIcon fontSize="small" />),
     title: 'Dashboard'
   },
   {
-    href: '/home',
+    href: '/my/profile',
     icon: (<PersonIcon fontSize="small" />),
     title: 'Profile'
   },
   {
-    href: '/home',
+    href: '/my/timetracker',
     icon: (<AccessTimeIcon fontSize="small" />),
     title: 'Time Tracker'
   },
   {
-    href: '/home',
+    href: '/my/todoapp',
     icon: (<AssignmentIcon fontSize="small" />),
     title: 'Todos'
   },
   {
-    href: '/home',
+    href: '/my/settings',
     icon: (<SettingsIcon fontSize="small" />),
     title: 'Settings'
   },
   {
-    href: '/home',
+    href: '/my/nurture',
     icon: (<FastfoodIcon fontSize="small" />),
     title: 'Food & Nutrition'
   },
+  // {
+  //   href: true ? '/my/boardemp' : '/my/announcementsender',
+  //   icon: (<NotificationsIcon fontSize="small" />),
+  //   title: 'Bulletin Board'
+  // },
   {
-    href: '/home',
+    href: '/my/boardemp',
     icon: (<NotificationsIcon fontSize="small" />),
-    title: 'Bulletin Board'
+    title: 'Bulletin Board (Employee)'
+  },
+  {
+    href: '/my/announcementsender',
+    icon: (<NotificationsIcon fontSize="small" />),
+    title: 'Bulletin Board (Manager)'
+  },
+  {
+    href: '/my/transportation',
+    icon: (<DirectionsBusIcon fontSize="small" />),
+    title: 'Transportation'
   }
 ];
 const managerItems = [
   {
-    href: '/home',
+    href: '/my/hr-desk',
     icon: (<PeopleIcon fontSize="small" />),
     title: 'Human Resources'
   },
   {
-    href: '/home',
+    href: '/my/reports',
     icon: (<BarChartIcon fontSize="small" />),
     title: 'Financial Reports'
   },
-  {
-    href: '/transportation',
-    icon: (<DirectionsBusIcon fontSize="small" />),
-    title: 'Transportation'
-  }
 ]
 
 export const DashboardSidebar = (props) => {

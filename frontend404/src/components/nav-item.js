@@ -1,13 +1,11 @@
-// import NextLink from 'next/link';
-// import { useRouter } from 'next/router';
 import PropTypes from 'prop-types';
 import { Box, Button, ListItem } from '@mui/material';
+import { useLocation } from 'react-router-dom';
 
 export const NavItem = (props) => {
+  const location = useLocation();
   const { href, icon, title, ...others } = props;
-  // const router = useRouter();
-  // const active = href ? (router.pathname === href) : false;
-  const active = false;
+  const active = href ? (location.pathname === href) : false;
 
   return (
     <ListItem
@@ -47,37 +45,6 @@ export const NavItem = (props) => {
             {title}
           </Box>
         </Button>
-      {/* <NextLink
-        href={href}
-        passHref
-      >
-        <Button
-          component="a"
-          startIcon={icon}
-          disableRipple
-          sx={{
-            backgroundColor: active && 'rgba(255,255,255, 0.08)',
-            borderRadius: 1,
-            color: active ? 'secondary.main' : 'neutral.300',
-            fontWeight: active && 'fontWeightBold',
-            justifyContent: 'flex-start',
-            px: 3,
-            textAlign: 'left',
-            textTransform: 'none',
-            width: '100%',
-            '& .MuiButton-startIcon': {
-              color: active ? 'secondary.main' : 'neutral.400'
-            },
-            '&:hover': {
-              backgroundColor: 'rgba(255,255,255, 0.08)'
-            }
-          }}
-        >
-          <Box sx={{ flexGrow: 1 }}>
-            {title}
-          </Box>
-        </Button>
-      </NextLink> */}
     </ListItem>
   );
 };

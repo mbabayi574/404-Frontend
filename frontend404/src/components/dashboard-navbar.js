@@ -6,6 +6,7 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import { Bell as BellIcon } from '../icons/bell';
 import { UserCircle as UserCircleIcon } from '../icons/user-circle';
 import { Users as UsersIcon } from '../icons/users';
+import avatar from 'images/avatar.jpg';
 
 const DashboardNavbarRoot = styled(AppBar)(({ theme }) => ({
   backgroundColor: theme.palette.background.paper,
@@ -76,7 +77,7 @@ export const DashboardNavbar = (props) => {
               width: 40,
               ml: 1
             }}
-            src="/static/images/avatars/avatar_1.png"
+            src={avatar}
           >
             <UserCircleIcon fontSize="small" />
           </Avatar>

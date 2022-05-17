@@ -7,7 +7,7 @@ import Signup from "./views/Login_SignUp/Signup_CompanyOwner/signup";
 import TransportationAddService from "./views/Transportation/addService";
 import Transportation from "./views/Transportation/transportation";
 import TimeTracker from "./Pages/TimeTracker/index";
-import Dashboard from "./Pages";
+import Dashboard from "./views/Dashboard/dashboard";
 import TodoApp from "./views/TODOLIST";
 import RichtexteditorAnnouncment from "./views/AnnouncmentOwnerSide";
 import BoardEmp from "./Pages/BoardEmp/index";
@@ -31,7 +31,7 @@ ReactDOM.render(
               <Route exact path="todoapp" element={<TodoApp />} />
               <Route
                 exact
-                path="announcmentsender"
+                path="announcementsender"
                 element={<RichtexteditorAnnouncment />}
               />
               <Route exact path="timetracker" element={<TimeTracker />} />
