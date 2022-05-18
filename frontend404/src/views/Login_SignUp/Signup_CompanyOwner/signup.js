@@ -82,11 +82,12 @@ function SignUp() {
       var employeerequest_data = JSON.stringify({
         first_name: data.get("firstName"),
         last_name: data.get("lastName"),
-        phone: data.get("phonenumber"),
+        username: data.get("phonenumber"),
         email: data.get("email"),
-        company: "company",
+        company: "uu",
         password: data.get("password"),
       });
+      console.log('employeerequest_data: ', employeerequest_data);
       var employeeconfig = {
         method: "post",
         url: "http://404g.pythonanywhere.com/api/employee/signup/",
