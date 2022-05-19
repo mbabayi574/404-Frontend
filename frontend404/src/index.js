@@ -13,6 +13,7 @@ import RichtexteditorAnnouncment from "./views/AnnouncmentOwnerSide";
 import BoardEmp from "./Pages/BoardEmp/index";
 import { DashboardLayout } from "./components/dashboard-layout";
 import NotFound from "./404";
+import AddDocument from "views/Documents/addDocument";
 
 ReactDOM.render(
   <React.StrictMode>
@@ -27,6 +28,10 @@ ReactDOM.render(
               <Route exact path="transportation">
                 <Route index element={<Transportation />} />
                 <Route exact path="add" element={<TransportationAddService />} />
+              </Route>
+              <Route exact path="documents">
+                {/* <Route index element={<Transportation />} /> */}
+                <Route exact path="add" element={<AddDocument />} />
               </Route>
               <Route exact path="todoapp" element={<TodoApp />} />
               <Route
