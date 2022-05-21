@@ -52,7 +52,7 @@ const BoardEmp = (props) => {
   const rows =[];
 
 
-
+    // data.map((item, index) => rows.push({id: index+1, title: item.title}))
   React.useEffect(() => {
 
     initialize();
@@ -91,7 +91,6 @@ const BoardEmp = (props) => {
         console.log(error);
         console.log(data)
       });
-    // data.map((item, index) => rows.push({id: index+1, title: item.title}))
   };
 
   return (
@@ -131,7 +130,7 @@ const BoardEmp = (props) => {
                     <Grid item sx={4} md={7}>
                     {selected? (<Box sx={{width: 850,height: 600, backgroundColor: "#fafafa"}}>
                       <Stack spacing={2}>
-                        <Typography style={{ padding: 25,fontSize: 27,}} color="primary">Title: {selectedAnnouncment.title}</Typography>
+                        <Typography style={{ padding: 25,fontSize: 20,}} color="primary">Title: {selectedAnnouncment.title}</Typography>
                         <Box sx={{padding: 4, width: '100%', height: '100%', overflow: 'auto'}}>
                         <div dangerouslySetInnerHTML={{ __html: selectedAnnouncment.desc }} />
                         </Box>
@@ -141,11 +140,6 @@ const BoardEmp = (props) => {
                     </Grid>
             </Card>
                 </Grid>
-              {/* <Grid item xs={4} md={4} style={{ padding: 0, marginLeft: 30,}}>
-                  <Card>
-                      {selected? (<div>he</div>): <Skeleton variant="rectangular" width={210} height={118} />}
-                  </Card>
-                  </Grid> */}
               </Grid>
             ) }
             </Paper>
