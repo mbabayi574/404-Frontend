@@ -20,7 +20,7 @@ export default function ReportTracker(props) {
   }
   
   return (
-    <div style={{ height: 530, width: '100%', paddingLeft: 30, paddingRight: 85,}}>
+    <div style={{ height: 530, width:700, paddingLeft: 30, paddingRight: 85,}}>
       <DataGrid
         rows={rows}
         columns={columns}

@@ -480,7 +480,7 @@ const TimeTracker = (props) => {
               </Card>
               </Grid>
               <Grid item xs={4} md={5}>
-            <Card>
+            <Card style={{ width: '100%',}}>
             <Typography style={{ padding: 15,}} color="secondary">Report Tracker</Typography>
               {showReport?(<ReportTracker list={list} />) : null}
               {/* <ReportTracker list={list} /> */}
