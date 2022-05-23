@@ -14,6 +14,7 @@ import FastfoodIcon from '@mui/icons-material/Fastfood';
 import PersonIcon from '@mui/icons-material/Person';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import DirectionsBusIcon from '@mui/icons-material/DirectionsBus';
+import InsertDriveFileIcon from '@mui/icons-material/InsertDriveFile';
 
 const mainItems = [
   {
@@ -67,6 +68,13 @@ const mainItems = [
     title: 'Transportation'
   }
 ];
+const employeeItems = [
+  {
+    href: '/my/documents',
+    icon: (<InsertDriveFileIcon fontSize="small" />),
+    title: 'My Documents'
+  },
+]
 const managerItems = [
   {
     href: '/my/hr-desk',
@@ -110,6 +118,14 @@ export const DashboardSidebar = (props) => {
         </div>
         <Box sx={{ flexGrow: 1 }}>
           {mainItems.map((item) => (
+            <NavItem
+              key={item.title}
+              icon={item.icon}
+              href={item.href}
+              title={item.title}
+            />
+          ))}
+          {employeeItems.map((item) => (
             <NavItem
               key={item.title}
               icon={item.icon}

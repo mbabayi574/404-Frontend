@@ -72,7 +72,7 @@ const AddDocument = () => {
       return;
     }
 
-    navigate("/documents");
+    navigate("/my/documents");
 
 		// let formData = new FormData();
 		// formData.append("title", title);
