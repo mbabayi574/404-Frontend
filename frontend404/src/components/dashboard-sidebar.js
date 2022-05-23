@@ -14,6 +14,7 @@ import FastfoodIcon from '@mui/icons-material/Fastfood';
 import PersonIcon from '@mui/icons-material/Person';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import DirectionsBusIcon from '@mui/icons-material/DirectionsBus';
+import MapsHomeWorkIcon from '@mui/icons-material/MapsHomeWork';
 
 const mainItems = [
   {
@@ -51,6 +52,11 @@ const mainItems = [
   //   icon: (<NotificationsIcon fontSize="small" />),
   //   title: 'Bulletin Board'
   // },
+  {
+    href: '/my/dormitoryemp',
+    icon: (<MapsHomeWorkIcon fontSize="small" />),
+    title: 'Dormitory (Employee)'
+  },
   {
     href: '/my/boardemp',
     icon: (<NotificationsIcon fontSize="small" />),

@@ -52,10 +52,10 @@ const BoardEmp = (props) => {
   const rows =[];
 
 
-    // data.map((item, index) => rows.push({id: index+1, title: item.title}))
+    data.map((item, index) => rows.push({id: index+1, title: item.title}))
   React.useEffect(() => {
 
-    initialize();
+    // initialize();
   }, []);
 
   const handleCellClick = (c) =>{
