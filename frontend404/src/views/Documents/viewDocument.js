@@ -27,7 +27,6 @@ const ViewDocument = () => {
 	// const [title, setTitle] = useState(null);
 	// const [content, setContent] = useState(null);
 	// const [attachment, setAttachment] = useState(null);
-	// // const { id, title, content, files } = document;
 	const { id, title, content, attachment } = state;
   const navigate = useNavigate();
 

@@ -1,12 +1,14 @@
 import PropTypes from 'prop-types';
 import styled from '@emotion/styled';
-import { AppBar, Avatar, Badge, Box, IconButton, Toolbar, Tooltip } from '@mui/material';
+import { AppBar, Avatar, Badge, Box, IconButton, Toolbar, Tooltip, Typography } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import LogoutIcon from '@mui/icons-material/Logout';
 import { Bell as BellIcon } from '../icons/bell';
 import { UserCircle as UserCircleIcon } from '../icons/user-circle';
 import { Users as UsersIcon } from '../icons/users';
 import avatar from 'images/avatar.jpg';
+import { TitleContext } from "App";
+import { useContext } from 'react';
 
 const DashboardNavbarRoot = styled(AppBar)(({ theme }) => ({
   backgroundColor: theme.palette.background.paper,
@@ -15,6 +17,7 @@ const DashboardNavbarRoot = styled(AppBar)(({ theme }) => ({
 
 export const DashboardNavbar = (props) => {
   const { onSidebarOpen, onLogout, ...other } = props;
+  const { title } = useContext(TitleContext);
 
   return (
     <>
@@ -47,6 +50,9 @@ export const DashboardNavbar = (props) => {
           >
             <MenuIcon fontSize="small" />
           </IconButton>
+          <Typography variant="h5" color="text.primary">
+            {title}
+          </Typography>
           <Box sx={{ flexGrow: 1 }} />
           <Tooltip title="Logout">
             <IconButton sx={{ ml: 1 }}

@@ -72,7 +72,7 @@ const employeeItems = [
   {
     href: '/my/documents',
     icon: (<InsertDriveFileIcon fontSize="small" />),
-    title: 'My Documents'
+    title: 'Documents'
   },
 ]
 const managerItems = [
