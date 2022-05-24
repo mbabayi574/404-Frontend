@@ -153,7 +153,6 @@ const Documents = () => {
 					}
 				</Box>
 			</Stack>
-		// </Card>
 		)
 	}
 
@@ -190,26 +189,8 @@ const Documents = () => {
 								>
 									Add Document
 								</Button>
-								{/* <Tooltip title="Edit">
-									<IconButton>
-										<EditIcon />
-									</IconButton>
-								</Tooltip>
-								<Tooltip title="Delete">
-									<IconButton>
-										<DeleteIcon />
-									</IconButton>
-								</Tooltip> */}
 							</Stack>
 							<Divider />
-							{/* <List sx={{
-								width: "100%",
-								flexGrow: 1,
-								overflowY: "auto",
-								maxHeight: "auto",
-								backgroundColor: "background.paper"
-								}}
-							> */}
 							<Stack
 								spacing={0.5}
 								divider={<Divider flexItem/>}
@@ -225,7 +206,6 @@ const Documents = () => {
 									<DocumentItem document={document} />
 								))}
 							</Stack>
-							{/* </List> */}
 						</Stack>
 					</Card>
         </Stack>

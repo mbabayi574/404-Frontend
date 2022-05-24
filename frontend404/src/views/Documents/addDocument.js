@@ -3,11 +3,13 @@ import Card from "@mui/material/Card";
 import Stack from "@mui/material/Stack";
 import Button from "@mui/material/Button";
 import Divider from "@mui/material/Divider";
+import Tooltip from "@mui/material/Tooltip";
 import Container from "@mui/material/Container";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import IconButton from "@mui/material/IconButton";
 import ClearIcon from '@mui/icons-material/Clear';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import AttachFileIcon from '@mui/icons-material/AttachFile';
 import { useState, useContext } from "react";
 import axios from "axios";
@@ -118,23 +120,29 @@ const AddDocument = () => {
           height: "100%",
         }}
       >
-        <Stack spacing={3} sx={{ height: "100%", width: "100%" }}>
-          <Box>
-            <Typography variant="h4">Add Document</Typography>
-          </Box>
-					<Card
-						sx={{
-							width: "100%",
-							height: "100%",
-							p: 2,
-						}}
-					>
-						<Stack spacing={2}>
-							<TextField fullWidth label="Title" value={title} onChange={handleTitleChange} />
-							<Divider />
+        <Card
+          sx={{
+            width: "100%",
+            height: "100%",
+            p: 1,
+          }}
+        >
+          <Stack spacing={1} sx={{ height: "100%", width: "100%" }}>
+            <Stack spacing={2} direction="row" sx={{
+								alignItems: "center",
+							}}>
+              <Tooltip title="Go back">
+                <IconButton onClick={() => navigate(-1)}>
+                  <ArrowBackIcon />
+                </IconButton>
+              </Tooltip>
+            </Stack>
+            <Divider />
+						<Stack spacing={1} sx={{p: 1}}>
+              <Typography variant="h5">New Document</Typography>
+							<TextField size="small" fullWidth label="Title" value={title} onChange={handleTitleChange} />
 							<TextField fullWidth multiline
-							minRows="20" value={content} onChange={handleContentChange} />
-							<Divider />
+							minRows="26" value={content} onChange={handleContentChange} />
 							<Stack spacing={1} direction="row" sx={{alignItems: "center"}}>
 								<Button variant="contained" onClick={handleSubmit}>Submit</Button>
 								<IconButton color="primary" component="label">
@@ -191,8 +199,8 @@ const AddDocument = () => {
 								}
 							</Stack>
 						</Stack>
-					</Card>
-        </Stack>
+          </Stack>
+        </Card>
       </Container>
     </Box>
   );
