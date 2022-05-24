@@ -128,21 +128,19 @@ const AddDocument = () => {
           }}
         >
           <Stack spacing={1} sx={{ height: "100%", width: "100%" }}>
-            <Stack spacing={2} direction="row" sx={{
+            <Stack spacing={1} direction="row" sx={{
 								alignItems: "center",
 							}}>
-              <Tooltip title="Go back">
-                <IconButton onClick={() => navigate(-1)}>
-                  <ArrowBackIcon />
-                </IconButton>
-              </Tooltip>
+              <IconButton onClick={() => navigate(-1)}>
+                <ArrowBackIcon />
+              </IconButton>
+              <Typography variant="h5">New Document</Typography>
             </Stack>
             <Divider />
 						<Stack spacing={1} sx={{p: 1}}>
-              <Typography variant="h5">New Document</Typography>
 							<TextField size="small" fullWidth label="Title" value={title} onChange={handleTitleChange} />
 							<TextField fullWidth multiline
-							minRows="26" value={content} onChange={handleContentChange} />
+							rows={27} value={content} onChange={handleContentChange} />
 							<Stack spacing={1} direction="row" sx={{alignItems: "center"}}>
 								<Button variant="contained" onClick={handleSubmit}>Submit</Button>
 								<IconButton color="primary" component="label">
