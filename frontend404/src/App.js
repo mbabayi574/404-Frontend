@@ -12,7 +12,7 @@ export const TitleContext = React.createContext();
 const pageTitles = {
   '/login': 'Login',
   '/signup': 'Signup',
-  '/my/dashboard': 'Dashboard',
+  '/my/home': 'Dashboard',
   '/my/timetracker': 'Time Tracker',
   '/my/todoapp': 'Todos',
   '/my/transportation': 'Transportation',
