@@ -18,8 +18,13 @@ const documentsPlaceholder = [
 	{
 		id: "1",
 		title: "Diary",
-		content: "Dear Diary\n\
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+		content: "Dear Diary\nLorem\tipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+		attachment: null,
+	},
+	{
+		id: "1",
+		title: "Overflow",
+		content: "Dear Diary\nLorem\nLorem\nLorem\nLorem\nLorem\nLorem\nLorem\nLorem\nLorem\nLorem\nLorem\nLorem\nLorem\nLorem\nLorem\nLorem\nLorem\nLorem\nLorem\nLorem\nLorem\nLorem\nLorem\nLorem\nLorem\nLorem\nLorem\nLorem\nLorem\nLorem\nLorem\nLorem\nLorem\nLorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
 		attachment: null,
 	},
 	{
