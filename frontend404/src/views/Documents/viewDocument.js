@@ -8,6 +8,10 @@ import Container from "@mui/material/Container";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import IconButton from "@mui/material/IconButton";
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
 import EditIcon from '@mui/icons-material/Edit';
 import ClearIcon from '@mui/icons-material/Clear';
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -27,6 +31,21 @@ const ViewDocument = () => {
 	// const [attachment, setAttachment] = useState(null);
 	const { id, title, content, attachment } = state;
   const navigate = useNavigate();
+
+	const [openDialog, setOpenDialog] = useState(false);
+
+  const handleClickDelete = () => {
+    setOpenDialog(true);
+  };
+
+	const handleCloseDialog = () => {
+    setOpenDialog(false);
+  };
+
+	const handleDelete = () => {
+		// DELETE API Call
+		navigate('/my/documents');
+	}
 
   return (
     <Box
@@ -62,7 +81,7 @@ const ViewDocument = () => {
 								</IconButton>
 							</Tooltip>
 							<Tooltip title="Delete">
-								<IconButton>
+								<IconButton onClick={handleClickDelete}>
 									<DeleteIcon />
 								</IconButton>
 							</Tooltip>
@@ -144,6 +163,23 @@ const ViewDocument = () => {
 					</Stack>
 				</Card>
       </Container>
+			<Dialog
+        open={openDialog}
+        onClose={handleCloseDialog}
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+            Delete this document? It will be lost forever.
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleCloseDialog} autoFocus>
+            Cancel
+          </Button>
+          <Button onClick={handleDelete}>Delete</Button>
+        </DialogActions>
+      </Dialog>
     </Box>
   );
 };
