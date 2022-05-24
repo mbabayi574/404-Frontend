@@ -45,14 +45,6 @@ const ViewDocument = () => {
         }}
       >
 				<Stack spacing={3} sx={{ height: "100%", width: "100%", pt: 1}}>
-					<Stack direction="row" spacing={2} sx={{width: "100%", px: 0.5}}>
-						<Typography variant="h4" sx={{
-							flexGrow: 1
-						}}>My Documents</Typography>
-						<Button variant="contained" href="/my/documents/add" startIcon={<AddIcon />}>
-							Add Document
-						</Button>
-					</Stack>
 					<Card sx={{
 						p: 1,
 						width: "100%",
@@ -65,7 +57,6 @@ const ViewDocument = () => {
 							}}>
 								<Tooltip title="Go back">
 									<IconButton onClick={() => navigate(-1)}>
-										{/* <ChevronLeftIcon /> */}
 										<ArrowBackIcon />
 									</IconButton>
 								</Tooltip>
@@ -81,7 +72,14 @@ const ViewDocument = () => {
 								</Tooltip>
 							</Stack>
 							<Divider />
-							<Stack spacing={2} sx={{p: 1}}>
+							<Stack
+								spacing={2}
+								sx={{
+									p: 1,
+									flexGrow: 1,
+									maxHeight: "auto",
+								}}
+							>
 								<Typography variant="h5">
 									{title}
 								</Typography>

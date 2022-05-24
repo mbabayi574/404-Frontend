@@ -4,7 +4,9 @@ import List from "@mui/material/List";
 import Stack from "@mui/material/Stack";
 import Button from "@mui/material/Button";
 import Divider from '@mui/material/Divider';
+import Tooltip from "@mui/material/Tooltip";
 import Container from "@mui/material/Container";
+import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import AddIcon from "@mui/icons-material/Add";
 import { useContext, useEffect, useState } from "react";
@@ -19,6 +21,42 @@ const documentsPlaceholder = [
 		content: "Dear Diary\n\
 		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
 		attachment: null,
+	},
+	{
+		id: "1",
+		title: "Resume",
+		content: "This is Diyar Hamedi's resume as a frontend developer at 404 Group.",
+		attachment: "Diyar Hamedi.pdf",
+	},
+	{
+		id: "1",
+		title: "Resume",
+		content: "This is Diyar Hamedi's resume as a frontend developer at 404 Group.",
+		attachment: "Diyar Hamedi.pdf",
+	},
+	{
+		id: "1",
+		title: "Resume",
+		content: "This is Diyar Hamedi's resume as a frontend developer at 404 Group.",
+		attachment: "Diyar Hamedi.pdf",
+	},
+	{
+		id: "1",
+		title: "Resume",
+		content: "This is Diyar Hamedi's resume as a frontend developer at 404 Group.",
+		attachment: "Diyar Hamedi.pdf",
+	},
+	{
+		id: "1",
+		title: "Resume",
+		content: "This is Diyar Hamedi's resume as a frontend developer at 404 Group.",
+		attachment: "Diyar Hamedi.pdf",
+	},
+	{
+		id: "1",
+		title: "Resume",
+		content: "This is Diyar Hamedi's resume as a frontend developer at 404 Group.",
+		attachment: "Diyar Hamedi.pdf",
 	},
 	{
 		id: "1",
@@ -139,36 +177,57 @@ const Documents = () => {
         }}
       >
         <Stack spacing={3} sx={{ height: "100%", width: "100%", pt: 1}}>
-					<Stack direction="row" spacing={2} sx={{width: "100%", px: 0.5}}>
-						<Typography variant="h4" sx={{
-							flexGrow: 1
-						}}>My Documents</Typography>
-						<Button variant="contained" href="/my/documents/add" startIcon={<AddIcon />}>
-							Add Document
-						</Button>
-					</Stack>
-					<List sx={{
-						width: "100%",
-						flexGrow: 1,
-						overflowY: "auto",
-						maxHeight: "auto",
-						borderRadius: 1,
-						backgroundColor: "background.paper"
-						}}
-					>
-						<Stack
-							spacing={0.5}
-							divider={<Divider flexItem/>}
-							sx={{
-								width: "100%",
+					<Card sx={{p: 1}}>
+						<Stack spacing={1} sx={{ height: "100%", width: "100%" }}>
+							<Stack spacing={2} direction="row" sx={{
 								alignItems: "center",
-							}}
-						>
-							{documents.map((document) => (
-								<DocumentItem document={document} />
-							))}
+							}}>
+								<Button
+									variant="contained"
+									size="small"
+									onClick={() => navigate('/my/documents/add')}
+									startIcon={<AddIcon />}
+								>
+									Add Document
+								</Button>
+								{/* <Tooltip title="Edit">
+									<IconButton>
+										<EditIcon />
+									</IconButton>
+								</Tooltip>
+								<Tooltip title="Delete">
+									<IconButton>
+										<DeleteIcon />
+									</IconButton>
+								</Tooltip> */}
+							</Stack>
+							<Divider />
+							{/* <List sx={{
+								width: "100%",
+								flexGrow: 1,
+								overflowY: "auto",
+								maxHeight: "auto",
+								backgroundColor: "background.paper"
+								}}
+							> */}
+							<Stack
+								spacing={0.5}
+								divider={<Divider flexItem/>}
+								sx={{
+									width: "100%",
+									flexGrow: 1,
+									overflowY: "auto",
+									maxHeight: "auto",
+									alignItems: "center",
+								}}
+							>
+								{documents.map((document) => (
+									<DocumentItem document={document} />
+								))}
+							</Stack>
+							{/* </List> */}
 						</Stack>
-					</List>
+					</Card>
         </Stack>
       </Container>
     </Box>
