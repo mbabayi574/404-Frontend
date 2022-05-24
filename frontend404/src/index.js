@@ -14,6 +14,7 @@ import BoardEmp from "./Pages/BoardEmp/index";
 import { DashboardLayout } from "./components/dashboard-layout";
 import NotFound from "./404";
 import AddDocument from "views/Documents/addDocument";
+import ViewDocument from "views/Documents/viewDocument";
 import Documents from "views/Documents/documents";
 
 ReactDOM.render(
@@ -33,6 +34,7 @@ ReactDOM.render(
               <Route exact path="documents">
                 <Route index element={<Documents />} />
                 <Route exact path="add" element={<AddDocument />} />
+                <Route exact path=":id" element={<ViewDocument />} />
               </Route>
               <Route exact path="todoapp" element={<TodoApp />} />
               <Route
