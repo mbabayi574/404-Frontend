@@ -17,7 +17,7 @@ const user = {
   name: "Babak Behkam",
   timezone: "GTM-7",*/
 };
-const hrDesk = () => (
+const HrDesk = () => (
   //<Container maxWidth="xl">
   <Card>
     <Grid container>
@@ -276,4 +276,4 @@ const hrDesk = () => (
   </Card>
   //</Container>
 );
-export default hrDesk;
+export default HrDesk;
