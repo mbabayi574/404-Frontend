@@ -108,15 +108,6 @@ function SignUp() {
         });
     }
 
-    // console.log({
-    //   email: data.get("email"),
-    //   password: data.get("password"),
-    //   phonenumber: data.get("phonenumber"),
-    //   companybiography: data.get("company-biography"),
-    //   companyname: data.get("company-name"),
-    //   firstname: data.get("firstName"),
-    //   lastname: data.get("lastName"),
-    // });
   };
 
   return (

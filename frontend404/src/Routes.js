@@ -4,6 +4,8 @@ import Login from "./views/Login_SignUp/Login/login";
 import Signup from "./views/Login_SignUp/Signup_CompanyOwner/signup";
 import Dashboard from "./Pages";
 import Profile from "./views/Login_SignUp/profile/profile";
+import hrDesk from "./views/hrDesk/hrDesk";
+import FoodManager from "./views/food/foodManager";
 
 const Routes = () => {
   return (
@@ -13,6 +15,8 @@ const Routes = () => {
           <Route path="/profile" component={Profile} />
           <Route exact path="/" component={Login} />
           <Route path="/signup" component={Signup} />
+          <Route path="/hrDesk" component={hrDesk} />
+          <Route path="/foodManager" component={FoodManager} />
 
           <Route exact path="/home" component={Dashboard} />
         </Switch>
