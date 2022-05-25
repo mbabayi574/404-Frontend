@@ -34,6 +34,7 @@ import {
   DialogContentText,
   DialogActions,
 } from "@mui/material";
+import im from "../../assets/image/arrowDown.png";
 
 const BoardEmp = (props) => {
   const { token } = React.useContext(TokenContext);
@@ -46,12 +47,18 @@ const BoardEmp = (props) => {
     { title: "title one", desc: "<h1>hello</h1>" },
     { title: "title two", desc: "<p>desc of p tag</p>" },
     { title: "p one", desc: "<p>its a test just in case</p>" },
-    { title: "image", desc: "<img src={} alt='image alt'/>" },
+    {
+      title: "image",
+      desc: "<img src='https://www.w3schools.com/images/w3schools_green.jpg' alt='image alt'/>",
+    },
     { title: "another head", desc: "another head in desc" },
     { title: "title one", desc: "<h1>hello</h1>" },
     { title: "title two", desc: "<p>desc of p tag</p>" },
     { title: "p one", desc: "<p>its a test just in case</p>" },
-    { title: "image", desc: "<img src={} alt='image alt'/>" },
+    {
+      title: "image",
+      desc: "<img src='https://www.w3schools.com/images/w3schools_green.jpg' alt='image alt'/>",
+    },
     { title: "another head", desc: "another head in desc" },
   ]);
 
