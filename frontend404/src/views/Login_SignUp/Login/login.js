@@ -10,6 +10,7 @@ import Grid from "@mui/material/Grid";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import axios from "axios";
+import loginBackground from "images/login_background.jpg";
 import { useNavigate } from "react-router-dom";
 import { TokenContext } from "App";
 
@@ -55,9 +56,21 @@ function Login() {
         console.log(error);
       });
   };
-
   return (
-    <Grid container component="main" sx={{ height: "100vh" }}>
+    <Grid
+			container
+			component="main"
+			sx={{
+				height: "100vh",
+				backgroundImage: `url(${loginBackground})`,
+				backgroundRepeat: "no-repeat",
+				backgroundSize: "cover",
+				// backgroundSize: "contain",
+				// backgroundSize: "100% 120%",
+				// backgroundPosition: "center",
+				backgroundPosition: "0% 100%",
+			}}
+		>
       <CssBaseline />
       <Grid
         item
@@ -65,14 +78,16 @@ function Login() {
         sm={4}
         md={7}
         sx={{
-          backgroundImage: "url(https://source.unsplash.com/random)",
+					// backgroundImage: `url(${loginBackground})`,
+          // backgroundImage: "url(https://source.unsplash.com/random)",
           backgroundRepeat: "no-repeat",
-          backgroundColor: (t) =>
-            t.palette.mode === "light"
-              ? t.palette.grey[50]
-              : t.palette.grey[900],
+          // backgroundColor: "transparent",
+          // backgroundColor: (t) =>
+          //   t.palette.mode === "light"
+          //     ? t.palette.grey[50]
+          //     : t.palette.grey[900],
           backgroundSize: "cover",
-          backgroundPosition: "center",
+          // backgroundPosition: "center",
         }}
       />
       <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>

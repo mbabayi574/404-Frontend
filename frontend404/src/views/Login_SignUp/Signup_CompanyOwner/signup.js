@@ -18,275 +18,348 @@ import MenuItem from "@mui/material/MenuItem";
 import Card from "@mui/material/Card";
 import axios, { Axios } from "axios";
 import { useNavigate } from "react-router-dom";
-
-function Copyright(props) {
-  return (
-    <Typography align="center" {...props}>
-      MADE WITH ❤️ IN 2022
-    </Typography>
-  );
-}
-
-function SignUp() {
-  let navigate = useNavigate();
-
-  const [registrant_role, setRegistrant_Role] = React.useState("owner");
-
-  const handle_Role_Change = (event) => {
-    setRegistrant_Role(event.target.value);
-  };
-
-  const companies = ["BMW Co", "Mazmaz Company", "Pepsi"];
-
-  const [company, setCompany] = React.useState("BMW Co");
-
-  const handleChangeCompany = (event) => {
-    setCompany(event.target.value);
-  };
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-
-    if (registrant_role === "owner") {
-      var request_data = JSON.stringify({
-        company: {
-          company_name: data.get("company-name"),
-          company_biography: data.get("company-biography"),
-        },
-        first_name: data.get("firstName"),
-        last_name: data.get("lastName"),
-        phone: data.get("phonenumber"),
-        email: data.get("email"),
-        password: data.get("password"),
-      });
-
-      var config = {
-        method: "post",
-        url: "http://404g.pythonanywhere.com/api/company-owner/signup/",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        data: request_data,
-      };
-
-      axios(config)
-        .then(function (response) {
-          console.log(JSON.stringify(response.data));
-          navigate("/login");
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
-    } else if (registrant_role === "employee") {
-      var employeerequest_data = JSON.stringify({
-        first_name: data.get("firstName"),
-        last_name: data.get("lastName"),
-        phone: data.get("phonenumber"),
-        email: data.get("email"),
-        company: "company",
-        password: data.get("password"),
-      });
-      var employeeconfig = {
-        method: "post",
-        url: "http://404g.pythonanywhere.com/api/employee/signup/",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        data: employeerequest_data,
-      };
-      axios(employeeconfig)
-        .then(function (response) {
-          console.log(JSON.stringify(response.data));
-          navigate("/login");
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
-    }
-  };
+import PropTypes from "prop-types";
+import Tabs from "@mui/material/Tabs";
+import Tab from "@mui/material/Tab";
+import { ColorButton } from "@mui/material/Button";
+function TabPanel(props) {
+  const { children, value, index, ...other } = props;
 
   return (
     <div
-      style={{
-        backgroundImage:
-          "url(https://s6.uupload.ir/files/signupbgcolor_l3ar.png)",
-      }}
+      role="tabpanel"
+      hidden={value !== index}
+      id={`simple-tabpanel-${index}`}
+      aria-labelledby={`simple-tab-${index}`}
+      {...other}
     >
-      <Container component="main" maxWidth="xs">
-        <Card>
-          <div style={{ padding: "10px" }}>
-            <CssBaseline />
-            <Box
-              sx={{
-                marginTop: 8,
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-              }}
-            >
-              <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
-                <LockOutlinedIcon />
-              </Avatar>
-              <Typography component="h1" variant="h5">
-                SignUp
-              </Typography>
-              <Box
-                component="form"
-                noValidate
-                onSubmit={handleSubmit}
-                sx={{ mt: 3 }}
-              >
-                <Grid container spacing={2}>
-                  <Grid item xs={12}>
-                    <FormControl>
-                      <FormLabel id="registrant-role-radio-buttons-group">
-                        Role :
-                      </FormLabel>
-                      <RadioGroup
-                        aria-labelledby="registrant-role-radio-buttons-group"
-                        name="registrant-role-buttons-group"
-                        value={registrant_role}
-                        onChange={handle_Role_Change}
-                      >
-                        <FormControlLabel
-                          value="owner"
-                          control={<Radio />}
-                          label="Owner"
-                        />
-                        <FormControlLabel
-                          value="employee"
-                          control={<Radio />}
-                          label="Employee"
-                        />
-                      </RadioGroup>
-                    </FormControl>
-                  </Grid>
-                  <Grid item xs={12} sm={6}>
-                    <TextField
-                      autoComplete="given-name"
-                      name="firstName"
-                      required
-                      fullWidth
-                      id="firstName"
-                      label="FirstName"
-                      autoFocus
-                    />
-                  </Grid>
-                  <Grid item xs={12} sm={6}>
-                    <TextField
-                      required
-                      fullWidth
-                      id="lastName"
-                      label="LastName"
-                      name="lastName"
-                      autoComplete="family-name"
-                    />
-                  </Grid>
-                  {registrant_role === "owner" && (
-                    <React.Fragment>
-                      <Grid item xs={12}>
-                        <TextField
-                          required
-                          fullWidth
-                          id="company-name"
-                          label="Company Name"
-                          name="company-name"
-                        />
-                      </Grid>
-                      <Grid item xs={12}>
-                        <TextField
-                          required
-                          fullWidth
-                          id="company-biography"
-                          label="Company Biography"
-                          name="company-biography"
-                          multiline
-                        />
-                      </Grid>
-                    </React.Fragment>
-                  )}
-                  <Grid item xs={12}>
-                    <TextField
-                      margin="normal"
-                      required
-                      fullWidth
-                      id="phonenumber"
-                      label="PhoneNumber"
-                      name="phonenumber"
-                      autoFocus
-                    />
-                  </Grid>
-                  <Grid item xs={12}>
-                    <TextField
-                      required
-                      fullWidth
-                      id="email"
-                      label="Email"
-                      name="email"
-                      autoComplete="email"
-                    />
-                  </Grid>
-                  <Grid item xs={12}>
-                    <TextField
-                      required
-                      fullWidth
-                      name="password"
-                      label="Password"
-                      type="password"
-                      id="password"
-                      autoComplete="new-password"
-                    />
-                  </Grid>
-                  {registrant_role === "employee" && (
-                    <React.Fragment>
-                      <Grid item xs={12}>
-                        <TextField
-                          id="outlined-select-company"
-                          select
-                          label="Select"
-                          value={company}
-                          onChange={handleChangeCompany}
-                          helperText="Select Your Company:"
-                          fullWidth
-                        >
-                          {companies.map((value) => (
-                            <MenuItem key={value} value={value}>
-                              {value}
-                            </MenuItem>
-                          ))}
-                        </TextField>
-                      </Grid>
-                    </React.Fragment>
-                  )}
-                </Grid>
-                <Button
-                  type="submit"
-                  fullWidth
-                  variant="contained"
-                  sx={{ mt: 3, mb: 2 }}
-                >
-                  Submit
-                </Button>
-                <Grid container justifyContent="flex-end">
-                  <Grid item>
-                    <Link href="/" variant="body2">
-                      Do you have an account? Login
-                    </Link>
-                  </Grid>
-                </Grid>
-              </Box>
-            </Box>
-            <Copyright sx={{ mt: 5 }} />
-          </div>
-        </Card>
-      </Container>
+      {value === index && (
+        <Box sx={{ p: 3 }}>
+          <Typography>{children}</Typography>
+        </Box>
+      )}
     </div>
   );
 }
 
+TabPanel.propTypes = {
+  children: PropTypes.node,
+  index: PropTypes.number.isRequired,
+  value: PropTypes.number.isRequired,
+};
+function a11yProps(index) {
+  return {
+    id: `simple-tab-${index}`,
+    "aria-controls": `simple-tabpanel-${index}`,
+  };
+}
+
+function Copyright(props) {
+	return (
+		<Typography align="center" {...props}>
+			MADE WITH ❤️ IN 2022
+		</Typography>
+	);
+}
+
+function SignUp() {
+	let navigate = useNavigate();
+
+	const [registrant_role, setRegistrant_Role] = React.useState("owner");
+	const [value, setValue] = React.useState(0);
+
+	const handleChange = (event, newValue) => {
+		const new_role_value = newValue == 0 ? "owner" : "employee";
+		setRegistrant_Role(new_role_value);
+		setValue(newValue);
+	};
+	const handle_Role_Change = (event) => {
+		setRegistrant_Role(event.target.value);
+	};
+	const companies = ["BMW Co", "Mazmaz Company", "Pepsi"];
+
+	const [company, setCompany] = React.useState("BMW Co");
+
+	const handleChangeCompany = (event) => {
+		setCompany(event.target.value);
+	};
+
+	const handleSubmit = (event) => {
+		event.preventDefault();
+		const data = new FormData(event.currentTarget);
+
+		if (registrant_role === "owner") {
+			var request_data = JSON.stringify({
+				company: {
+					company_name: data.get("company-name"),
+					company_biography: data.get("company-biography"),
+				},
+				first_name: data.get("firstName"),
+				last_name: data.get("lastName"),
+				phone: data.get("phonenumber"),
+				email: data.get("email"),
+				password: data.get("password"),
+			});
+
+			var config = {
+				method: "post",
+				url: "http://404g.pythonanywhere.com/api/company-owner/signup/",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				data: request_data,
+			};
+
+			axios(config)
+				.then(function (response) {
+					console.log(JSON.stringify(response.data));
+					navigate("/login");
+				})
+				.catch(function (error) {
+					console.log(error);
+				});
+		} else if (registrant_role === "employee") {
+			var employeerequest_data = JSON.stringify({
+				first_name: data.get("firstName"),
+				last_name: data.get("lastName"),
+				phone: data.get("phonenumber"),
+				email: data.get("email"),
+				company: "company",
+				password: data.get("password"),
+			});
+			var employeeconfig = {
+				method: "post",
+				url: "http://404g.pythonanywhere.com/api/employee/signup/",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				data: employeerequest_data,
+			};
+			axios(employeeconfig)
+				.then(function (response) {
+					console.log(JSON.stringify(response.data));
+					navigate("/login");
+				})
+				.catch(function (error) {
+					console.log(error);
+				});
+		}
+	};
+
+	return (
+		<div
+			style={{
+				backgroundImage:
+					"url(https://supremepools.com.au/wp-content/uploads/2016/06/supreme-pools-free-pool-magazine-background-large.jpg)",
+				// width: "100%",
+				height: "100vh",
+				backgroundSize: "cover",
+				backgroundRepeat: "no-repeat",
+				display: "flex",
+				alignItems: "center"
+			}}
+		>
+			<Container component="main" maxWidth="xs">
+				<Card sx={{height: "80vh"}}>
+					<div style={{ padding: "10px", height: "100%" }}>
+						<CssBaseline />
+						<Box
+							component="form"
+							noValidate
+							onSubmit={handleSubmit}
+							sx={{
+								mt: 3,
+								height: "100%",
+								display: "flex",
+								flexDirection: "column",
+								alignItems: "center",
+							}}
+						>
+							<Avatar sx={{ m: 2, bgcolor: "secondary.main" }}>
+								<LockOutlinedIcon />
+							</Avatar>
+							<Typography component="h1" variant="h5">
+								Sign Up
+							</Typography>
+							<Box
+								component="form"
+								noValidate
+								onSubmit={handleSubmit}
+								sx={{height: "100%"}}
+							>
+								<Grid container spacing={2}>
+									<Grid item xs={12} sx={{ mb: -5 }}>
+										<Tabs
+											variant="fullWidth"
+											value={value}
+											onChange={handleChange}
+											aria-label="basic tabs example"
+										>
+											<Tab label="Owner" {...a11yProps(0)} />
+											<Tab label="Employee" {...a11yProps(1)} />
+										</Tabs>
+										<TabPanel value={value} index={0}></TabPanel>
+										<TabPanel value={value} index={1}></TabPanel>
+
+										{/* <FormControl>
+                        <FormLabel id="registrant-role-radio-buttons-group">
+                          Role :
+                        </FormLabel>
+                        <RadioGroup
+                          aria-labelledby="registrant-role-radio-buttons-group"
+                          name="registrant-role-buttons-group"
+                          value={registrant_role}
+                          onChange={handle_Role_Change}
+                        >
+                          <FormControlLabel
+                            value="owner"
+                            control={<Radio />}
+                            label="Owner"
+                          />
+                          <FormControlLabel
+                            value="employee"
+                            control={<Radio />}
+                            label="Employee"
+                          />
+                        </RadioGroup>
+                      </FormControl> */}
+									</Grid>
+									<Grid item xs={12} sm={6}>
+										<TextField
+											autoComplete="given-name"
+											name="firstName"
+											required
+											fullWidth
+											id="firstName"
+											label="First Name"
+											autoFocus
+										/>
+									</Grid>
+									<Grid item xs={12} sm={6}>
+										<TextField
+											required
+											fullWidth
+											id="lastName"
+											label="Last Name"
+											name="lastName"
+											autoComplete="family-name"
+										/>
+									</Grid>
+									{registrant_role === "owner" && (
+										<React.Fragment>
+											<Grid item xs={12}>
+												<TextField
+													required
+													fullWidth
+													id="company-name"
+													label="Company Name"
+													name="company-name"
+												/>
+											</Grid>
+											<Grid item xs={12}>
+												<TextField
+													required
+													fullWidth
+													id="company-biography"
+													label="Company Biography"
+													name="company-biography"
+													multiline
+												/>
+											</Grid>
+										</React.Fragment>
+									)}
+									<Grid item xs={12}>
+										<TextField
+											margin="normal"
+											required
+											fullWidth
+											id="phonenumber"
+											label="Phone Number"
+											name="phonenumber"
+											autoFocus
+										/>
+									</Grid>
+									<Grid item xs={12}>
+										<TextField
+											required
+											fullWidth
+											id="email"
+											label="Email"
+											name="email"
+											autoComplete="email"
+										/>
+									</Grid>
+									<Grid item xs={12}>
+										<TextField
+											required
+											fullWidth
+											name="password"
+											label="Password"
+											type="password"
+											id="password"
+											autoComplete="new-password"
+										/>
+									</Grid>
+									{registrant_role === "employee" && (
+										<React.Fragment>
+											<Grid item xs={12}>
+												<TextField
+													id="outlined-select-company"
+													select
+													label="Select"
+													value={company}
+													onChange={handleChangeCompany}
+													helperText="Select Your Company:"
+													fullWidth
+												>
+													{companies.map((value) => (
+														<MenuItem key={value} value={value}>
+															{value}
+														</MenuItem>
+													))}
+												</TextField>
+											</Grid>
+										</React.Fragment>
+									)}
+								</Grid>
+								<Box sx={{flexGrow: 1}} />
+								<Grid container spacing={25}>
+									<Grid item>
+										<Button
+											item
+											type="submit"
+											variant="contained"
+											sx={{ mt: 3, mb: 2 }}
+										>
+											Submit
+										</Button>
+									</Grid>
+									<Grid item>
+										<Button
+											item
+											// type="submit"
+											onClick={() => {
+												navigate("/login");
+											}}
+											variant="outlined"
+											sx={{ mt: 3, mb: 2 }}
+										>
+											Login
+										</Button>
+									</Grid>
+								</Grid>
+						</Box>
+						<Copyright sx={{ mb: 3 }} />
+					</Box>
+				</div>
+			</Card>
+		</Container>
+    </div >
+  );
+}
+
 const Signup_Company = () => {
-  return <SignUp />;
+	return <SignUp />;
 };
 
 export default Signup_Company;
