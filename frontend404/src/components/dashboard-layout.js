@@ -20,26 +20,11 @@ const DashboardLayoutRoot = styled('div')(({ theme }) => ({
 }));
 
 export const DashboardLayout = () => {
-  const api = useAPI();
   const {setToken, token} = useContext(TokenContext);
-  const navigate = useNavigate();
-  const { setUser } = useUser();
   const [isSidebarOpen, setSidebarOpen] = useState(true);
   const handleLogout = () => {
     setToken({refresh: null, access: null});
-    setUser(null);
   }
-  useEffect(() => {
-    if (token) {
-      api({
-        url: "auth/users/me/"
-      })
-        .then(resp => {
-          console.log(resp.data);
-          setUser(resp.data);
-        })
-    }
-  }, [token])
   return (
     <>
       <CssBaseline />
