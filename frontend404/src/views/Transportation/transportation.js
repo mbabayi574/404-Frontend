@@ -15,7 +15,7 @@ import axios from "axios";
 import { TokenContext } from "App";
 
 const Transportation = () => {
-  const [services, SetServices] = useState([]);
+  const [services, setServices] = useState([]);
   const {token, } = useContext(TokenContext);
 
   useEffect(() => {
@@ -32,7 +32,7 @@ const Transportation = () => {
         console.log(response);
         console.log(response.data);
         if (response.status == 200) {
-          SetServices(
+          setServices(
             response.data.filter(
               (service) => service.address && service.Return_time
             )

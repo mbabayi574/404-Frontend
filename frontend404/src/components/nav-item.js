@@ -1,11 +1,12 @@
 import PropTypes from 'prop-types';
 import { Box, Button, ListItem } from '@mui/material';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 export const NavItem = (props) => {
   const location = useLocation();
+  const navigate = useNavigate();
   const { href, icon, title, ...others } = props;
-  const active = href ? (location.pathname === href) : false;
+  const active = href ? (location.pathname.startsWith(href)) : false;
 
   return (
     <ListItem
@@ -19,7 +20,7 @@ export const NavItem = (props) => {
       {...others}
     >
         <Button
-          href={href}
+          onClick={() => navigate(href)}
           component="a"
           startIcon={icon}
           disableRipple

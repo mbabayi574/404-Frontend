@@ -39,7 +39,10 @@ export const DashboardLayout = () => {
           <Outlet />
         </Box>
       </DashboardLayoutRoot>
-      <DashboardNavbar onSidebarOpen={() => setSidebarOpen(true)} onLogout={handleLogout}/>
+      <DashboardNavbar
+        onSidebarOpen={() => setSidebarOpen(true)}
+        onLogout={handleLogout}
+      />
       <DashboardSidebar
         onClose={() => setSidebarOpen(false)}
         open={isSidebarOpen}
