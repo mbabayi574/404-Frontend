@@ -21,6 +21,7 @@ import { useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
+import useAPI from "useAPI";
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
@@ -62,6 +63,7 @@ function Copyright(props) {
 }
 
 function SignUp() {
+	const api = useAPI();
 	let navigate = useNavigate();
 
 	const [registrant_role, setRegistrant_Role] = React.useState("owner");
@@ -85,64 +87,64 @@ function SignUp() {
 
 	const handleSubmit = (event) => {
 		event.preventDefault();
-		const data = new FormData(event.currentTarget);
+    const data = new FormData(event.currentTarget);
 
-		if (registrant_role === "owner") {
-			var request_data = JSON.stringify({
-				company: {
-					company_name: data.get("company-name"),
-					company_biography: data.get("company-biography"),
-				},
-				first_name: data.get("firstName"),
-				last_name: data.get("lastName"),
-				phone: data.get("phonenumber"),
-				email: data.get("email"),
-				password: data.get("password"),
-			});
+    if (registrant_role === "owner") {
+      var request_data = JSON.stringify({
+        company: {
+          company_name: data.get("company-name"),
+          company_biography: data.get("company-biography"),
+        },
+        first_name: data.get("firstName"),
+        last_name: data.get("lastName"),
+        username: data.get("phonenumber"),
+        email: data.get("email"),
+        password: data.get("password"),
+      });
 
-			var config = {
-				method: "post",
-				url: "http://404g.pythonanywhere.com/api/company-owner/signup/",
-				headers: {
-					"Content-Type": "application/json",
-				},
-				data: request_data,
-			};
+      var config = {
+        method: "post",
+        url: "api/company-owner/signup/",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        data: request_data,
+      };
 
-			axios(config)
-				.then(function (response) {
-					console.log(JSON.stringify(response.data));
-					navigate("/login");
-				})
-				.catch(function (error) {
-					console.log(error);
-				});
-		} else if (registrant_role === "employee") {
-			var employeerequest_data = JSON.stringify({
-				first_name: data.get("firstName"),
-				last_name: data.get("lastName"),
-				phone: data.get("phonenumber"),
-				email: data.get("email"),
-				company: "company",
-				password: data.get("password"),
-			});
-			var employeeconfig = {
-				method: "post",
-				url: "http://404g.pythonanywhere.com/api/employee/signup/",
-				headers: {
-					"Content-Type": "application/json",
-				},
-				data: employeerequest_data,
-			};
-			axios(employeeconfig)
-				.then(function (response) {
-					console.log(JSON.stringify(response.data));
-					navigate("/login");
-				})
-				.catch(function (error) {
-					console.log(error);
-				});
-		}
+      api(config)
+        .then(function (response) {
+          console.log(JSON.stringify(response.data));
+          navigate("/login");
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    } else if (registrant_role === "employee") {
+      var employeerequest_data = JSON.stringify({
+        first_name: data.get("firstName"),
+        last_name: data.get("lastName"),
+        username: data.get("phonenumber"),
+        email: data.get("email"),
+        company: "company",
+        password: data.get("password"),
+      });
+      var employeeconfig = {
+        method: "post",
+        url: "api/employee/signup/",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        data: employeerequest_data,
+      };
+      api(employeeconfig)
+        .then(function (response) {
+          console.log(JSON.stringify(response.data));
+          navigate("/login");
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    }
 	};
 
 	return (
@@ -150,7 +152,6 @@ function SignUp() {
 			style={{
 				backgroundImage:
 					"url(https://supremepools.com.au/wp-content/uploads/2016/06/supreme-pools-free-pool-magazine-background-large.jpg)",
-				// width: "100%",
 				height: "100vh",
 				backgroundSize: "cover",
 				backgroundRepeat: "no-repeat",

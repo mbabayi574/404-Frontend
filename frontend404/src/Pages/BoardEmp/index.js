@@ -15,7 +15,6 @@ import useAPI from "useAPI";
 
 
 const BoardEmp = (props) => {
-  const { token, } = React.useContext(TokenContext);
   const api = useAPI();
   const { history } = props;
   const [showData, setShowData] = React.useState(true);
@@ -23,22 +22,22 @@ const BoardEmp = (props) => {
   const [selectedAnnouncment, setSelectedAnnouncment] = React.useState(null);
   const [isLoading, setIsLoading] = React.useState(false);
   const [data, setData] = React.useState([{ title: "title one", desc: "<h1>hello</h1>" }, { title: "title two", desc: "<p>desc of p tag</p>" }, { title: "p one", desc: "<p>its a test just in case</p>" }, { title: "image", desc: "<img src={} alt='image alt'/>" }, { title: "another head", desc: "another head in desc" }, { title: "title one", desc: "<h1>hello</h1>" }, { title: "title two", desc: "<p>desc of p tag</p>" }, { title: "p one", desc: "<p>its a test just in case</p>" }, { title: "image", desc: "<img src={} alt='image alt'/>" }, { title: "another head", desc: "another head in desc" }]);
+  const [rows, setRows] = React.useState([]);
 
   const columns = [
     { field: 'id', headerName: 'ID', width: 70 },
     { field: 'title', headerName: 'Title', width: 130 },
   ]
-  const rows = [];
 
 
-  data.map((item, index) => rows.push({ id: index + 1, title: item.title }))
+  //   data.map((item, index) => rows.push({ id: index + 1, title: item.title }))
   React.useEffect(() => {
-    // initialize();
+    initialize();
   }, []);
 
   const handleCellClick = (c) => {
     data.map((item, index) => {
-      if (c.row.id === index + 1 && c.row.title === item.title) {
+      if (c.row.id === index + 1) {
         setSelectedAnnouncment(item);
         setSelected(true);
       }
@@ -46,7 +45,7 @@ const BoardEmp = (props) => {
   }
 
   const initialize = () => {
-    data.splice(0, data.length)
+    // data.splice(0, data.length)
     api({
       method: "get",
       url: "BulletinBoard/get_bulletin_board",
@@ -57,10 +56,10 @@ const BoardEmp = (props) => {
       .then(function (response) {
         console.log("inside the succesful response");
         console.log("response: ", response);
-        response.data.map((item, index) => {
-          data.push(item);
-          rows.push({ id: index + 1, title: item.title })
-        })
+        setData(response.data);
+        setRows(response.data.map((item, index) => ({
+          id: index + 1, title: item.title || "No title"
+        })));
         setShowData(true);
       })
       .catch(function (error) {
@@ -86,7 +85,7 @@ const BoardEmp = (props) => {
                 <Card>
                   <Grid container spacing={15} style={{ padding: 32, }}>
                     <Grid item sx={4} md={4}>
-                      <Typography style={{ padding: 15, }} color="primary">Announcments</Typography>
+                      <Typography style={{ padding: 15, }} variant="h6">Announcments</Typography>
                       {showData ? (
                         <div style={{ height: 530, width: '100%', paddingLeft: 30, paddingRight: 0, }}>
                           <DataGrid
@@ -101,9 +100,9 @@ const BoardEmp = (props) => {
                     <Grid item sx={4} md={7}>
                       {selected ? (<Box sx={{ width: 850, height: 600, backgroundColor: "#fafafa" }}>
                         <Stack spacing={2}>
-                          <Typography style={{ padding: 25, fontSize: 20, }} color="primary">Title: {selectedAnnouncment.title}</Typography>
-                          <Box sx={{ padding: 4, width: '100%', height: '100%', overflow: 'auto' }}>
-                            <div dangerouslySetInnerHTML={{ __html: selectedAnnouncment.desc }} />
+                          <Typography style={{ padding: 24, fontSize: 20, }} variant="h6">{selectedAnnouncment.title || "No title"}</Typography>
+                          <Box sx={{ px: 3, py: 1, width: '100%', height: '100%', overflow: 'auto' }}>
+                            <div dangerouslySetInnerHTML={{ __html: selectedAnnouncment.html_fields }} />
                           </Box>
                         </Stack>
                       </Box>) : <Skeleton variant="rectangular" width={850} height={600} />}

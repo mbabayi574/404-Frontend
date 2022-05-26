@@ -9,15 +9,12 @@ import Container from "@mui/material/Container";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import FormControlLabel from "@mui/material/FormControlLabel";
-import Search from "@mui/icons-material/Search";
-import { useState, useContext } from "react";
-import mapPlaceholder from "images/map-placeholder.png";
-import axios from "axios";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { TokenContext } from "App";
+import useAPI from "useAPI";
 
 const TransportationAddService = () => {
-  const { token } = useContext(TokenContext);
+	const api = useAPI();
   const navigate = useNavigate();
   const [error, setError] = useState({});
   const [address, setAddress] = useState(null);
@@ -117,25 +114,24 @@ const TransportationAddService = () => {
       sunday: workingDays["Sun"],
       monday: workingDays["Mon"],
       tuesday: workingDays["Tue"],
-      wedensday: workingDays["Wed"],
+      wednesday: workingDays["Wed"],
       thursday: workingDays["Thu"],
       friday: workingDays["Fri"],
     });
 
     var config = {
       method: "post",
-      url: "http://404g.pythonanywhere.com/ServiceCounter/admintransportations/",
+      url: "ServiceCounter/transportation/admintransportations/",
       headers: {
         "Content-Type": "application/json",
-        Authorization: "Bearer " + token,
       },
       data: serviceData,
     };
 
-    axios(config)
+    api(config)
       .then((response) => {
         if (response.status == 200) {
-          navigate("/transportation");
+          navigate("/my/transportation");
         }
       })
       .catch((error) => {
@@ -148,8 +144,7 @@ const TransportationAddService = () => {
       component="main"
       sx={{
         flexGrow: 1,
-        display: "flex",
-        flexDirection: "row",
+				alignItems: "center"
       }}
     >
       <Container
@@ -159,207 +154,182 @@ const TransportationAddService = () => {
           height: "100%",
         }}
       >
-        <Stack spacing={3} sx={{ height: "100%", width: "100%" }}>
-          <Box>
-            <Typography variant="h4">Add New Service</Typography>
-          </Box>
-
-          <Stack
-            spacing={4}
-            direction="row"
-            sx={{
-              flexGrow: 1,
-              height: "100%",
-              alignItems: "center",
-            }}
-          >
-            <Card
-              sx={{
-                width: "fit-content",
-                height: "fit-content",
-              }}
-            >
-              <Typography variant="h5" sx={{ p: 2 }}>
-                Service Info
-              </Typography>
-              <Divider />
-              <Stack spacing={2} sx={{ p: 3 }}>
-                <Stack spacing={2} direction="row">
-                  <TextField
-                    required
-                    label="Address"
-                    onChange={handleAddressChange}
-                    sx={{ flexGrow: 1, maxWidth: "auto" }}
-                    error={error.hasOwnProperty("address")}
-                    helperText={
-                      error.hasOwnProperty("address") ? error.address[0] : " "
-                    }
-                  />
-                  <Button variant="outlined" startIcon={<Search />}>
-                    Find Location
-                  </Button>
-                </Stack>
-                <TextField
-                  type="number"
-                  error={error.hasOwnProperty("maximum_capacity")}
-                  helperText={
-                    error.hasOwnProperty("maximum_capacity")
-                      ? error.maximum_capacity[0]
-                      : " "
-                  }
-                  value={capacity}
-                  onChange={handleCapacityChange}
-                  InputProps={{
-                    inputProps: {
-                      min: 0,
-                    },
-                  }}
-                  label="Capacity"
-                />
-                <Stack
-                  spacing={2}
-                  direction="row"
-                  sx={{ alignItems: "center" }}
-                >
-                  <Typography variant="h6" sx={{ flexGrow: 1 }}>
-                    Arrival Time
-                  </Typography>
-                  <TextField
-                    label="Hour"
-                    select
-                    sx={{ flexGrow: 1 }}
-                    value={arrivalTime.hour}
-                    onChange={handleArrivalHourChange}
-                    SelectProps={{
-                      MenuProps: { PaperProps: { sx: { maxHeight: 200 } } },
-                    }}
-                  >
-                    {[...Array(24).keys()].map((n) => (
-                      <MenuItem value={n}>{n}</MenuItem>
-                    ))}
-                  </TextField>
-                  <TextField
-                    label="Minute"
-                    select
-                    sx={{ flexGrow: 1 }}
-                    value={arrivalTime.minute}
-                    onChange={handleArrivalMinuteChange}
-                    SelectProps={{
-                      MenuProps: { PaperProps: { sx: { maxHeight: 200 } } },
-                    }}
-                  >
-                    {[...Array(60).keys()].map((n) => (
-                      <MenuItem value={n}>{n}</MenuItem>
-                    ))}
-                  </TextField>
-                </Stack>
-                <Stack
-                  spacing={2}
-                  direction="row"
-                  sx={{ alignItems: "center" }}
-                >
-                  <Typography variant="h6" sx={{ flexGrow: 1 }}>
-                    Return Time
-                  </Typography>
-                  <TextField
-                    label="Hour"
-                    select
-                    sx={{ flexGrow: 1 }}
-                    value={returnTime.hour}
-                    onChange={handleReturnHourChange}
-                    SelectProps={{
-                      MenuProps: { PaperProps: { sx: { maxHeight: 200 } } },
-                    }}
-                  >
-                    {[...Array(24).keys()].map((n) => (
-                      <MenuItem value={n}>{n}</MenuItem>
-                    ))}
-                  </TextField>
-                  <TextField
-                    label="Minute"
-                    select
-                    sx={{ flexGrow: 1 }}
-                    value={returnTime.minute}
-                    onChange={handleReturnMinuteChange}
-                    SelectProps={{
-                      MenuProps: { PaperProps: { sx: { maxHeight: 200 } } },
-                    }}
-                  >
-                    {[...Array(60).keys()].map((n) => (
-                      <MenuItem value={n}>{n}</MenuItem>
-                    ))}
-                  </TextField>
-                </Stack>
-                <Stack
-                  spacing={2}
-                  direction="row"
-                  sx={{ alignItems: "center" }}
-                >
-                  <Typography
-                    variant="h6"
-                    sx={{ flexGrow: 1, maxWidth: "fit-content" }}
-                  >
-                    Working Days
-                  </Typography>
-                  {["Sat", "Sun", "Mon", "Teu", "Wed", "Thu", "Fri"].map(
-                    (day) => (
-                      <FormControlLabel
-                        control={<Checkbox />}
-                        label={day}
-                        value={day}
-                        checked={workingDays[day]}
-                        onChange={handleWorkingDaysChange}
-                      />
-                    )
-                  )}
-                  <Button onClick={clearWorkingDays} variant="text">
-                    Clear All
-                  </Button>
-                </Stack>
-                <TextField
-                  label="Details"
-                  onChange={handleDetailsChange}
-                  fullWidth
-                  multiline
-                  rows={6}
-                  error={error.hasOwnProperty("details")}
-                  helperText={
-                    error.hasOwnProperty("details") ? error.details[0] : " "
-                  }
-                />
-                <Stack
-                  spacing={2}
-                  direction="row"
-                  sx={{ justifyContent: "flex-end" }}
-                >
-                  <Button href="/my/transportation" variant="outlined">
-                    Cancel
-                  </Button>
-                  <Button onClick={handleSubmit} variant="contained">
-                    Add
-                  </Button>
-                </Stack>
-              </Stack>
-            </Card>
-          </Stack>
-        </Stack>
+				<Stack
+					spacing={4}
+					direction="row"
+					sx={{
+						flexGrow: 1,
+						height: "100%",
+						alignItems: "center",
+						justifyContent: "center",
+					}}
+				>
+					<Card
+						sx={{
+							width: "fit-content",
+							height: "fit-content",
+						}}
+					>
+						<Typography variant="h5" sx={{ p: 2 }}>
+							New Service
+						</Typography>
+						<Divider />
+						<Stack spacing={2} sx={{ p: 3 }}>
+							<TextField
+								required
+								fullWidth
+								label="Address"
+								onChange={handleAddressChange}
+								sx={{ flexGrow: 1, maxWidth: "auto" }}
+								error={error.hasOwnProperty("address")}
+								helperText={
+									error.hasOwnProperty("address") ? error.address[0] : " "
+								}
+							/>
+							<TextField
+								type="number"
+								error={error.hasOwnProperty("maximum_capacity")}
+								helperText={
+									error.hasOwnProperty("maximum_capacity")
+										? error.maximum_capacity[0]
+										: " "
+								}
+								value={capacity}
+								onChange={handleCapacityChange}
+								InputProps={{
+									inputProps: {
+										min: 0,
+									},
+								}}
+								label="Capacity"
+							/>
+							<Stack
+								spacing={2}
+								direction="row"
+								sx={{ alignItems: "center" }}
+							>
+								<Typography variant="h6" sx={{ flexGrow: 1 }}>
+									Arrival Time
+								</Typography>
+								<TextField
+									label="Hour"
+									select
+									sx={{ flexGrow: 1 }}
+									value={arrivalTime.hour}
+									onChange={handleArrivalHourChange}
+									SelectProps={{
+										MenuProps: { PaperProps: { sx: { maxHeight: 200 } } },
+									}}
+								>
+									{[...Array(24).keys()].map((n) => (
+										<MenuItem value={n}>{n}</MenuItem>
+									))}
+								</TextField>
+								<TextField
+									label="Minute"
+									select
+									sx={{ flexGrow: 1 }}
+									value={arrivalTime.minute}
+									onChange={handleArrivalMinuteChange}
+									SelectProps={{
+										MenuProps: { PaperProps: { sx: { maxHeight: 200 } } },
+									}}
+								>
+									{[...Array(60).keys()].map((n) => (
+										<MenuItem value={n}>{n}</MenuItem>
+									))}
+								</TextField>
+							</Stack>
+							<Stack
+								spacing={2}
+								direction="row"
+								sx={{ alignItems: "center" }}
+							>
+								<Typography variant="h6" sx={{ flexGrow: 1 }}>
+									Return Time
+								</Typography>
+								<TextField
+									label="Hour"
+									select
+									sx={{ flexGrow: 1 }}
+									value={returnTime.hour}
+									onChange={handleReturnHourChange}
+									SelectProps={{
+										MenuProps: { PaperProps: { sx: { maxHeight: 200 } } },
+									}}
+								>
+									{[...Array(24).keys()].map((n) => (
+										<MenuItem value={n}>{n}</MenuItem>
+									))}
+								</TextField>
+								<TextField
+									label="Minute"
+									select
+									sx={{ flexGrow: 1 }}
+									value={returnTime.minute}
+									onChange={handleReturnMinuteChange}
+									SelectProps={{
+										MenuProps: { PaperProps: { sx: { maxHeight: 200 } } },
+									}}
+								>
+									{[...Array(60).keys()].map((n) => (
+										<MenuItem value={n}>{n}</MenuItem>
+									))}
+								</TextField>
+							</Stack>
+							<Stack
+								spacing={2}
+								direction="row"
+								sx={{ alignItems: "center" }}
+							>
+								<Typography
+									variant="h6"
+									sx={{ flexGrow: 1, maxWidth: "50vh" }}
+								>
+									Working Days
+								</Typography>
+								{["Sat", "Sun", "Mon", "Teu", "Wed", "Thu", "Fri"].map(
+									(day) => (
+										<FormControlLabel
+											control={<Checkbox />}
+											label={day}
+											value={day}
+											checked={workingDays[day]}
+											onChange={handleWorkingDaysChange}
+										/>
+									)
+								)}
+								<Button onClick={clearWorkingDays} variant="text">
+									Clear All
+								</Button>
+							</Stack>
+							<TextField
+								label="Details"
+								onChange={handleDetailsChange}
+								fullWidth
+								multiline
+								rows={6}
+								error={error.hasOwnProperty("details")}
+								helperText={
+									error.hasOwnProperty("details") ? error.details[0] : " "
+								}
+							/>
+							<Stack
+								spacing={2}
+								direction="row"
+								sx={{ justifyContent: "flex-end" }}
+							>
+								<Button onClick={() => navigate("/my/transportation")} variant="outlined">
+									Cancel
+								</Button>
+								<Button onClick={handleSubmit} variant="contained">
+									Add
+								</Button>
+							</Stack>
+						</Stack>
+					</Card>
+				</Stack>
       </Container>
-      <Box
-        sx={{
-          flexGrow: 1,
-          maxWidth: "auto",
-          height: "880px",
-        }}
-      >
-        <img
-          style={{
-            width: "700px",
-            height: "100%",
-            objectFit: "none",
-          }}
-          src={mapPlaceholder}
-        />
-      </Box>
     </Box>
   );
 };

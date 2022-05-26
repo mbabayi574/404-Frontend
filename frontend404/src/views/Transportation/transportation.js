@@ -3,141 +3,147 @@ import Card from "@mui/material/Card";
 import Stack from "@mui/material/Stack";
 import Button from "@mui/material/Button";
 import Container from "@mui/material/Container";
-import TextField from "@mui/material/TextField";
-import Typography from "@mui/material/Typography";
-import InputAdornment from "@mui/material/InputAdornment";
 import AddIcon from "@mui/icons-material/Add";
-import SearchIcon from "@mui/icons-material/Search";
-import { useContext, useEffect, useState } from "react";
-import ServiceCard from "components/transportation/serviceCard";
-import mapPlaceholder from "images/map-placeholder.png";
-import axios from "axios";
-import { TokenContext } from "App";
+import { useEffect, useState } from "react";
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableHead from '@mui/material/TableHead';
+import TableContainer from '@mui/material/TableContainer';
+import TableRow from '@mui/material/TableRow';
+import { useNavigate } from "react-router-dom";
+import ServiceItem, { daysOfWeek } from './components/serviceItem';
+import useAPI from "useAPI";
 
 const Transportation = () => {
-  const [services, setServices] = useState([]);
-  const {token, } = useContext(TokenContext);
+	const [services, setServices] = useState([]);
+	const [username, setUsername] = useState([]);
+	const [role, setRole] = useState("");
+	const api = useAPI();
+	const navigate = useNavigate();
 
-  useEffect(() => {
-    var config = {
-      method: "get",
-      url: "http://404g.pythonanywhere.com//ServiceCounter/admintransportations/",
-      headers: {
-        Accept: "application/json",
-        Authorization: "Bearer " + token,
-      },
-    };
-    axios(config)
-      .then((response) => {
-        console.log(response);
-        console.log(response.data);
-        if (response.status == 200) {
-          setServices(
-            response.data.filter(
-              (service) => service.address && service.Return_time
-            )
-          );
-        }
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }, []);
+	const loadServices = () => {
+		var config = {
+			method: "get",
+			url: "auth/users/me",
+			headers: {
+				Accept: "application/json",
+			},
+		};
+		api(config)
+			.then((response) => {
+				if (response.status == 200) {
+					setUsername(response.data.username);
+					setRole(response.data.role);
+				}
+			})
+			.catch((error) => {
+				console.log(error);
+				return;
+			});
+		var config = {
+			method: "get",
+			url: "ServiceCounter/transportation/employee/showlists",
+			headers: {
+				Accept: "application/json",
+			},
+		};
+		api(config)
+			.then((response) => {
+				if (response.status == 200) {
+					setServices(
+						response.data
+					);
+				}
+			})
+			.catch((error) => {
+				console.log(error);
+			});
+	}
 
-  return (
-    <Box
-      component="main"
-      sx={{
-        flexGrow: 1,
-        display: "flex",
-        flexDirection: "row",
-      }}
-    >
-      <Container
-        maxWidth={false}
-        sx={{
-          p: 3,
-          height: "100%",
-        }}
-      >
-        <Stack spacing={3} sx={{ height: "100%", width: "100%" }}>
-          <Box>
-            <Typography variant="h4">Transport Services</Typography>
-          </Box>
+	useEffect(() => {
+		loadServices();
+	}, []);
 
-          <Stack
-            spacing={4}
-            direction="row"
-            sx={{
-              flexGrow: 1,
-              height: "100%",
-              alignItems: "center",
-            }}
-          >
-            <Stack
-              spacing={3}
-              sx={{
-								flexGrow: 1,
-                maxWidth: "auto",
-                height: "100%",
-                alignItems: "center",
-              }}
-            >
-              <Card sx={{ width: "100%", p: 2 }}>
-                <Stack direction="row" spacing={2} sx={{width: "100%"}}>
-                  <TextField
-                    sx={{
-                      flexGrow: 1,
-                      maxWidth: "auto",
-                    }}
-                    InputProps={{
-                      startAdornment: (
-                        <InputAdornment position="start">
-                          <SearchIcon />
-                        </InputAdornment>
-                      ),
-                    }}
-                    placeholder="Search address"
-                    variant="outlined"
-                  />
-                  <Button variant="contained" href="/my/transportation/add" startIcon={<AddIcon />}>
-                    Add Service
-                  </Button>
-                </Stack>
-              </Card>
-              <Stack
-                spacing={2}
-                sx={{
-                  width: "fit-content",
-                }}
-              >
-                {services.map((service) => (
-                  <ServiceCard service={service} />
-                ))}
-              </Stack>
-            </Stack>
-          </Stack>
-        </Stack>
-      </Container>
-      <Box
-        sx={{
-          flexGrow: 1,
-          maxWidth: "auto",
-          height: "885px",
-          position: "sticky",
-          top: 88,
-        }}
-      >
-        <img
-          style={{
-            width: "760px",
-            height: "100%",
-            objectFit: "none",
-          }}
-          src={mapPlaceholder}
-        />
-      </Box>
-    </Box>
-  );
+	return (
+		<Box
+			component="main"
+			sx={{
+				flexGrow: 1,
+				display: "flex",
+				flexDirection: "row",
+			}}
+		>
+			<Container
+				maxWidth={false}
+				sx={{
+					p: 3,
+					height: "93vh",
+				}}
+			>
+				<Stack
+					spacing={3}
+					sx={{
+						flexGrow: 1,
+						maxWidth: "auto",
+						height: "100%",
+						alignItems: "center",
+					}}
+				>
+					<Card sx={{ p: 1, width: "100%", height: "100%" }}>
+						<TableContainer sx={{ width: "100%", maxHeight: "780px" }}>
+							<Table stickyHeader aria-label="simple table">
+								<TableHead>
+									<TableRow>
+										<TableCell>
+											{
+												role === "C" && (
+													<Button
+														size="small"
+														variant="contained"
+														startIcon={<AddIcon />}
+														onClick={() => navigate("/my/transportation/add")}
+													>
+														Add Service
+													</Button>
+												)
+											}
+										</TableCell>
+										<TableCell>Address</TableCell>
+										<TableCell align="center">Arrival Time</TableCell>
+										<TableCell align="center">Return Time</TableCell>
+										<TableCell align="center" colSpan={7}>Days</TableCell>
+										<TableCell align="right">Capacity</TableCell>
+										<TableCell />
+									</TableRow>
+									<TableRow>
+										<TableCell />
+										<TableCell />
+										<TableCell />
+										<TableCell />
+										{daysOfWeek.map((day) => (
+											<TableCell size="small" align="center">{day}</TableCell>
+										))}
+										<TableCell />
+										<TableCell />
+									</TableRow>
+								</TableHead>
+								<TableBody>
+									{services.map((service) => (
+										<ServiceItem
+											service={service}
+											role={role}
+											username={username}
+											loadServices={loadServices}
+										/>
+									))}
+								</TableBody>
+							</Table>
+						</TableContainer>
+					</Card>
+				</Stack>
+			</Container>
+		</Box>
+	);
 };
 export default Transportation;
