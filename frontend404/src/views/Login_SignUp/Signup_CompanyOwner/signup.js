@@ -1,14 +1,8 @@
-import * as React from "react";
+import { useState, useEffect } from "react";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
-import Radio from "@mui/material/Radio";
-import RadioGroup from "@mui/material/RadioGroup";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import FormControl from "@mui/material/FormControl";
-import FormLabel from "@mui/material/FormLabel";
-import Link from "@mui/material/Link";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
@@ -16,7 +10,6 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import MenuItem from "@mui/material/MenuItem";
 import Card from "@mui/material/Card";
-import axios, { Axios } from "axios";
 import { useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
 import Tabs from "@mui/material/Tabs";
@@ -66,8 +59,10 @@ function SignUp() {
 	const api = useAPI();
 	let navigate = useNavigate();
 
-	const [registrant_role, setRegistrant_Role] = React.useState("owner");
-	const [value, setValue] = React.useState(0);
+  const [companies, setCompanies] = useState([]);
+  const [company, setCompany] = useState(null);
+	const [registrant_role, setRegistrant_Role] = useState("owner");
+	const [value, setValue] = useState(0);
 
 	const handleChange = (event, newValue) => {
 		const new_role_value = newValue == 0 ? "owner" : "employee";
@@ -77,9 +72,6 @@ function SignUp() {
 	const handle_Role_Change = (event) => {
 		setRegistrant_Role(event.target.value);
 	};
-	const companies = ["BMW Co", "Mazmaz Company", "Pepsi"];
-
-	const [company, setCompany] = React.useState("BMW Co");
 
 	const handleChangeCompany = (event) => {
 		setCompany(event.target.value);
@@ -125,7 +117,7 @@ function SignUp() {
         last_name: data.get("lastName"),
         username: data.get("phonenumber"),
         email: data.get("email"),
-        company: "company",
+        company: company,
         password: data.get("password"),
       });
       var employeeconfig = {
@@ -147,6 +139,17 @@ function SignUp() {
     }
 	};
 
+	useEffect(() => {
+		api({
+			url: "api/getallcompany/"
+		}).then(response => {
+			console.log(response);
+			if (response.status === 200) {
+				setCompanies(response.data.map(company => company.company_name));
+			}
+		})
+	}, [])
+
 	return (
 		<div
 			style={{
@@ -164,9 +167,9 @@ function SignUp() {
 					<div style={{ padding: "10px", height: "100%" }}>
 						<CssBaseline />
 						<Box
-							component="form"
-							noValidate
-							onSubmit={handleSubmit}
+							// component="form"
+							// noValidate
+							// onSubmit={handleSubmit}
 							sx={{
 								mt: 3,
 								height: "100%",
@@ -200,29 +203,6 @@ function SignUp() {
 										</Tabs>
 										<TabPanel value={value} index={0}></TabPanel>
 										<TabPanel value={value} index={1}></TabPanel>
-
-										{/* <FormControl>
-                        <FormLabel id="registrant-role-radio-buttons-group">
-                          Role :
-                        </FormLabel>
-                        <RadioGroup
-                          aria-labelledby="registrant-role-radio-buttons-group"
-                          name="registrant-role-buttons-group"
-                          value={registrant_role}
-                          onChange={handle_Role_Change}
-                        >
-                          <FormControlLabel
-                            value="owner"
-                            control={<Radio />}
-                            label="Owner"
-                          />
-                          <FormControlLabel
-                            value="employee"
-                            control={<Radio />}
-                            label="Employee"
-                          />
-                        </RadioGroup>
-                      </FormControl> */}
 									</Grid>
 									<Grid item xs={12} sm={6}>
 										<TextField
@@ -246,7 +226,7 @@ function SignUp() {
 										/>
 									</Grid>
 									{registrant_role === "owner" && (
-										<React.Fragment>
+										<>
 											<Grid item xs={12}>
 												<TextField
 													required
@@ -266,7 +246,7 @@ function SignUp() {
 													multiline
 												/>
 											</Grid>
-										</React.Fragment>
+										</>
 									)}
 									<Grid item xs={12}>
 										<TextField
@@ -301,7 +281,7 @@ function SignUp() {
 										/>
 									</Grid>
 									{registrant_role === "employee" && (
-										<React.Fragment>
+										<>
 											<Grid item xs={12}>
 												<TextField
 													id="outlined-select-company"
@@ -319,7 +299,7 @@ function SignUp() {
 													))}
 												</TextField>
 											</Grid>
-										</React.Fragment>
+										</>
 									)}
 								</Grid>
 								<Box sx={{flexGrow: 1}} />
@@ -337,7 +317,6 @@ function SignUp() {
 									<Grid item>
 										<Button
 											item
-											// type="submit"
 											onClick={() => {
 												navigate("/login");
 											}}
