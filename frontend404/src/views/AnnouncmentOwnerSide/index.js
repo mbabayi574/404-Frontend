@@ -1,7 +1,7 @@
 import React, { useState, useRef, useContext } from "react";
 import JoditEditor from "jodit-react";
 import Layout from "./components/Layout";
-import { Button, Grid, Paper, Snackbar, Alert } from "@mui/material";
+import { Button, Grid, Paper, Snackbar, Alert, TextField } from "@mui/material";
 import axios from "axios";
 import { TokenContext } from "App";
 
@@ -103,6 +103,8 @@ const RichtexteditorAnnouncment = ({}) => {
         >
           <Grid item xs={12}>
             <Paper style={{ margin: 16, padding: 16 }}>
+              <TextField label="Title" size="small" fullWidth />
+              <div style={{ marginBottom: "10px" }}></div>
               <JoditEditor
                 ref={editor}
                 value={content}
