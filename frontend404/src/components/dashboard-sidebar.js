@@ -1,7 +1,5 @@
 import PropTypes from 'prop-types';
-import { Box, Button, Divider, Drawer, Typography, useMediaQuery } from '@mui/material';
-import OpenInNewIcon from '@mui/icons-material/OpenInNew';
-import { Selector as SelectorIcon } from '../icons/selector';
+import { Box, Drawer, useMediaQuery } from '@mui/material';
 import { Logo } from './logo';
 import { NavItem } from './nav-item';
 import DashboardIcon from "@mui/icons-material/Dashboard";
@@ -48,20 +46,10 @@ const mainItems = [
     icon: (<FastfoodIcon fontSize="small" />),
     title: 'Food & Nutrition'
   },
-  // {
-  //   href: true ? '/my/boardemp' : '/my/announcementsender',
-  //   icon: (<NotificationsIcon fontSize="small" />),
-  //   title: 'Bulletin Board'
-  // },
   {
-    href: '/my/boardemp',
+    href: '/my/bulletin_board',
     icon: (<NotificationsIcon fontSize="small" />),
-    title: 'Bulletin Board (Employee)'
-  },
-  {
-    href: '/my/announcementsender',
-    icon: (<NotificationsIcon fontSize="small" />),
-    title: 'Bulletin Board (Manager)'
+    title: 'Bulletin Board'
   },
   {
     href: '/my/transportation',
