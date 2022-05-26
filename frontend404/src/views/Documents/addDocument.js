@@ -10,14 +10,13 @@ import IconButton from "@mui/material/IconButton";
 import ClearIcon from '@mui/icons-material/Clear';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import AttachFileIcon from '@mui/icons-material/AttachFile';
-import { useState, useContext } from "react";
-import axios from "axios";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { TokenContext } from "App";
+import useAPI from "useAPI";
 
 const AddDocument = () => {
-  const { token } = useContext(TokenContext);
   const navigate = useNavigate();
+	const api = useAPI();
   const [error, setError] = useState({});
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
@@ -78,15 +77,14 @@ const AddDocument = () => {
 
     var config = {
       method: "post",
-      url: "http://127.0.0.1:8000/notepad/note/",
+      url: "notepad/note/",
       headers: {
 				"Content-Type": "multipart/form-data",
-        Authorization: "Bearer " + token,
       },
       data: formData,
     };
 
-    axios(config)
+    api(config)
       .then((response) => {
         if (response.status === 200) {
           navigate("/my/documents");

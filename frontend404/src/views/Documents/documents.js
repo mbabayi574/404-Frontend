@@ -6,15 +6,14 @@ import Divider from '@mui/material/Divider';
 import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
 import AddIcon from "@mui/icons-material/Add";
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
-import { TokenContext } from "App";
+import useAPI from "useAPI";
 
 const Documents = () => {
   const [documents, setDocuments] = useState([]);
-  const {token, } = useContext(TokenContext);
 	const navigate = useNavigate();
+	const api = useAPI();
 
 	const DocumentItem = ({document}) => {
 		const handleViewDocument = () => {
@@ -64,23 +63,20 @@ const Documents = () => {
 	}
 
   useEffect(() => {
-    var config = {
-        method: "get",
-        url: "http://127.0.0.1:8000/notepad/note/showmynotes",
-        headers: {
-          Authorization: "Bearer " + token,
-        },
-      };
-      axios(config)
-        .then((response) => {
-          console.log(response.data);
-          if (response.status == 200) {
-            setDocuments(response.data);
-          }
-        })
-        .catch((error) => {
-          console.log(error);
-        });
+		var config = {
+			method: "get",
+			url: "notepad/note/showmynotes",
+		};
+		api(config)
+			.then((response) => {
+				console.log(response.data);
+				if (response.status == 200) {
+					setDocuments(response.data);
+				}
+			})
+			.catch((error) => {
+				console.log(error);
+			});
   }, []);
 
   return (

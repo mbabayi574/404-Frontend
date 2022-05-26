@@ -13,20 +13,19 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DeleteIcon from '@mui/icons-material/Delete';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import { useState, useContext, useEffect } from "react";
-import axios from "axios";
+import { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { TokenContext } from "App";
 import FileItem from "./fileItem";
+import useAPI from "useAPI";
 
 
 const ViewDocument = () => {
-	console.log(useLocation());
-  const { token } = useContext(TokenContext);
+
 	const {state} = useLocation();
 	const { id, title, text, files_set } = state;
 	const [ files, setFiles ] = useState([]);
   const navigate = useNavigate();
+	const api = useAPI();
 	useEffect(() => {
 		setFiles(files_set);
 	}, [])
@@ -34,16 +33,12 @@ const ViewDocument = () => {
 	const [openDialog, setOpenDialog] = useState(false);
 
 	const handleDelete = () => {
-		// DELETE API Call
 		setOpenDialog(false);
 		var config = {
 			method: "delete",
-			url: `http://404g.pythonanywhere.com/notepad/note/deltenote/${id}`,
-			headers: {
-				Authorization: "Bearer " + token,
-			},
+			url: `notepad/note/deltenote/${id}`,
 		};
-		axios(config)
+		api(config)
 			.then((response) => {
 				console.log(response.data);
 				if (response.status === 200) {

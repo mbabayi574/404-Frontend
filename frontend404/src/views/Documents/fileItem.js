@@ -6,27 +6,23 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import ClearIcon from '@mui/icons-material/Clear';
-import { useState, useContext } from "react";
+import { useState } from "react";
 import { saveAs } from 'file-saver'
-import axios from "axios";
-import { TokenContext } from "App";
+import useAPI from "useAPI";
 
 const FileItem = ({ file, delete: deleteFile }) => {
 	const [openDialog, setOpenDialog] = useState(false);
-	const { token } = useContext(TokenContext);
+	const api = useAPI();
 	const name = file.file.split("/").pop();
 
 	const handleDownload = () => {
 		var config = {
 			method: "get",
-			url: `http://127.0.0.1:8000${file.file}`,
+			url: file.file,
 			responseType: "blob",
-			headers: {
-				Authorization: "Bearer " + token,
-			},
 		};
-		(axios(config)
-			.then(response => response.data))
+		api(config)
+			.then(response => response.data)
 			.then(blob => saveAs(blob, name));
 	}
 
@@ -34,12 +30,9 @@ const FileItem = ({ file, delete: deleteFile }) => {
 		setOpenDialog(false);
 		var config = {
 			method: "delete",
-			url: `http://127.0.0.1:8000/notepad/note/showmynotes/deletefile/${file.id}`,
-			headers: {
-				Authorization: "Bearer " + token,
-			},
+			url: `notepad/note/showmynotes/deletefile/${file.id}`,
 		};
-		axios(config)
+		api(config)
 			.then((response) => {
 				console.log(response.data);
 				if (response.status === 200) {
