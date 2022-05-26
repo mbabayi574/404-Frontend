@@ -28,7 +28,7 @@ const ServiceCard = (props) => {
 		sunday,
 		monday,
 		tuesday,
-		wedensday,
+		wednesday,
 		thursday,
 		friday,
 		...others } = props.service;
@@ -38,7 +38,7 @@ const ServiceCard = (props) => {
 		'Sun': sunday,
 		'Mon': monday,
 		'Tue': tuesday,
-		'Wed': wedensday,
+		'Wed': wednesday,
 		'Thu': thursday,
 		'Fri': friday,
 	}

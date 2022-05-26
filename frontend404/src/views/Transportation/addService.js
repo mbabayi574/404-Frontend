@@ -117,14 +117,15 @@ const TransportationAddService = () => {
       sunday: workingDays["Sun"],
       monday: workingDays["Mon"],
       tuesday: workingDays["Tue"],
-      wedensday: workingDays["Wed"],
+      wednesday: workingDays["Wed"],
       thursday: workingDays["Thu"],
       friday: workingDays["Fri"],
     });
 
     var config = {
       method: "post",
-      url: "http://404g.pythonanywhere.com/ServiceCounter/admintransportations/",
+      // url: "http://404g.pythonanywhere.com/ServiceCounter/admintransportations/",
+      url: "http://127.0.0.1:8000/ServiceCounter/transportation/admintransportations/",
       headers: {
         "Content-Type": "application/json",
         Authorization: "Bearer " + token,

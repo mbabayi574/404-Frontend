@@ -21,7 +21,8 @@ const Transportation = () => {
   useEffect(() => {
     var config = {
       method: "get",
-      url: "http://404g.pythonanywhere.com//ServiceCounter/admintransportations/",
+    //   url: "http://404g.pythonanywhere.com//ServiceCounter/admintransportations/",
+      url: "http://127.0.0.1:8000/ServiceCounter/transportation/admintransportations/",
       headers: {
         Accept: "application/json",
         Authorization: "Bearer " + token,

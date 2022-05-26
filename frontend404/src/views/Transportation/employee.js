@@ -33,7 +33,7 @@ const servicesPlaceholder = [
 		sunday: true,
 		monday: true,
 		tuesday: true,
-		wedensday: true,
+		wednesday: true,
 		thursday: false,
 		friday: false,
 		subscribed: true,
@@ -49,7 +49,7 @@ const servicesPlaceholder = [
 		sunday: true,
 		monday: true,
 		tuesday: true,
-		wedensday: true,
+		wednesday: true,
 		thursday: false,
 		friday: false,
 		subscribed: false,
@@ -65,7 +65,7 @@ const servicesPlaceholder = [
 		sunday: false,
 		monday: false,
 		tuesday: true,
-		wedensday: false,
+		wednesday: false,
 		thursday: true,
 		friday: false,
 		subscribed: false,
@@ -81,7 +81,7 @@ const servicesPlaceholder = [
 		sunday: false,
 		monday: false,
 		tuesday: true,
-		wedensday: false,
+		wednesday: false,
 		thursday: true,
 		friday: false,
 		subscribed: true,
@@ -91,36 +91,119 @@ const servicesPlaceholder = [
 const daysOfWeek = ['Sat', 'Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri']
 
 const TransportationEmployee = () => {
-  const [services, setServices] = useState([]);
-  const {token, } = useContext(TokenContext);
+	const [services, setServices] = useState([]);
+	const [username, setUsername] = useState([]);
+	const { token } = useContext(TokenContext);
 	const navigate = useNavigate();
 
 	const loadServices = () => {
-		setServices(servicesPlaceholder);
+		var config = {
+      method: "get",
+      url: "http://127.0.0.1:8000/auth/users/me",
+      headers: {
+        Accept: "application/json",
+        Authorization: "Bearer " + token,
+      },
+    };
+    axios(config)
+      .then((response) => {
+        if (response.status == 200) {
+					setUsername(response.data.username);
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+				return;
+      });
+		var config = {
+      method: "get",
+      url: "http://127.0.0.1:8000/ServiceCounter/transportation/employee/showlists",
+      headers: {
+        Accept: "application/json",
+        Authorization: "Bearer " + token,
+      },
+    };
+    axios(config)
+      .then((response) => {
+        // console.log(response.data);
+        if (response.status == 200) {
+          setServices(
+						response.data
+          );
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+		// setServices(servicesPlaceholder);
 	}
 
-  useEffect(() => {
+	useEffect(() => {
 		loadServices();
-  }, []);
+	}, []);
 
-	const ServiceItem = ({service}) => {
+	const ServiceItem = ({ service }) => {
 		const [open, setOpen] = useState(false);
- 		const labelId = `table-checkbox-${service.id}`;
+		const labelId = `table-checkbox-${service.id}`;
+		// console.log(service.user);
+		// console.log(username);
+		// console.log(service.user.find(user => user.username === username));
+		const subscribed = service.user.find(user => user.username === username) !== undefined;
 		const days = {
 			'Sat': service.saturday,
 			'Sun': service.sunday,
 			'Mon': service.monday,
 			'Tue': service.tuesday,
-			'Wed': service.wedensday,
+			'Wed': service.wednesday,
 			'Thu': service.thursday,
 			'Fri': service.friday,
 		}
 		const handleToggleSubscription = () => {
-			if (service.isSubscribed) {
-				// Unsubscribe
+			if (subscribed) {
+				handleUnsubscribe();
 			} else {
-				// Subscribe
+				handleSubscribe();
 			}
+		}
+		const handleSubscribe = () => {
+			var config = {
+				method: "patch",
+				url: `http://127.0.0.1:8000/ServiceCounter/transportation/employee/showlists/reserve/${service.id}`,
+				headers: {
+					Accept: "application/json",
+					Authorization: "Bearer " + token,
+				},
+			};
+			axios(config)
+				.then((response) => {
+					console.log(response.data);
+					if (response.status == 200) {
+						loadServices();
+					}
+				})
+				.catch((error) => {
+					console.log(error);
+				});
+		}
+		const handleUnsubscribe = () => {
+			var config = {
+				method: "patch",
+				url: `http://127.0.0.1:8000/ServiceCounter/transportation/employee/showlists/unreserve/${service.id}`,
+				headers: {
+					Accept: "application/json",
+					Authorization: "Bearer " + token,
+				},
+			};
+			axios(config)
+				.then((response) => {
+					console.log(response.data);
+					if (response.status == 200) {
+						loadServices();
+					}
+				})
+				.catch((error) => {
+					console.log(error);
+				});
 		}
 		const handleToggleExpand = () => {
 			setOpen(!open);
@@ -135,7 +218,7 @@ const TransportationEmployee = () => {
 					<TableCell>
 						<IconButton onClick={handleToggleExpand}>
 							{
-								open ? <ExpandLessIcon/> : <ExpandMoreIcon/> 
+								open ? <ExpandLessIcon /> : <ExpandMoreIcon />
 							}
 						</IconButton>
 					</TableCell>
@@ -160,11 +243,13 @@ const TransportationEmployee = () => {
 					))}
 					<TableCell align="right">{service.maximum_capacity} Seats</TableCell>
 					<TableCell align="center">
-						<Button sx={{alignSelf: "center", width: "100px"}} size="small"
-								variant={service.subscribed ? "outlined" : "contained"}
-								onChange={handleToggleSubscription}
+						<Button sx={{ alignSelf: "center", width: "100px" }} size="small"
+							variant={subscribed ? "outlined" : "contained"}
+							// onChange={handleToggleSubscription}
+							disabled={!subscribed && service.maximum_capacity === 0}
+							onClick={subscribed ? handleUnsubscribe : handleSubscribe}
 						>
-							{service.subscribed ? "Subscribed" : "Subscribe"}
+							{subscribed ? "Subscribed" : "Subscribe"}
 						</Button>
 					</TableCell>
 				</TableRow>
@@ -181,26 +266,26 @@ const TransportationEmployee = () => {
 		)
 	}
 
-  return (
-    <Box
-      component="main"
-      sx={{
-        flexGrow: 1,
-        display: "flex",
-        flexDirection: "row",
-      }}
-    >
-      <Container
-        maxWidth={false}
-        sx={{
-          p: 3,
-          height: "93vh",
-        }}
-      >
-        <Stack spacing={3} sx={{ height: "100%", width: "100%" }}>
-          <Box>
-            <Typography variant="h4">Transport Services</Typography>
-          </Box>
+	return (
+		<Box
+			component="main"
+			sx={{
+				flexGrow: 1,
+				display: "flex",
+				flexDirection: "row",
+			}}
+		>
+			<Container
+				maxWidth={false}
+				sx={{
+					p: 3,
+					height: "93vh",
+				}}
+			>
+				<Stack spacing={3} sx={{ height: "100%", width: "100%" }}>
+					<Box>
+						<Typography variant="h4">Transport Services</Typography>
+					</Box>
 					<Stack
 						spacing={3}
 						sx={{
@@ -210,8 +295,8 @@ const TransportationEmployee = () => {
 							alignItems: "center",
 						}}
 					>
-						<Card sx={{p: 1, width: "100%", height: "100%"}}>
-							<TableContainer sx={{width: "100%", maxHeight: "780px"}}>
+						<Card sx={{ p: 1, width: "100%", height: "100%" }}>
+							<TableContainer sx={{ width: "100%", maxHeight: "780px" }}>
 								<Table stickyHeader aria-label="simple table">
 									<TableHead>
 										<TableRow>
@@ -230,7 +315,7 @@ const TransportationEmployee = () => {
 											<TableCell />
 											{daysOfWeek.map((day) => (
 												<TableCell size="small" align="center">{day}</TableCell>
-												))}
+											))}
 											<TableCell />
 											<TableCell />
 										</TableRow>
@@ -244,9 +329,9 @@ const TransportationEmployee = () => {
 							</TableContainer>
 						</Card>
 					</Stack>
-        </Stack>
-      </Container>
-    </Box>
-  );
+				</Stack>
+			</Container>
+		</Box>
+	);
 };
 export default TransportationEmployee;
