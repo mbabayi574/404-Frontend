@@ -13,7 +13,6 @@ import RichtexteditorAnnouncment from "./views/AnnouncmentOwnerSide";
 import BoardEmp from "./Pages/BoardEmp/index";
 import { DashboardLayout } from "./components/dashboard-layout";
 import NotFound from "./404";
-import TransportationEmployee from "views/Transportation/employee";
 
 ReactDOM.render(
   <React.StrictMode>
@@ -27,7 +26,6 @@ ReactDOM.render(
               <Route exact path="home" element={<Dashboard />} />
               <Route exact path="transportation">
                 <Route index element={<Transportation />} />
-                <Route exact path="subscribe" element={<TransportationEmployee />} />
                 <Route exact path="add" element={<TransportationAddService />} />
               </Route>
               <Route exact path="todoapp" element={<TodoApp />} />

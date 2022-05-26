@@ -56,14 +56,15 @@ function SignUp() {
         },
         first_name: data.get("firstName"),
         last_name: data.get("lastName"),
-        phone: data.get("phonenumber"),
+        username: data.get("phonenumber"),
         email: data.get("email"),
         password: data.get("password"),
       });
 
       var config = {
         method: "post",
-        url: "http://404g.pythonanywhere.com/api/company-owner/signup/",
+        // url: "http://404g.pythonanywhere.com/api/company-owner/signup/",
+        url: "http://127.0.0.1:8000/api/company-owner/signup/",
         headers: {
           "Content-Type": "application/json",
         },
@@ -82,14 +83,15 @@ function SignUp() {
       var employeerequest_data = JSON.stringify({
         first_name: data.get("firstName"),
         last_name: data.get("lastName"),
-        phone: data.get("phonenumber"),
+        username: data.get("phonenumber"),
         email: data.get("email"),
         company: "company",
         password: data.get("password"),
       });
       var employeeconfig = {
         method: "post",
-        url: "http://404g.pythonanywhere.com/api/employee/signup/",
+        // url: "http://404g.pythonanywhere.com/api/employee/signup/",
+        url: "http://127.0.0.1:8000/api/employee/signup/",
         headers: {
           "Content-Type": "application/json",
         },
