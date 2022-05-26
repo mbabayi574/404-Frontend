@@ -53,12 +53,16 @@ export const DashboardNavbar = (props) => {
           >
             <MenuIcon fontSize="small" />
           </IconButton>
-          <Typography variant="h5" color="text.primary">
+          <Typography variant="h5" color="text.primary" sx={{width: "20vw"}}>
             {title}
           </Typography>
           <Box sx={{ flexGrow: 1 }} />
 					<Typography variant="h6" color="text.primary">
-						today: {today.getFullYear()}/{today.getMonth() + 1}/{today.getDate()}
+						Today: {today.getFullYear()} / {today.getMonth() + 1} / {today.getDate()}
+					</Typography>
+          <Box sx={{ flexGrow: 1 }} />
+          <Typography variant="h5" color="text.primary" sx={{width: "20vw", textAlign: "end"}}>
+						{user.first_name} {user.last_name}
 					</Typography>
           <Tooltip title="Logout">
             <IconButton sx={{ ml: 2 }}
@@ -67,29 +71,13 @@ export const DashboardNavbar = (props) => {
               <LogoutIcon fontSize="small" />
             </IconButton>
           </Tooltip>
-          <Tooltip title="Contacts">
-            <IconButton sx={{ ml: 1 }}>
-              <UsersIcon fontSize="small" />
-            </IconButton>
-          </Tooltip>
-          <Tooltip title="Notifications">
-            <IconButton sx={{ ml: 1 }}>
-              <Badge
-                badgeContent={4}
-                color="primary"
-                variant="dot"
-              >
-                <BellIcon fontSize="small" />
-              </Badge>
-            </IconButton>
-          </Tooltip>
           <Avatar
             sx={{
               height: 40,
               width: 40,
               ml: 1
             }}
-            src={avatar}
+            // src={avatar}
           >
             <UserCircleIcon fontSize="small" />
           </Avatar>
