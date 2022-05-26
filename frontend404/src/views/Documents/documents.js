@@ -1,117 +1,15 @@
 import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
-import List from "@mui/material/List";
 import Stack from "@mui/material/Stack";
 import Button from "@mui/material/Button";
 import Divider from '@mui/material/Divider';
-import Tooltip from "@mui/material/Tooltip";
 import Container from "@mui/material/Container";
-import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import AddIcon from "@mui/icons-material/Add";
 import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { TokenContext } from "App";
-
-const documentsPlaceholder = [
-	{
-		id: "1",
-		title: "Diary",
-		content: "Dear Diary\nLorem\tipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-		attachment: null,
-	},
-	{
-		id: "1",
-		title: "Overflow",
-		content: "Dear Diary\nLorem\nLorem\nLorem\nLorem\nLorem\nLorem\nLorem\nLorem\nLorem\nLorem\nLorem\nLorem\nLorem\nLorem\nLorem\nLorem\nLorem\nLorem\nLorem\nLorem\nLorem\nLorem\nLorem\nLorem\nLorem\nLorem\nLorem\nLorem\nLorem\nLorem\nLorem\nLorem\nLorem\nLorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-		attachment: null,
-	},
-	{
-		id: "1",
-		title: "Resume",
-		content: "This is Diyar Hamedi's resume as a frontend developer at 404 Group.",
-		attachment: "Diyar Hamedi.pdf",
-	},
-	{
-		id: "1",
-		title: "Resume",
-		content: "This is Diyar Hamedi's resume as a frontend developer at 404 Group.",
-		attachment: "Diyar Hamedi.pdf",
-	},
-	{
-		id: "1",
-		title: "Resume",
-		content: "This is Diyar Hamedi's resume as a frontend developer at 404 Group.",
-		attachment: "Diyar Hamedi.pdf",
-	},
-	{
-		id: "1",
-		title: "Resume",
-		content: "This is Diyar Hamedi's resume as a frontend developer at 404 Group.",
-		attachment: "Diyar Hamedi.pdf",
-	},
-	{
-		id: "1",
-		title: "Resume",
-		content: "This is Diyar Hamedi's resume as a frontend developer at 404 Group.",
-		attachment: "Diyar Hamedi.pdf",
-	},
-	{
-		id: "1",
-		title: "Resume",
-		content: "This is Diyar Hamedi's resume as a frontend developer at 404 Group.",
-		attachment: "Diyar Hamedi.pdf",
-	},
-	{
-		id: "1",
-		title: "Resume",
-		content: "This is Diyar Hamedi's resume as a frontend developer at 404 Group.",
-		attachment: "Diyar Hamedi.pdf",
-	},
-	{
-		id: "1",
-		title: "Diary",
-		content: "Dear Diary\n\
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-		attachment: null,
-	},
-	{
-		id: "1",
-		title: "Diary",
-		content: "Dear Diary\n\
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-		attachment: null,
-	},
-	{
-		id: "1",
-		title: "Diary",
-		content: "Dear Diary\n\
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-		attachment: null,
-	},
-	{
-		id: "1",
-		title: "Diary",
-		content: "Dear Diary\n\
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-		attachment: null,
-	},
-	{
-		id: "1",
-		title: "Diary",
-		content: "Dear Diary\n\
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-		attachment: null,
-	},
-	{
-		id: "1",
-		title: "Diary",
-		content: "Dear Diary\n\
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-		attachment: null,
-	},
-]
 
 const Documents = () => {
   const [documents, setDocuments] = useState([]);
@@ -130,7 +28,7 @@ const Documents = () => {
 				onClick={handleViewDocument}
 				sx={{
 					width:"100%",
-					height:'100%',
+					height:'fit-content',
 					pt: 1,
 					pb: 0.5,
 					px: 1,
@@ -146,24 +44,43 @@ const Documents = () => {
 						width: "1200px",
 						overflow: "hidden",
 						textOverflow: "ellipsis"
-					}}>{document.content}</Typography>
-					{
-						document.attachment && <Card sx={{
-							px: 1, py: 0,
-							width: "max-content",
-							backgroundColor: "divider"}}
-						>
-							<Typography noWrap variant="caption">{document.attachment}</Typography>
-						</Card>
-					}
+					}}>{document.text}</Typography>
+					<Stack sx={{height: "fit-content"}} spacing={1} direction="row">
+						{
+							document.files_set.map((file) => (
+									<Card sx={{
+										px: 1, py: 0,
+										width: "max-content",
+										backgroundColor: "divider"}}
+									>
+										<Typography noWrap variant="caption">{file.file.split("/").pop()}</Typography>
+									</Card>
+							))
+						}
+					</Stack>
 				</Box>
 			</Stack>
 		)
 	}
 
   useEffect(() => {
-	setDocuments(documentsPlaceholder);
-    // API call
+    var config = {
+        method: "get",
+        url: "http://127.0.0.1:8000/notepad/note/showmynotes",
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      };
+      axios(config)
+        .then((response) => {
+          console.log(response.data);
+          if (response.status == 200) {
+            setDocuments(response.data);
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+        });
   }, []);
 
   return (
@@ -201,13 +118,24 @@ const Documents = () => {
 								divider={<Divider flexItem/>}
 								sx={{
 									width: "100%",
-									flexGrow: 1,
+									height: "80vh",
 									overflowY: "auto",
-									maxHeight: "auto",
 									alignItems: "center",
 								}}
 							>
-								{documents.map((document) => (
+								{documents.length === 0
+									? <Box sx={{
+										width: "100%",
+										height: "80vh",
+										display: "flex",
+										alignItems: "center",
+										justifyContent: "center",
+									}}>
+										<Typography variant="h3">
+											No notes here
+										</Typography>
+									</Box>
+									: documents.map((document) => (
 									<DocumentItem document={document} />
 								))}
 							</Stack>
