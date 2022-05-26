@@ -33,7 +33,6 @@ const BoardEmp = (props) => {
 
   data.map((item, index) => rows.push({ id: index + 1, title: item.title }))
   React.useEffect(() => {
-
     // initialize();
   }, []);
 
@@ -56,8 +55,8 @@ const BoardEmp = (props) => {
       },
     })
       .then(function (response) {
-        console.log('inside the succesful response')
-        console.log("response: ", response)
+        console.log("inside the succesful response");
+        console.log("response: ", response);
         response.data.map((item, index) => {
           data.push(item);
           rows.push({ id: index + 1, title: item.title })
@@ -66,7 +65,7 @@ const BoardEmp = (props) => {
       })
       .catch(function (error) {
         console.log(error);
-        console.log(data)
+        console.log(data);
       });
   };
 
