@@ -136,7 +136,7 @@ const TransportationAddService = () => {
     axios(config)
       .then((response) => {
         if (response.status == 200) {
-          navigate("/transportation");
+          navigate("/my/transportation");
         }
       })
       .catch((error) => {
@@ -149,8 +149,7 @@ const TransportationAddService = () => {
       component="main"
       sx={{
         flexGrow: 1,
-        display: "flex",
-        flexDirection: "row",
+				alignItems: "center"
       }}
     >
       <Container
@@ -172,6 +171,7 @@ const TransportationAddService = () => {
               flexGrow: 1,
               height: "100%",
               alignItems: "center",
+              justifyContent: "center",
             }}
           >
             <Card
@@ -181,25 +181,21 @@ const TransportationAddService = () => {
               }}
             >
               <Typography variant="h5" sx={{ p: 2 }}>
-                Service Info
+                New Service
               </Typography>
               <Divider />
               <Stack spacing={2} sx={{ p: 3 }}>
-                <Stack spacing={2} direction="row">
-                  <TextField
-                    required
-                    label="Address"
-                    onChange={handleAddressChange}
-                    sx={{ flexGrow: 1, maxWidth: "auto" }}
-                    error={error.hasOwnProperty("address")}
-                    helperText={
-                      error.hasOwnProperty("address") ? error.address[0] : " "
-                    }
-                  />
-                  <Button variant="outlined" startIcon={<Search />}>
-                    Find Location
-                  </Button>
-                </Stack>
+								<TextField
+									required
+									fullWidth
+									label="Address"
+									onChange={handleAddressChange}
+									sx={{ flexGrow: 1, maxWidth: "auto" }}
+									error={error.hasOwnProperty("address")}
+									helperText={
+										error.hasOwnProperty("address") ? error.address[0] : " "
+									}
+								/>
                 <TextField
                   type="number"
                   error={error.hasOwnProperty("maximum_capacity")}
@@ -298,7 +294,7 @@ const TransportationAddService = () => {
                 >
                   <Typography
                     variant="h6"
-                    sx={{ flexGrow: 1, maxWidth: "fit-content" }}
+                    sx={{ flexGrow: 1, maxWidth: "50vh" }}
                   >
                     Working Days
                   </Typography>
@@ -333,7 +329,7 @@ const TransportationAddService = () => {
                   direction="row"
                   sx={{ justifyContent: "flex-end" }}
                 >
-                  <Button href="/my/transportation" variant="outlined">
+                  <Button onClick={() => navigate("/my/transportation")} variant="outlined">
                     Cancel
                   </Button>
                   <Button onClick={handleSubmit} variant="contained">
@@ -345,22 +341,6 @@ const TransportationAddService = () => {
           </Stack>
         </Stack>
       </Container>
-      <Box
-        sx={{
-          flexGrow: 1,
-          maxWidth: "auto",
-          height: "880px",
-        }}
-      >
-        <img
-          style={{
-            width: "700px",
-            height: "100%",
-            objectFit: "none",
-          }}
-          src={mapPlaceholder}
-        />
-      </Box>
     </Box>
   );
 };
