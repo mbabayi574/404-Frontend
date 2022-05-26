@@ -1,4 +1,4 @@
-import { useState, useContext } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import { Box } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -6,6 +6,8 @@ import { DashboardNavbar } from './dashboard-navbar';
 import { DashboardSidebar } from './dashboard-sidebar';
 import { Outlet, useNavigate } from "react-router-dom";
 import { TokenContext } from 'App';
+import useUser from 'useUser';
+import useAPI from 'useAPI';
 
 const DashboardLayoutRoot = styled('div')(({ theme }) => ({
   display: 'flex',
@@ -18,12 +20,26 @@ const DashboardLayoutRoot = styled('div')(({ theme }) => ({
 }));
 
 export const DashboardLayout = () => {
-  const {setToken, } = useContext(TokenContext);
+  const api = useAPI();
+  const {setToken, token} = useContext(TokenContext);
   const navigate = useNavigate();
+  const { setUser } = useUser();
   const [isSidebarOpen, setSidebarOpen] = useState(true);
   const handleLogout = () => {
     setToken({refresh: null, access: null});
+    setUser(null);
   }
+  useEffect(() => {
+    if (token) {
+      api({
+        url: "auth/users/me/"
+      })
+        .then(resp => {
+          console.log(resp.data);
+          setUser(resp.data);
+        })
+    }
+  }, [token])
   return (
     <>
       <CssBaseline />

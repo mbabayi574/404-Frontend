@@ -4,6 +4,8 @@ import { theme } from "./theme";
 import { ThemeProvider } from '@mui/material/styles';
 import CssBaseline from "@mui/material/CssBaseline";
 import useToken from './useToken';
+import useUser from './useUser';
+import useAPI from './useAPI';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 export const TokenContext = React.createContext();
@@ -30,6 +32,8 @@ function App() {
   let location = useLocation();
   const navigate = useNavigate();
   const { token, setToken } = useToken();
+  const { user, setUser } = useUser();
+  const api = useAPI();
   const [ title, setTitle ] = useState(null);
   useEffect(() => {
     console.log(token);
@@ -40,6 +44,17 @@ function App() {
       navigate('/my/home');
     }
   }, [location, token])
+  // useEffect(() => {
+  //   if (token) {
+  //     api({
+  //       url: "auth/users/me/"
+  //     })
+  //       .then(resp => {
+  //         console.log(resp.data);
+  //         setUser(resp.data);
+  //       })
+  //   }
+  // }, [token])
   useEffect(() => {
     for (var key in pageTitles) {
       if (location.pathname.startsWith(key)) {

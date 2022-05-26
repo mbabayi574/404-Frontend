@@ -1,13 +1,15 @@
 import axios from "axios";
 import { TokenContext } from "App";
 import { useContext } from "react";
+import useToken from "useToken";
 
 const apiURL = "http://127.0.0.1:8000/";
 
 const useAPI = () => {
-    const { token } = useContext(TokenContext);
+    // const { token } = useContext(TokenContext);
+    const { token } = useToken();
     const api = axios.create({
-        baseURL: apiURL
+      baseURL: apiURL
     });
 	const request = (config) => (
 		api({

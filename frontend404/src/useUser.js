@@ -1,21 +1,42 @@
 import { useState } from 'react';
+import useToken from 'useToken';
+import useAPI from 'useAPI';
 
 export default function useUser() {
+  // const getUser = () => {
+  //   const tokenString = sessionStorage.getItem('user');
+  //   const user = JSON.parse(tokenString);
+  //   return user;
+  // };
+
+  // const [user, setUser] = useState(getUser());
+
+  // const saveUser = user => {
+  //   sessionStorage.setItem('user', JSON.stringify(user));
+  //   setUser(user);
+  // };
+
+  const { token } = useToken();
+  const api = useAPI();
   const getUser = () => {
-    const tokenString = sessionStorage.getItem('user');
-    const userToken = JSON.parse(tokenString);
-    return userToken;
-  };
+    // let user = null;
+    api({
+      url: "auth/users/me/"
+    })
+    .then(response => {
+      setUser(response.data);
+    })
+  }
 
-  const [user, setUser] = useState(getUser());
+  const [user, setUser] = useState(getUser);
 
-  const saveUser = user => {
-    sessionStorage.setItem('user', JSON.stringify(user));
-    setUser(userToken);
-  };
+  // return {
+  //   setUser: saveUser,
+  //   user
+  // }
 
   return {
-    setUser: saveUser,
     user
-  }
+    // setUser
+  };
 }

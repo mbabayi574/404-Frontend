@@ -13,6 +13,7 @@ import axios from "axios";
 import loginBackground from "images/login_background.jpg";
 import { useNavigate } from "react-router-dom";
 import { TokenContext } from "App";
+import useAPI from "useAPI";
 
 function Copyright(props) {
   return (
@@ -25,6 +26,7 @@ function Copyright(props) {
 function Login() {
   const {setToken, } = useContext(TokenContext);
   const navigate = useNavigate();
+	const api = useAPI();
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -49,7 +51,7 @@ function Login() {
       .then(function (response) {
         console.log(response.data);
         if (response.status == 200) {
-          setToken(response.data);
+					setToken(response.data);
           // navigate("/my/home");
         }
       })

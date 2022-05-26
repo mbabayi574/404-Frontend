@@ -9,6 +9,7 @@ import { Users as UsersIcon } from '../icons/users';
 import avatar from 'images/avatar.jpg';
 import { TitleContext } from "App";
 import { useContext } from 'react';
+import useUser from 'useUser';
 
 const DashboardNavbarRoot = styled(AppBar)(({ theme }) => ({
   backgroundColor: theme.palette.background.paper,
@@ -18,6 +19,7 @@ const DashboardNavbarRoot = styled(AppBar)(({ theme }) => ({
 export const DashboardNavbar = (props) => {
   const { onSidebarOpen, onLogout, ...other } = props;
   const { title } = useContext(TitleContext);
+	const { user } = useUser();
 	const today = new Date();
 
   return (
