@@ -42,7 +42,7 @@ const mainItems = [
     title: 'Settings'
   },
   {
-    href: '/my/nurture',
+    href: '/my/food_manager',
     icon: (<FastfoodIcon fontSize="small" />),
     title: 'Food & Nutrition'
   },
@@ -71,7 +71,7 @@ const employeeItems = [
 ]
 const managerItems = [
   {
-    href: '/my/hr-desk',
+    href: '/my/hr_desk',
     icon: (<PeopleIcon fontSize="small" />),
     title: 'Human Resources'
   },

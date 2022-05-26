@@ -27,7 +27,6 @@ export const DashboardLayout = () => {
   const [loading, setLoading] = useState(false);
   const handleLogout = () => {
     setToken({refresh: null, access: null});
-    setUser(null);
   }
   useEffect(() => {
     api({
@@ -35,8 +34,9 @@ export const DashboardLayout = () => {
     })
     .then(response => {
       setUser(response.data);
+    }).then(() => {
+      setLoading(true);
     })
-    setLoading(true);
   }, [])
   return loading && (
     <>
@@ -54,6 +54,7 @@ export const DashboardLayout = () => {
         </Box>
       </DashboardLayoutRoot>
       <DashboardNavbar
+        user={user}
         onSidebarOpen={() => setSidebarOpen(true)}
         onLogout={handleLogout}
       />

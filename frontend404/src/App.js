@@ -19,8 +19,8 @@ const pageTitles = {
   '/my/todoapp': 'Todos',
   '/my/transportation': 'Transportation',
   '/my/documents': 'Documents',
-  '/my/announcementsender': 'Bulletin Board',
-  '/my/boardemp': 'Bulletin Board',
+  '/my/bulletin_board': 'Bulletin Board',
+  '/my/hr_desk': 'Human Resources',
   '/my/dormitoryemp': 'Dormitory',
 }
 

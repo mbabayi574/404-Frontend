@@ -98,10 +98,15 @@ const BulletinBoardEmployee = (props) => {
                     </Grid>
                     <Grid item sx={4} md={7}>
                       {selected ? (<Box sx={{ width: 850, height: 600, backgroundColor: "#fafafa" }}>
-                        <Stack spacing={2}>
+                        <Stack spacing={0}>
                           <Typography style={{ padding: 24, fontSize: 20, }} variant="h6">{selectedAnnouncment.title || "No title"}</Typography>
                           <Box sx={{ px: 3, py: 1, width: '100%', height: '100%', overflow: 'auto' }}>
-                            <div dangerouslySetInnerHTML={{ __html: selectedAnnouncment.html_fields }} />
+                            <div
+                             dangerouslySetInnerHTML={{ __html: selectedAnnouncment.html_fields }}
+                             style={{
+                              width: '100%', height: '50vh', overflowY: 'auto'
+                             }}
+                             />
                           </Box>
                         </Stack>
                       </Box>) : <Skeleton variant="rectangular" width={850} height={600} />}

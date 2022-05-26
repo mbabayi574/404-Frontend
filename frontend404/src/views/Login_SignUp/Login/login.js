@@ -9,7 +9,6 @@ import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
-import axios from "axios";
 import loginBackground from "images/login_background.jpg";
 import { useNavigate } from "react-router-dom";
 import { TokenContext } from "App";
@@ -39,15 +38,14 @@ function Login() {
 
     var config = {
       method: "post",
-    //   url: "http://404g.pythonanywhere.com/auth/jwt/create/",
-      url: "http://127.0.0.1:8000/auth/jwt/create/",
+      url: "/auth/jwt/create/",
       headers: {
         "Content-Type": "application/json",
       },
       data: request_data,
     };
 
-    axios(config)
+    api(config)
       .then(function (response) {
         console.log(response.data);
         if (response.status == 200) {

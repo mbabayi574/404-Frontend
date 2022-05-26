@@ -7,6 +7,7 @@ import {
   BrowserRouter as Router,
   Navigate,
 } from "react-router-dom";
+import { DashboardLayout } from "./components/dashboard-layout";
 import Login from "./views/Login_SignUp/Login/login";
 import Signup from "./views/Login_SignUp/Signup_CompanyOwner/signup";
 import TransportationAddService from "./views/Transportation/addService";
@@ -15,7 +16,8 @@ import TimeTracker from "./Pages/TimeTracker/index";
 import Dashboard from "./views/Dashboard/dashboard";
 import TodoApp from "./views/TODOLIST";
 import DormitoryEmp from "./Pages/DormitoryEmp/index";
-import { DashboardLayout } from "./components/dashboard-layout";
+import HrDesk from "./views/hrDesk/hrDesk";
+import FoodManager from "./views/food/foodManager";
 import Board from "views/Salary/Calculator";
 import NotFound from "./404";
 import AddDocument from "views/Documents/addDocument";
@@ -47,6 +49,8 @@ ReactDOM.render(
             <Route exact path="bulletin_board" element={<BulletinBoard />} />
             <Route exact path="dormitoryemp" element={<DormitoryEmp />} />
             <Route exact path="reports" element={<Board />} />
+            <Route exact path="hr_desk" element={<HrDesk />} />
+						<Route exact path="food_manager" element={<FoodManager />} />
             <Route path="*" element={<NotFound />} />
           </Route>
           <Route path="*" element={<NotFound />} />

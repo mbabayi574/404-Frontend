@@ -17,9 +17,8 @@ const DashboardNavbarRoot = styled(AppBar)(({ theme }) => ({
 }));
 
 export const DashboardNavbar = (props) => {
-  const { onSidebarOpen, onLogout, ...other } = props;
+  const { user, onSidebarOpen, onLogout, ...other } = props;
   const { title } = useContext(TitleContext);
-	const { user } = useUser();
 	const today = new Date();
 
   return (
