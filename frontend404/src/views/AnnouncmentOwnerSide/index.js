@@ -1,13 +1,11 @@
-import React, { useState, useRef, useContext } from "react";
+import React, { useState, useRef } from "react";
 import JoditEditor from "jodit-react";
-import Layout from "./components/Layout";
-import { Button, Grid, Paper, Snackbar, Alert } from "@mui/material";
-import axios from "axios";
-import { TokenContext } from "App";
+import { Button, Grid, Paper, Snackbar, Alert, Container } from "@mui/material";
+import useAPI from "useAPI";
 
 const RichtexteditorAnnouncment = ({}) => {
-  const Access_Token = useContext(TokenContext).token;
   const editor = useRef(null);
+  const api = useAPI();
   const [content, setContent] = useState("");
 
   const config = {
@@ -39,15 +37,14 @@ const RichtexteditorAnnouncment = ({}) => {
 
     var config = {
       method: "post",
-      url: "http://404g.pythonanywhere.com/BulletinBoard/post_bulletin_board",
+      url: "BulletinBoard/post_bulletin_board",
       headers: {
-        Authorization: "Bearer " + Access_Token,
         "Content-Type": "application/json",
       },
       data: request_data,
     };
 
-    axios(config)
+    api(config)
       .then(function (response) {
         console.log(response);
         setContent("");
@@ -93,7 +90,7 @@ const RichtexteditorAnnouncment = ({}) => {
         </Alert>
       </Snackbar>
 
-      <Layout>
+      <Container>
         <Grid
           container
           direction="column"
@@ -119,7 +116,7 @@ const RichtexteditorAnnouncment = ({}) => {
             </Button>
           </Grid>
         </Grid>
-      </Layout>
+      </Container>
     </>
   );
 };

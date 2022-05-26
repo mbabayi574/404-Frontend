@@ -19,6 +19,7 @@ const pageTitles = {
   '/my/documents': 'Documents',
   '/my/announcementsender': 'Bulletin Board',
   '/my/boardemp': 'Bulletin Board',
+  '/my/dormitoryemp': 'Dormitory',
 }
 
 function App() {

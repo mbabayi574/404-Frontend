@@ -1,31 +1,31 @@
 import * as React from "react";
-import { makeStyles, createStyles } from "@mui/styles";
-import arrow from "../../assets/image/arrowDown.png";
-import arrowUp from "../../assets/image/arrowUp.png";
-import Button from "@mui/material/Button";
-import { Snackbar } from "@mui/material";
-import axios from "axios";
+import {Fragment} from "react";
+import CircularProgress from '@mui/material/CircularProgress';
+import Box from '@mui/material/Box';
+import { Typography, Paper } from "@mui/material";
 import Collapse from "@mui/material/Collapse";
-import Dialog from "@mui/material/Dialog";
 import TextField from "@mui/material/TextField";
-import DialogActions from "@mui/material/DialogActions";
-import DialogContent from "@mui/material/DialogContent";
-import back from "../../assets/image/back.png";
 import MuiAlert from "@mui/material/Alert";
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import DateMomentUtils from "@date-io/moment";
 import Card from "@mui/material/Card";
 import { DesktopDatePicker as DatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
 import { TimePicker } from '@mui/x-date-pickers/TimePicker';
-import { useTheme } from "@mui/material/styles";
 import OutlinedInput from "@mui/material/OutlinedInput";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
-import TrackerList from './list';
-import { TokenContext } from 'App';
+import ReportTracker from './report';
+import useAPI from "useAPI";
+import {
+  Grid,
+  Snackbar,
+  Button,
+  Dialog,
+  DialogContent,
+  DialogActions,
+} from "@mui/material";
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 0;
@@ -38,271 +38,12 @@ const MenuProps = {
   },
 };
 
-const useStyles = makeStyles(() =>
-  createStyles({
-    root: {
-      margin: 10,
-      width: "100%",
-      // backgroundColor: "#aaaa",
-      height: "100%",
-      bottom: 0,
-    },
-    mainContainer: {
-      margin: 0,
-      paddingTop: 15,
-      width: "100%",
-      display: "flex",
-      flexDirection: "row",
-      justifyContent: "space-around",
-    },
-    backContainer: {
-      marginTop: 20,
-      marginRight: 0,
-      marginLeft: -10,
-      // "&:hover": {
-      //   cursor: "pointer",
-      // },
-    },
-    card: {
-      padding: 20,
-      width: "100%",
-      backgroundColor: "#FAEBD7",
-    },
-    back: {
-      padding: 2,
-      width: 20,
-      "&:hover": {
-        cursor: "pointer",
-      },
-      "&:active": {
-        cursor: "pointer",
-        transform: "translateY(1px)",
-      },
-    },
-    leftBody: {
-      margin: 10,
-      width: "100%",
-      // display: "flex",
-      // flexDirection: "column",
-    },
-    rightBody: {
-      // overflow: "scroll",
-      // display: "flex",
-      // flexDirection: "column",
-      backgroundColor: "#FAEBD7",
-      margin: 10,
-      marginTop: 50,
-      marginLeft: 50,
-      paddingLeft: 20,
-      paddingTop: 20,
-      right: 0,
-      width: "25%",
-      height: 600,
-      alignItems: "center",
-      alignContent: "center",
-    },
-    title: {
-      margin: 0,
-      marginBottom: 50,
-      fontSize: 36,
-      fontWeight: "bold",
-      fontFamily: "Helvetica",
-    },
-    date: {
-      margin: 0,
-      marginBottom: 20,
-      fontSize: 26,
-      fontWeight: "bold",
-      fontFamily: "Helvetica",
-    },
-    desc: {
-      marginBottom: 4,
-      margin: 5,
-      fontSize: 18,
-      fontFamily: "Helvetica",
-    },
-    picker: {
-      width: 80,
-    },
-    Dpicker: {
-      width: 100,
-      paddingLeft: 20,
-      textAlign: "cneter",
-    },
-    sign: {
-      fontSize: 36,
-      marginLeft: 3,
-      marginRight: 3,
-      fontWeight: "bold",
-    },
-    horizontalKeeper: {
-      marginBottom: 20,
-      display: "flex",
-      flexDirection: "row",
-      // justifyContent: "left",
-    },
-    HKeeper: {
-      // marginBottom: 15,
-      display: "flex",
-      flexDirection: "row",
-      marginRight: 50,
-    },
-    HKeeperDate: {
-      marginBottom: 25,
-      display: "flex",
-      flexDirection: "row",
-      marginRight: 50,
-    },
-    horizontalKeeperChange: {
-      marginBottom: 10,
-      marginTop: 15,
-      paddingBottom: 5,
-      display: "flex",
-      flexDirection: "row",
-      borderWidth: 1,
-      borderStyle: "solid",
-      borderColor: "#24a0ed",
-      borderRadius: "4px",
-      paddingLeft: 20,
-      // paddingRight: 20,
-      width: 160,
-      "&:hover": {
-        cursor: "pointer",
-      },
-      // width: 300,
-    },
-    skeleton: {
-      height: 300,
-      // width: 600,
-    },
-    input: {
-      height: "20px",
-      width: "40px",
-      // borderRadius: "4px",
-      fontSize: "16px",
-      // borderWidth: 1,
-      // borderStyle: "solid",
-      // borderColor: "#24a0ed",
-      // #D4D4D4
-      // marginTop: "20px",
-      marginBottom: 5,
-      // outline: "10mm",
-      color: "#4a546b",
-      // padding: "21px 30px",
-      textAlign: "center",
-    },
-    arrow: {
-      marginTop: 11,
-      marginRight: 2,
-      width: 15,
-      height: 15,
-    },
-    arrowUp: {
-      marginTop: 10,
-      marginRight: 4,
-      width: 15,
-      height: 15,
-    },
-    dialogText: {
-      fontSize: 15,
-      paddingTop: "0px",
-      fontFamily: "Helvetica",
-      color: "#4A546B",
-      textAlign: "center",
-      borderBottomWidth: 1,
-      borderBottomColor: "#aaaa",
-      borderBottomStyle: "solid",
-    },
-    dialogButton: {
-      fontSize: 15,
-      fontFamily: "Helvetica",
-      color: "#4A546B",
-      height: 27,
-      width: "100%",
-      borderRadius: 0,
-    },
-    Button: {
-      display: "flex",
-      width: "110px",
-      // marginLeft: 100,
-      color: "#ffffff",
-      backgroundColor: "#24a0ed",
-      borderWidth: 1,
-      borderStyle: "solid",
-      borderColor: "#ffff",
-      borderRadius: "10px",
-      justifyContent: "center",
-      alignItems: "center",
-      flexDirection: "row",
-      marginBottom: "15px",
-      cursor: "pointer",
-      marginTop: "20px",
-      height: "43px",
-      outline: "10mm",
-      fontWeight: "bold",
-      "&:active": {
-        cursor: "pointer",
-        // backgroundColor: "#aaaa",
-        boxShadow: "2px 2px #aaaa",
-        transform: "translateY(1px)",
-      },
-    },
-    line: {
-      margin: 0,
-      width: 300,
-      borderTopWidth: 2,
-      borderTopStyle: "solid",
-      borderTopColor: "#24a0ed",
-      height: 1,
-      marginBottom: 50,
-      marginTop: -40,
-    },
-    snackBar: {
-      marginBottom: "80px",
-      marginLeft: 100,
-    },
-    select: {
-      height: 30,
-      // borderWidth: 1,
-      // borderStyle: "solid",
-      // borderColor: "#24a0ed",
-      // borderRadius: "4px",
-    },
-    list: {
-      margin: 0,
-      height: "90%",
-      overflowY: "auto",
-      borderTopStyle: "solid",
-      borderTopWidth: 1,
-      borderTopColor: "#aaaa",
-    },
-    listItem: {
-      marginLeft: 5,
-    },
-    itemDate: {
-      fontSize: 18,
-      fontWeight: "bold",
-      fontFamily: "Helvetica",
-    },
-    line: {
-      borderTopWidth: 1,
-      borderTopColor: "#aaaa",
-      borderTopStyle: "solid",
-      // width: "%10",
-      marginRight: 30,
-      marginLeft: 5,
-    },
-  })
-);
 
 const TimeTracker = (props) => {
-  const {token, } = React.useContext(TokenContext);
-  const [list] = React.useState([]);
-  
-  const { history } = props;
+	const api = useAPI();
+  const [list ,setList] = React.useState([]);
   const minute = [];
   for (var i = 0; i <= 120; i += 5) minute.push(i);
-  const classes = useStyles();
   const [previousDays, setPrevioisDays] = React.useState(false);
   const today = new Date();
   const [enterTime, setEnterTime] = React.useState(new Date());
@@ -316,24 +57,26 @@ const TimeTracker = (props) => {
   const [errorMessage, setErrorMessage] = React.useState("");
   const [dialogOpen, setDialogOpen] = React.useState(false);
   const [isOpenSnackbar, setIsOpenSnackbar] = React.useState(false);
+  const [isLoading, setIsLoading] = React.useState(true);
   const [showReport, setShowReport] = React.useState(false);
 
   const getReportList = () => {
     list.splice(0, list.length);
-    axios({
+    api({
       method: "get",
-      url: "http://404g.pythonanywhere.com/tracker/me/",
+      url: "tracker/me/",
       headers: {
         "Content-Type": "application/json",
-        Authorization:
-        "Bearer " + token,  
       },
     })
       .then(function (response) {
+        const arr = [];
         response.data.map((item) => {
-          list.push(item)
+          arr.push(item)
         })
+        setList(arr);
         setShowReport(true);
+        setIsLoading(false);
       })
       .catch(function (error) {
         console.log(error);
@@ -344,7 +87,7 @@ const TimeTracker = (props) => {
 
   React.useEffect(() =>{
     getReportList();
-  },[]);
+  }, []);
 
   const Alert = React.forwardRef(function Alert(props, ref) {
     return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
@@ -368,16 +111,13 @@ const TimeTracker = (props) => {
       console.log("request data is : ", request_data);
       const config = {
         method: "post",
-        url: "http://404g.pythonanywhere.com/tracker/me/",
+        url: "tracker/me/",
         headers: {
           "Content-Type": "application/json",
-          Authorization:
-            "Bearer " +
-            "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjU2MDU4MjYyLCJqdGkiOiI4NDk2MTU3MWVhNTA0YzViYmFlNGMxOWRmZTJkZDdmMiIsInVzZXJfaWQiOjF9.M0M_zo7VOPZQVTNU8CWw0ts6uMsbNpsWT0TkCsXE1PM",
         },
         data: request_data,
       };
-      axios(config)
+      api(config)
         .then(function (response) {
           console.log(response.data);
           getReportList();
@@ -425,16 +165,13 @@ const TimeTracker = (props) => {
         console.log("data is : ", request_data);
         const config = {
           method: "put",
-          url: "http://404g.pythonanywhere.com/tracker/update/me/",
+          url: "tracker/update/me/",
           headers: {
             "Content-Type": "application/json",
-            Authorization:
-            "Bearer " +
-            "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjU2MDU4MjYyLCJqdGkiOiI4NDk2MTU3MWVhNTA0YzViYmFlNGMxOWRmZTJkZDdmMiIsInVzZXJfaWQiOjF9.M0M_zo7VOPZQVTNU8CWw0ts6uMsbNpsWT0TkCsXE1PM",  
           },
           data: request_data,
         };
-        axios(config)
+        api(config)
           .then(function (response) {
             console.log(response.data);
             setIsOpenSnackbar(true);
@@ -551,26 +288,14 @@ const TimeTracker = (props) => {
   };
 
   const inputValidatinTime = (enter, exit, wasted) => {
+    console.log('enter: ', enter);
+    console.log('exit:', exit);
+    console.log('wasted:', wasted);
     const sh = enter.getHours();
     const sm = enter.getMinutes();
     const fh = exit.getHours();
     const fm = exit.getMinutes();
     const w = Number(wasted);
-    if (sh === 0 || fh === 0) {
-      setErrorMessage("You should first fill out the inputs");
-      return false;
-    }
-    if (sh < 0 || sm < 0 || fh < 0 || fm < 0 || w < 0) {
-      setErrorMessage("Numbers should be positive!");
-      return false;
-    }
-    if (sh > 24 || fh > 24) {
-      setErrorMessage("Your time Hour should be between 1 and 24");
-      return false;
-    }
-    if (sm > 60 || fm > 60) {
-      setErrorMessage("Your time Minute should be between 1 and 60 ");
-    }
     if (sh > fh) {
       setErrorMessage("Exit time should be after Enter time");
       return false;
@@ -597,7 +322,161 @@ const TimeTracker = (props) => {
 
   return (
     <LocalizationProvider dateAdapter={AdapterDateFns}>
-      <div className={classes.root}>
+      <Fragment>
+      <Paper
+        elevation={0}
+        style={{ padding: 0, margin: 0, backgroundColor: "#fafafa" }}
+      >
+        {isLoading ? (
+           <Box sx={{ display: 'flex' , width: '90%', height: '80vh', justifyContent: 'center',alignItems: 'center', }}>
+             <CircularProgress />
+           </Box>
+        ):(
+          <Grid container spacing={0} style={{ padding: 32,}}>
+          <Grid item xs={4} md={4} style={{ padding: 0, marginRight: 30,}}>
+              <Card>
+                <Grid container spacing={2} style={{ margin: 1,}}>
+                  <Grid item xs={4} md={4} style={{ margin: 5,}}>
+                  <Typography style={{ padding: 5,}} color="primary">Enter Time</Typography>
+                    <TimePicker
+                      value={enterTime}
+                      onChange={setEnterTime}
+                      renderInput={(params) => <TextField {...params} />}
+                    />
+                  </Grid>
+                  <Grid item xs={4} md={4} style={{ margin: 5,}}>
+                  <Typography style={{ padding: 5,}} color="primary">Exit Time</Typography>
+                    <TimePicker
+                      value={exitTime}
+                      onChange={setExitTime}
+                      renderInput={(params) => <TextField {...params} />}
+                    />
+                  </Grid>
+                  <Grid item style={{ margin: 5,}}>
+                  <Typography style={{ padding: 5,}} color="primary">Wasted Time</Typography>
+                    <FormControl sx={{ marginTop: 0, width: 80, }}>
+                      <InputLabel>Min</InputLabel>
+                      <Select
+                        value={wastedTime}
+                        onChange={(e) => setWastedTime(e.target.value)}
+                        input={<OutlinedInput label="Mins" />}
+                        MenuProps={MenuProps}
+                      >
+                        {minute.map((min) => (
+                          <MenuItem
+                            value={min}
+                          >
+                            {min}
+                          </MenuItem>
+                        ))}
+                      </Select>
+                    </FormControl>
+                  </Grid >
+                </Grid>
+                <Button
+                style={{ margin: 20,}}
+                color="primary"
+                variant="contained" 
+                onClick={() => ApplyHandler()} >
+                  Apply
+                </Button>
+              </Card>
+              <Button 
+              style={{ marginTop: 20, marginBottom: 20,}}
+                color="primary"
+                variant="outlined"  
+                onClick={() => setPrevioisDays(!previousDays)}>
+                  Previous Days
+              </Button>
+              <Card >
+                <Collapse in={previousDays} sx={{ width: "100%" }}>
+                  <Card
+                  >
+                    <Grid container spacing={2} style={{ margin: 1,}}>
+                      <Grid item xs={4} md={4} style={{ margin: 5,}}>
+                      <Typography style={{ padding: 5,}} color="primary">Date</Typography>
+                        <DatePicker
+                          value={pdate}
+                          onChange={setpdate}
+                          renderInput={(params) => <TextField {...params} />}
+                        />
+                      </Grid>
+                      <Grid item xs={4} md={4} style={{ margin: 5,}} >
+                      <Typography style={{ padding: 5,}} color="primary">ID</Typography>
+                        <TextField
+                          id="standard-number"
+                          label="Number"
+                          type="number"
+                          value={PId}
+                          onChange={(e) => setPId(e.target.value)}
+                          InputLabelProps={{
+                            shrink: true,
+                          }}
+                          variant="standard"
+                        />
+                      </Grid>
+                    </Grid>
+                    <Grid container spacing={2} style={{ margin: 1,}}>
+                      <Grid item xs={4} md={4} style={{ margin: 5,}} >
+                      <Typography style={{ padding: 5,}} color="primary">Enter Time</Typography>
+                        <TimePicker
+                          value={penterTime}
+                          onChange={setpenterTime}
+                          renderInput={(params) => <TextField {...params} />}
+                        />
+                      </Grid>
+                      <Grid item xs={4} md={4} style={{ margin: 5,}} >
+                      <Typography style={{ padding: 5,}} color="primary">Exit Time</Typography>
+                        <TimePicker
+                          value={pexitTime}
+                          onChange={setpexitTime}
+                          renderInput={(params) => <TextField {...params} />}
+                        />
+                      </Grid>
+                      <Grid item style={{ margin: 5,}} >
+                      <Typography style={{ padding: 5,}} color="primary">Wasted Time</Typography>
+                        <FormControl sx={{ marginTop: 0, width: 80, height: 30 }}>
+                          <InputLabel>Min</InputLabel>
+                          <Select
+                            value={pwastedTime}
+                            onChange={(e) => setpWastedTime(e.target.value)}
+                            input={<OutlinedInput label="Mins" />}
+                            MenuProps={MenuProps}
+                          >
+                            {minute.map((min) => (
+                              <MenuItem
+                                value={min}
+                              >
+                                {min}
+                              </MenuItem>
+                            ))}
+                          </Select>
+                        </FormControl>
+                      </Grid>
+                    </Grid>
+                    <Button
+                      style={{ margin: 20,}}
+                      color="primary"
+                      variant="outlined" 
+                      onClick={() => PApplyHandler()}
+                    >
+                      Apply
+                    </Button>
+                  </Card>
+                </Collapse>
+              </Card>
+              </Grid>
+              <Grid item xs={4} md={5}>
+            <Card style={{ width: '100%',}}>
+            <Typography style={{ padding: 15,}} color="secondary">Report Tracker</Typography>
+              {showReport?(<ReportTracker list={list} />) : null}
+              {/* <ReportTracker list={list} /> */}
+            </Card>
+            </Grid>
+          </Grid>
+        ) }
+        </Paper>
+
         <Dialog
           open={dialogOpen}
           onClose={handleCloseDialog}
@@ -608,11 +487,11 @@ const TimeTracker = (props) => {
             },
           }}
         >
-          <DialogContent className={classes.dialogText}>
+          <DialogContent>
             {errorMessage}
           </DialogContent>
           <DialogActions>
-            <Button className={classes.dialogButton} onClick={handleCloseDialog}>
+            <Button onClick={handleCloseDialog}>
               OK
             </Button>
           </DialogActions>
@@ -627,7 +506,6 @@ const TimeTracker = (props) => {
           onClose={() => {
             setIsOpenSnackbar(false);
           }}
-          className={classes.snackBar}
         >
           <Alert
             onClose={() => {
@@ -639,181 +517,7 @@ const TimeTracker = (props) => {
             Date Stored successfuly!
           </Alert>
         </Snackbar>
-        <div className={classes.mainContainer}>
-          <div className={classes.backContainer}>
-            <img
-              onClick={() => history.push("./home")}
-              src={back}
-              alt="back"
-              className={classes.back}
-            />
-          </div>
-          <div className={classes.leftBody}>
-            <p className={classes.title}>Time Tracker</p>
-            <Card className={classes.card} sx={{ backgroundColor: "#e8fdff" }}>
-              <p className={classes.date}>
-                {today.getFullYear()}/{today.getMonth() + 1}/{today.getDate()}
-                (today)
-              </p>
-              <div className={classes.horizontalKeeper}>
-                <div className={classes.HKeeper}>
-                  <p className={classes.desc}>Entering time:</p>
-                  <TimePicker
-                    className={classes.picker}
-                    value={enterTime}
-                    onChange={setEnterTime}
-                    renderInput={(params) => <TextField {...params} />}
-                  />
-                </div>
-                <div className={classes.HKeeper}>
-                  <p className={classes.desc}>Exit time: </p>
-                  <TimePicker
-                    className={classes.picker}
-                    value={exitTime}
-                    onChange={setExitTime}
-                    renderInput={(params) => <TextField {...params} />}
-                  />
-                </div>
-                <div className={classes.HKeeper}>
-                  <p className={classes.desc}>Wasted time:</p>
-                  <FormControl sx={{ marginTop: 0, width: 80, height: 30 }}>
-                    <InputLabel>Min</InputLabel>
-                    <Select
-                      className={classes.select}
-                      value={wastedTime}
-                      onChange={(e) => setWastedTime(e.target.value)}
-                      input={<OutlinedInput label="Mins" />}
-                      MenuProps={MenuProps}
-                    >
-                      {minute.map((min) => (
-                        <MenuItem
-                          value={min}
-                        >
-                          {min}
-                        </MenuItem>
-                      ))}
-                    </Select>
-                  </FormControl>
-                </div>
-              </div>
-              <button onClick={() => ApplyHandler()} className={classes.Button}>
-                Apply
-              </button>
-            </Card>
-            <div
-              className={classes.horizontalKeeperChange}
-              onClick={() => setPrevioisDays(!previousDays)}
-            >
-              <img
-                className={previousDays ? classes.arrow : classes.arrowUp}
-                src={previousDays ? arrowUp : arrow}
-                alt="arrow"
-              />
-              <p className={classes.desc}>previous days</p>
-            </div>
-            <div className={classes.skeleton}>
-              <Collapse in={previousDays} sx={{ width: "100%" }}>
-                <Card
-                  className={classes.card}
-                  sx={{ backgroundColor: "#e8fdff" }}
-                >
-                  <div className={classes.HKeeper}>
-                    <div className={classes.HKeeperDate}>
-                      <p className={classes.desc}>Date:</p>
-                      <DatePicker
-                        className={classes.Dpicker}
-                        value={pdate}
-                        onChange={setpdate}
-                        renderInput={(params) => <TextField {...params} />}
-                      />
-                    </div>
-                    <div className={classes.HKeeperDate}>
-                      <p className={classes.desc}>ID:</p>
-                      <input
-                        className={classes.input}
-                        autoCapitalize="false"
-                        placeholder="m"
-                        type="number"
-                        value={PId}
-                        onChange={(e) => setPId(e.target.value)}
-                      />
-                    </div>
-                  </div>
-                  <div className={classes.horizontalKeeper}>
-                    <div className={classes.HKeeper}>
-                      <p className={classes.desc}>Entering time:</p>
-                      <TimePicker
-                        className={classes.picker}
-                        value={penterTime}
-                        onChange={setpenterTime}
-                        renderInput={(params) => <TextField {...params} />}
-                      />
-                    </div>
-                    <div className={classes.HKeeper}>
-                      <p className={classes.desc}>Exit time: </p>
-                      <TimePicker
-                        className={classes.picker}
-                        value={pexitTime}
-                        onChange={setpexitTime}
-                        renderInput={(params) => <TextField {...params} />}
-                      />
-                    </div>
-                    <div className={classes.HKeeper}>
-                      <p className={classes.desc}>Wasted time:</p>
-                      <FormControl sx={{ marginTop: 0, width: 80, height: 30 }}>
-                        <InputLabel>Min</InputLabel>
-                        <Select
-                          className={classes.select}
-                          value={pwastedTime}
-                          onChange={(e) => setpWastedTime(e.target.value)}
-                          input={<OutlinedInput label="Mins" />}
-                          MenuProps={MenuProps}
-                        >
-                          {minute.map((min) => (
-                            <MenuItem
-                              value={min}
-                            >
-                              {min}
-                            </MenuItem>
-                          ))}
-                        </Select>
-                      </FormControl>
-                    </div>
-                  </div>
-                  <button
-                    onClick={() => PApplyHandler()}
-                    className={classes.Button}
-                  >
-                    Apply
-                  </button>
-                </Card>
-              </Collapse>
-            </div>
-          </div>
-          <Card
-            className={classes.rightBody}
-            sx={{ backgroundColor: "#e8fdff" }}
-          >
-            <p className={classes.date}>Report:</p>
-            {showReport?(<div className={classes.list}>
-              {list.map((item) => {
-                return (
-                  <div>
-                  <TrackerList 
-                    key={item.id} 
-                    date={item.date} 
-                    start_point={item.start_point} 
-                    end_point={item.end_point} 
-                    wasted_time={item.wasted_time}
-                    className={classes.listItem}
-                  />
-                  </div>
-                );
-              })}
-            </div>) : null}
-          </Card>
-        </div>
-      </div>
+      </Fragment>
     </LocalizationProvider>
   );
 };

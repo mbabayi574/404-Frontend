@@ -18,6 +18,7 @@ const DashboardNavbarRoot = styled(AppBar)(({ theme }) => ({
 export const DashboardNavbar = (props) => {
   const { onSidebarOpen, onLogout, ...other } = props;
   const { title } = useContext(TitleContext);
+	const today = new Date();
 
   return (
     <>
@@ -54,8 +55,11 @@ export const DashboardNavbar = (props) => {
             {title}
           </Typography>
           <Box sx={{ flexGrow: 1 }} />
+					<Typography variant="h6" color="text.primary">
+						today: {today.getFullYear()}/{today.getMonth() + 1}/{today.getDate()}
+					</Typography>
           <Tooltip title="Logout">
-            <IconButton sx={{ ml: 1 }}
+            <IconButton sx={{ ml: 2 }}
               onClick={onLogout}
             >
               <LogoutIcon fontSize="small" />

@@ -11,6 +11,7 @@ import Dashboard from "./views/Dashboard/dashboard";
 import TodoApp from "./views/TODOLIST";
 import RichtexteditorAnnouncment from "./views/AnnouncmentOwnerSide";
 import BoardEmp from "./Pages/BoardEmp/index";
+import DormitoryEmp from "./Pages/DormitoryEmp/index";
 import { DashboardLayout } from "./components/dashboard-layout";
 import NotFound from "./404";
 import AddDocument from "views/Documents/addDocument";
@@ -44,6 +45,7 @@ ReactDOM.render(
               />
               <Route exact path="timetracker" element={<TimeTracker />} />
               <Route exact path="boardemp" element={<BoardEmp />} />
+              <Route exact path="dormitoryemp" element={<DormitoryEmp />} />
               <Route path='*' element={<NotFound />} />
             </Route>
             <Route path='*' element={<NotFound />} />

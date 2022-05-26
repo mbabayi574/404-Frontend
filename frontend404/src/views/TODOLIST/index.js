@@ -13,6 +13,7 @@ import {
   DialogContent,
   DialogContentText,
   DialogActions,
+  Container,
 } from "@mui/material";
 
 const TodoApp = React.memo(() => {
@@ -55,7 +56,7 @@ const TodoApp = React.memo(() => {
 
   return (
     <Fragment>
-      <Layout>
+      <Container>
         <Grid container>
           <Grid item xs={6}>
             <AddTodo
@@ -75,7 +76,7 @@ const TodoApp = React.memo(() => {
             />
           </Grid>
         </Grid>
-      </Layout>
+      </Container>
 
       <Snackbar
         open={open}

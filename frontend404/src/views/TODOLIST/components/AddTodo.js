@@ -31,8 +31,8 @@ const AddTodo = React.memo(
             size="small"
           />
         </Grid>
-        <Grid xs={4} md={4} item>
-          <FormControl sx={{ minWidth: "12vw" }} size="small">
+        <Grid xs={9} md={9} item>
+          <FormControl sx={{ minWidth: "12vw", width: "100%" }} size="small">
             <InputLabel id="priority-change-element">Priority</InputLabel>
             <Select
               labelId="priority-change-element"
@@ -56,11 +56,11 @@ const AddTodo = React.memo(
             </Select>
           </FormControl>
         </Grid>
-        <Grid xs={2} md={1} item>
+        <Grid xs={3} md={3} item>
           <Button
             fullWidth
-            color="secondary"
-            variant="outlined"
+            // color="secondary"
+            variant="contained"
             onClick={onButtonClick}
           >
             Add

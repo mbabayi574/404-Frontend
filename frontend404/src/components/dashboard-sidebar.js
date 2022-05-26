@@ -15,6 +15,7 @@ import PersonIcon from '@mui/icons-material/Person';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import DirectionsBusIcon from '@mui/icons-material/DirectionsBus';
 import InsertDriveFileIcon from '@mui/icons-material/InsertDriveFile';
+import MapsHomeWorkIcon from '@mui/icons-material/MapsHomeWork';
 
 const mainItems = [
   {
@@ -73,6 +74,11 @@ const employeeItems = [
     href: '/my/documents',
     icon: (<InsertDriveFileIcon fontSize="small" />),
     title: 'Documents'
+  },
+  {
+    href: '/my/dormitoryemp',
+    icon: (<MapsHomeWorkIcon fontSize="small" />),
+    title: 'Dormitory'
   },
 ]
 const managerItems = [
