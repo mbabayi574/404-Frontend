@@ -20,12 +20,25 @@ const DashboardLayoutRoot = styled('div')(({ theme }) => ({
 }));
 
 export const DashboardLayout = () => {
+  const { user, setUser } = useUser();
+  const api = useAPI();
   const {setToken, token} = useContext(TokenContext);
   const [isSidebarOpen, setSidebarOpen] = useState(true);
+  const [loading, setLoading] = useState(false);
   const handleLogout = () => {
     setToken({refresh: null, access: null});
+    setUser(null);
   }
-  return (
+  useEffect(() => {
+    api({
+      url: "auth/users/me/"
+    })
+    .then(response => {
+      setUser(response.data);
+    })
+    setLoading(true);
+  }, [])
+  return loading && (
     <>
       <CssBaseline />
       <DashboardLayoutRoot>
@@ -45,6 +58,7 @@ export const DashboardLayout = () => {
         onLogout={handleLogout}
       />
       <DashboardSidebar
+        user={user}
         onClose={() => setSidebarOpen(false)}
         open={isSidebarOpen}
       />

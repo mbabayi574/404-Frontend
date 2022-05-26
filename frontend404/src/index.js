@@ -14,8 +14,6 @@ import Transportation from "./views/Transportation/transportation";
 import TimeTracker from "./Pages/TimeTracker/index";
 import Dashboard from "./views/Dashboard/dashboard";
 import TodoApp from "./views/TODOLIST";
-import RichtexteditorAnnouncment from "./views/AnnouncmentOwnerSide";
-import BoardEmp from "./Pages/BoardEmp/index";
 import DormitoryEmp from "./Pages/DormitoryEmp/index";
 import { DashboardLayout } from "./components/dashboard-layout";
 import Board from "views/Salary/Calculator";
@@ -23,6 +21,7 @@ import NotFound from "./404";
 import AddDocument from "views/Documents/addDocument";
 import ViewDocument from "views/Documents/viewDocument";
 import Documents from "views/Documents/documents";
+import BulletinBoard from "views/BulletinBoard";
 
 ReactDOM.render(
   <React.StrictMode>
@@ -44,13 +43,8 @@ ReactDOM.render(
               <Route exact path=":id" element={<ViewDocument />} />
             </Route>
             <Route exact path="todoapp" element={<TodoApp />} />
-            <Route
-              exact
-              path="announcementsender"
-              element={<RichtexteditorAnnouncment />}
-            />
             <Route exact path="timetracker" element={<TimeTracker />} />
-            <Route exact path="boardemp" element={<BoardEmp />} />
+            <Route exact path="bulletin_board" element={<BulletinBoard />} />
             <Route exact path="dormitoryemp" element={<DormitoryEmp />} />
             <Route exact path="reports" element={<Board />} />
             <Route path="*" element={<NotFound />} />

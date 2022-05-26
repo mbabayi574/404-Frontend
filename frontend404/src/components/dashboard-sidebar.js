@@ -14,7 +14,6 @@ import NotificationsIcon from '@mui/icons-material/Notifications';
 import DirectionsBusIcon from '@mui/icons-material/DirectionsBus';
 import InsertDriveFileIcon from '@mui/icons-material/InsertDriveFile';
 import MapsHomeWorkIcon from '@mui/icons-material/MapsHomeWork';
-import useUser from 'useUser';
 
 const mainItems = [
   {
@@ -84,16 +83,11 @@ const managerItems = [
 ]
 
 export const DashboardSidebar = (props) => {
-  const { user } = useUser();
-  const { open, onClose } = props;
+  const { user, open, onClose } = props;
   const lgUp = useMediaQuery((theme) => theme.breakpoints.up('lg'), {
     defaultMatches: true,
     noSsr: false
   });
-
-	if (!user) {
-		return <></>;
-	}
 
   const content = (
     <>
@@ -125,7 +119,7 @@ export const DashboardSidebar = (props) => {
               title={item.title}
             />
           ))}
-          {(user.role === "E") && (
+          {(user?.role === "E") && (
 						employeeItems.map((item) => (
             <NavItem
               key={item.title}
@@ -134,7 +128,7 @@ export const DashboardSidebar = (props) => {
               title={item.title}
             />
           )))}
-          {(user.role === "C") && (
+          {(user?.role === "C") && (
 						managerItems.map((item) => (
             <NavItem
               key={item.title}

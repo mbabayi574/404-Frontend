@@ -8,13 +8,12 @@ import { Typography, Paper } from "@mui/material";
 import Skeleton from '@mui/material/Skeleton';
 import { DataGrid } from '@mui/x-data-grid';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
-import { TokenContext } from "App";
 import Stack from '@mui/material/Stack';
 import { Grid } from "@mui/material";
 import useAPI from "useAPI";
 
 
-const BoardEmp = (props) => {
+const BulletinBoardEmployee = (props) => {
   const api = useAPI();
   const { history } = props;
   const [showData, setShowData] = React.useState(true);
@@ -118,4 +117,4 @@ const BoardEmp = (props) => {
   );
 };
 
-export default BoardEmp;
+export default BulletinBoardEmployee;

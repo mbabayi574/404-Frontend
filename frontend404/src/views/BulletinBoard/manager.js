@@ -3,7 +3,7 @@ import JoditEditor from "jodit-react";
 import { Button, TextField, Grid, Paper, Snackbar, Alert, Container } from "@mui/material";
 import useAPI from "useAPI";
 
-const RichtexteditorAnnouncment = ({ }) => {
+const BulletinBoardManager = ({ }) => {
 	const editor = useRef(null);
 	const api = useAPI();
 	const [title, setTitle] = useState("");
@@ -127,4 +127,4 @@ const RichtexteditorAnnouncment = ({ }) => {
 	);
 };
 
-export default RichtexteditorAnnouncment;
+export default BulletinBoardManager;
