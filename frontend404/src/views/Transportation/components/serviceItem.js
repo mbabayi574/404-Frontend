@@ -6,7 +6,7 @@ import CircleIcon from '@mui/icons-material/Circle';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import DeleteIcon from "@mui/icons-material/Delete";
-import { useContext, useEffect, useState } from "react";
+import { useState } from "react";
 import TableCell from '@mui/material/TableCell';
 import TableRow from '@mui/material/TableRow';
 import Dialog from '@mui/material/Dialog';
@@ -14,15 +14,17 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import useAPI from "useAPI";
+import useUser from "useUser";
 
 export const daysOfWeek = ['Sat', 'Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri'];
 
-const ServiceItem = ({ service, username, role, loadServices }) => {
+const ServiceItem = ({ service, loadServices }) => {
 	const api = useAPI();
+  const { user } = useUser();
 	const [open, setOpen] = useState(false);
 	const [openDialog, setOpenDialog] = useState(false);
 	const labelId = `table-checkbox-${service.id}`;
-	const subscribed = service.user.find(user => user.username === username) !== undefined;
+	const subscribed = service.user.find(item => item.username === user.username) !== undefined;
 	const days = {
 		'Sat': service.saturday,
 		'Sun': service.sunday,
@@ -96,7 +98,7 @@ const ServiceItem = ({ service, username, role, loadServices }) => {
 			>
 				<TableCell>
 					{
-						role === "C" && (
+						user.role === "C" && (
 							<IconButton onClick={() => setOpenDialog(true)}>
 								<DeleteIcon />
 							</IconButton>

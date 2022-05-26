@@ -14,33 +14,15 @@ import TableRow from '@mui/material/TableRow';
 import { useNavigate } from "react-router-dom";
 import ServiceItem, { daysOfWeek } from './components/serviceItem';
 import useAPI from "useAPI";
+import useUser from "useUser";
 
 const Transportation = () => {
 	const [services, setServices] = useState([]);
-	const [username, setUsername] = useState([]);
-	const [role, setRole] = useState("");
+  const { user } = useUser();
 	const api = useAPI();
 	const navigate = useNavigate();
 
 	const loadServices = () => {
-		var config = {
-			method: "get",
-			url: "auth/users/me",
-			headers: {
-				Accept: "application/json",
-			},
-		};
-		api(config)
-			.then((response) => {
-				if (response.status == 200) {
-					setUsername(response.data.username);
-					setRole(response.data.role);
-				}
-			})
-			.catch((error) => {
-				console.log(error);
-				return;
-			});
 		var config = {
 			method: "get",
 			url: "ServiceCounter/transportation/employee/showlists",
@@ -97,7 +79,7 @@ const Transportation = () => {
 									<TableRow>
 										<TableCell>
 											{
-												role === "C" && (
+												user?.role === "C" && (
 													<Button
 														size="small"
 														variant="contained"
@@ -132,8 +114,6 @@ const Transportation = () => {
 									{services.map((service) => (
 										<ServiceItem
 											service={service}
-											role={role}
-											username={username}
 											loadServices={loadServices}
 										/>
 									))}
