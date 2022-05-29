@@ -1,7 +1,11 @@
 import PropTypes from 'prop-types';
-import { Box, Drawer, useMediaQuery } from '@mui/material';
 import { Logo } from './logo';
 import { NavItem } from './nav-item';
+import Box from "@mui/material/Box";
+import Drawer from "@mui/material/Drawer";
+import Divider from "@mui/material/Divider";
+import Typography from "@mui/material/Typography";
+import useMediaQuery from "@mui/material/useMediaQuery";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import AssignmentIcon from '@mui/icons-material/Assignment';
@@ -88,6 +92,7 @@ export const DashboardSidebar = (props) => {
     defaultMatches: true,
     noSsr: false
   });
+  const today = new Date();
 
   const content = (
     <>
@@ -99,18 +104,27 @@ export const DashboardSidebar = (props) => {
         }}
       >
         <div>
-          <Box sx={{ p: 3 }}>
+          <Box sx={{ p: 3, display: "flex", alignItems: "center" }}>
             <a>
-                <Logo
-                  sx={{
-                    height: 42,
-                    width: 42
-                  }}
-                />
-              </a>
+              <Logo
+                sx={{
+                  height: 42,
+                  width: 42
+                }}
+              />
+            </a>
+            <Box sx={{ml: 2}}>
+              <Typography variant="body1" color="neutral.200">
+                {user.first_name} {user.last_name}
+              </Typography>
+              <Typography variant="body2" color="neutral.400">
+                Today: {today.getFullYear()} / {today.getMonth() + 1} / {today.getDate()}
+              </Typography>
+            </Box>
           </Box>
         </div>
-        <Box sx={{ flexGrow: 1 }}>
+        <Divider light />
+        <Box sx={{ flexGrow: 1, mt: 1 }}>
           {mainItems.map((item) => (
             <NavItem
               key={item.title}
@@ -120,23 +134,23 @@ export const DashboardSidebar = (props) => {
             />
           ))}
           {(user?.role === "E") && (
-						employeeItems.map((item) => (
-            <NavItem
-              key={item.title}
-              icon={item.icon}
-              href={item.href}
-              title={item.title}
-            />
-          )))}
+            employeeItems.map((item) => (
+              <NavItem
+                key={item.title}
+                icon={item.icon}
+                href={item.href}
+                title={item.title}
+              />
+            )))}
           {(user?.role === "C") && (
-						managerItems.map((item) => (
-            <NavItem
-              key={item.title}
-              icon={item.icon}
-              href={item.href}
-              title={item.title}
-            />
-          )))}
+            managerItems.map((item) => (
+              <NavItem
+                key={item.title}
+                icon={item.icon}
+                href={item.href}
+                title={item.title}
+              />
+            )))}
         </Box>
       </Box>
     </>

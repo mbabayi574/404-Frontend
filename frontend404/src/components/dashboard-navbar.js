@@ -19,7 +19,6 @@ const DashboardNavbarRoot = styled(AppBar)(({ theme }) => ({
 export const DashboardNavbar = (props) => {
   const { user, onSidebarOpen, onLogout, ...other } = props;
   const { title } = useContext(TitleContext);
-	const today = new Date();
 
   return (
     <>
@@ -38,48 +37,49 @@ export const DashboardNavbar = (props) => {
           sx={{
             minHeight: 64,
             left: 0,
-            px: 2
+            px: 2,
           }}
         >
-          <IconButton
-            onClick={onSidebarOpen}
+          <Box
             sx={{
-              display: {
-                xs: 'inline-flex',
-                lg: 'none'
-              }
+              width: "100%",
+              display: "flex",
+              alignItems: "center",
             }}
           >
-            <MenuIcon fontSize="small" />
-          </IconButton>
-          <Typography variant="h5" color="text.primary" sx={{width: "20vw"}}>
-            {title}
-          </Typography>
-          <Box sx={{ flexGrow: 1 }} />
-					<Typography variant="h6" color="text.primary">
-						Today: {today.getFullYear()} / {today.getMonth() + 1} / {today.getDate()}
-					</Typography>
-          <Box sx={{ flexGrow: 1 }} />
-          <Typography variant="h5" color="text.primary" sx={{width: "20vw", textAlign: "end"}}>
-						{user.first_name} {user.last_name}
-					</Typography>
-          <Tooltip title="Logout">
-            <IconButton sx={{ ml: 2 }}
-              onClick={onLogout}
+            <IconButton
+              onClick={onSidebarOpen}
+              sx={{
+                display: {
+                  xs: 'inline-flex',
+                  lg: 'none'
+                }
+              }}
             >
-              <LogoutIcon fontSize="small" />
+              <MenuIcon fontSize="small" />
             </IconButton>
-          </Tooltip>
-          <Avatar
-            sx={{
-              height: 40,
-              width: 40,
-              ml: 1
-            }}
-            // src={avatar}
-          >
-            <UserCircleIcon fontSize="small" />
-          </Avatar>
+            <Typography variant="h6" sx={{ ml: 1, width: "fit-content", color: "text.primary" }}>
+              {title}
+            </Typography>
+            <Box sx={{ flexGrow: 1 }} />
+            <Tooltip title="Logout">
+              <IconButton sx={{ ml: 2 }}
+                onClick={onLogout}
+              >
+                <LogoutIcon fontSize="small" />
+              </IconButton>
+            </Tooltip>
+            <Avatar
+              sx={{
+                height: 32,
+                width: 32,
+                ml: 1
+              }}
+              src={user?.avatar}
+            >
+              <UserCircleIcon fontSize="large" />
+            </Avatar>
+          </Box>
         </Toolbar>
       </DashboardNavbarRoot>
     </>
