@@ -48,40 +48,37 @@ function a11yProps(index) {
 }
 
 function Copyright(props) {
-	return (
-		<Typography align="center" {...props}>
-			MADE WITH ❤️ IN 2022
-		</Typography>
-	);
+  return (
+    <Typography align="center" {...props}>
+      MADE WITH ❤️ IN 2022
+    </Typography>
+  );
 }
 
 function SignUp() {
-	const api = useAPI();
-	let navigate = useNavigate();
+  const api = useAPI();
+  let navigate = useNavigate();
 
   const [companies, setCompanies] = useState([]);
   const [company, setCompany] = useState(null);
-	const [registrant_role, setRegistrant_Role] = useState("owner");
-	const [value, setValue] = useState(0);
+  const [registrantRole, setRegistrantRole] = useState("owner");
+  const [value, setValue] = useState(0);
 
-	const handleChange = (event, newValue) => {
-		const new_role_value = newValue == 0 ? "owner" : "employee";
-		setRegistrant_Role(new_role_value);
-		setValue(newValue);
-	};
-	const handle_Role_Change = (event) => {
-		setRegistrant_Role(event.target.value);
-	};
+  const handleChangeRole = (event, newValue) => {
+    const new_role_value = newValue == 0 ? "owner" : "employee";
+    setRegistrantRole(new_role_value);
+    setValue(newValue);
+  };
 
-	const handleChangeCompany = (event) => {
-		setCompany(event.target.value);
-	};
+  const handleChangeCompany = (event) => {
+    setCompany(event.target.value);
+  };
 
-	const handleSubmit = (event) => {
-		event.preventDefault();
+  const handleSubmit = (event) => {
+    event.preventDefault();
     const data = new FormData(event.currentTarget);
 
-    if (registrant_role === "owner") {
+    if (registrantRole === "owner") {
       var request_data = JSON.stringify({
         company: {
           company_name: data.get("company-name"),
@@ -111,7 +108,7 @@ function SignUp() {
         .catch(function (error) {
           console.log(error);
         });
-    } else if (registrant_role === "employee") {
+    } else if (registrantRole === "employee") {
       var employeerequest_data = JSON.stringify({
         first_name: data.get("firstName"),
         last_name: data.get("lastName"),
@@ -137,208 +134,205 @@ function SignUp() {
           console.log(error);
         });
     }
-	};
+  };
 
-	useEffect(() => {
-		api({
-			url: "api/getallcompany/"
-		}).then(response => {
-			console.log(response);
-			if (response.status === 200) {
-				setCompanies(response.data.map(company => company.company_name));
-			}
-		})
-	}, [])
+  useEffect(() => {
+    api({
+      url: "api/getallcompany/"
+    }).then(response => {
+      console.log(response);
+      if (response.status === 200) {
+        setCompanies(response.data.map(company => company.company_name));
+      }
+    })
+  }, [])
 
-	return (
-		<div
-			style={{
-				backgroundImage:
-					"url(https://supremepools.com.au/wp-content/uploads/2016/06/supreme-pools-free-pool-magazine-background-large.jpg)",
-				height: "100vh",
-				backgroundSize: "cover",
-				backgroundRepeat: "no-repeat",
-				display: "flex",
-				alignItems: "center"
-			}}
-		>
-			<Container component="main" maxWidth="xs">
-				<Card sx={{height: "80vh"}}>
-					<div style={{ padding: "10px", height: "100%" }}>
-						<CssBaseline />
-						<Box
-							// component="form"
-							// noValidate
-							// onSubmit={handleSubmit}
-							sx={{
-								mt: 3,
-								height: "100%",
-								display: "flex",
-								flexDirection: "column",
-								alignItems: "center",
-							}}
-						>
-							<Avatar sx={{ m: 2, bgcolor: "secondary.main" }}>
-								<LockOutlinedIcon />
-							</Avatar>
-							<Typography component="h1" variant="h5">
-								Sign Up
-							</Typography>
-							<Box
-								component="form"
-								noValidate
-								onSubmit={handleSubmit}
-								sx={{height: "100%"}}
-							>
-								<Grid container spacing={2}>
-									<Grid item xs={12} sx={{ mb: -5 }}>
-										<Tabs
-											variant="fullWidth"
-											value={value}
-											onChange={handleChange}
-											aria-label="basic tabs example"
-										>
-											<Tab label="Owner" {...a11yProps(0)} />
-											<Tab label="Employee" {...a11yProps(1)} />
-										</Tabs>
-										<TabPanel value={value} index={0}></TabPanel>
-										<TabPanel value={value} index={1}></TabPanel>
-									</Grid>
-									<Grid item xs={12} sm={6}>
-										<TextField
-											autoComplete="given-name"
-											name="firstName"
-											required
-											fullWidth
-											id="firstName"
-											label="First Name"
-											autoFocus
-										/>
-									</Grid>
-									<Grid item xs={12} sm={6}>
-										<TextField
-											required
-											fullWidth
-											id="lastName"
-											label="Last Name"
-											name="lastName"
-											autoComplete="family-name"
-										/>
-									</Grid>
-									{registrant_role === "owner" && (
-										<>
-											<Grid item xs={12}>
-												<TextField
-													required
-													fullWidth
-													id="company-name"
-													label="Company Name"
-													name="company-name"
-												/>
-											</Grid>
-											<Grid item xs={12}>
-												<TextField
-													required
-													fullWidth
-													id="company-biography"
-													label="Company Biography"
-													name="company-biography"
-													multiline
-												/>
-											</Grid>
-										</>
-									)}
-									<Grid item xs={12}>
-										<TextField
-											margin="normal"
-											required
-											fullWidth
-											id="phonenumber"
-											label="Phone Number"
-											name="phonenumber"
-											autoFocus
-										/>
-									</Grid>
-									<Grid item xs={12}>
-										<TextField
-											required
-											fullWidth
-											id="email"
-											label="Email"
-											name="email"
-											autoComplete="email"
-										/>
-									</Grid>
-									<Grid item xs={12}>
-										<TextField
-											required
-											fullWidth
-											name="password"
-											label="Password"
-											type="password"
-											id="password"
-											autoComplete="new-password"
-										/>
-									</Grid>
-									{registrant_role === "employee" && (
-										<>
-											<Grid item xs={12}>
-												<TextField
-													id="outlined-select-company"
-													select
-													label="Select"
-													value={company}
-													onChange={handleChangeCompany}
-													helperText="Select Your Company:"
-													fullWidth
-												>
-													{companies.map((value) => (
-														<MenuItem key={value} value={value}>
-															{value}
-														</MenuItem>
-													))}
-												</TextField>
-											</Grid>
-										</>
-									)}
-								</Grid>
-								<Box sx={{flexGrow: 1}} />
-								<Grid container spacing={25}>
-									<Grid item>
-										<Button
-											item
-											type="submit"
-											variant="contained"
-											sx={{ mt: 3, mb: 2 }}
-										>
-											Submit
-										</Button>
-									</Grid>
-									<Grid item>
-										<Button
-											item
-											onClick={() => {
-												navigate("/login");
-											}}
-											variant="outlined"
-											sx={{ mt: 3, mb: 2 }}
-										>
-											Login
-										</Button>
-									</Grid>
-								</Grid>
-						</Box>
-						<Copyright sx={{ mb: 3 }} />
-					</Box>
-				</div>
-			</Card>
-		</Container>
+  return (
+    <div
+      style={{
+        backgroundImage:
+          "url(https://supremepools.com.au/wp-content/uploads/2016/06/supreme-pools-free-pool-magazine-background-large.jpg)",
+        height: "100vh",
+        backgroundSize: "cover",
+        backgroundRepeat: "no-repeat",
+        display: "flex",
+        alignItems: "center"
+      }}
+    >
+      <Container component="main" maxWidth="sm">
+        <Card sx={{ height: "80vh", width: "100%", p: 1 }}>
+          <CssBaseline />
+          <Box
+            sx={{
+              height: "100%",
+              width: "100%",
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+            }}
+          >
+            <Avatar sx={{ m: 2, bgcolor: registrantRole === "owner" ? "primary.main" : "secondary.main" }}>
+              <LockOutlinedIcon />
+            </Avatar>
+            <Box
+              component="form"
+              noValidate
+              onSubmit={handleSubmit}
+              sx={{
+                px: 2,
+                width: "100%",
+                height: "100%",
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                overflowY: "auto"
+              }}
+            >
+              <Typography component="h1" variant="h5">
+                Sign Up
+              </Typography>
+              <Tabs
+                sx={{ width: "100%", mt: 1 }}
+                value={value}
+                onChange={handleChangeRole}
+                aria-label="role type"
+              >
+                <Tab sx={{ width: "50%" }} label="Manager" {...a11yProps(0)} />
+                <Tab sx={{ width: "50%" }} label="Employee" {...a11yProps(1)} />
+              </Tabs>
+              <Grid container sx={{ width: "100%", mt: 2 }} spacing={2}>
+                <Grid item xs={12} sm={6}>
+                  <TextField
+                    autoComplete="given-name"
+                    name="firstName"
+                    required
+                    fullWidth
+                    id="firstName"
+                    label="First Name"
+                    autoFocus
+                  />
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                  <TextField
+                    required
+                    fullWidth
+                    id="lastName"
+                    label="Last Name"
+                    name="lastName"
+                    autoComplete="family-name"
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <TextField
+                    required
+                    fullWidth
+                    id="phonenumber"
+                    label="Phone Number"
+                    name="phonenumber"
+                    autoFocus
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <TextField
+                    required
+                    fullWidth
+                    id="email"
+                    label="Email"
+                    name="email"
+                    autoComplete="email"
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <TextField
+                    required
+                    fullWidth
+                    name="password"
+                    label="Password"
+                    type="password"
+                    id="password"
+                    autoComplete="new-password"
+                  />
+                </Grid>
+                {registrantRole === "owner" && (
+                  <>
+                    <Grid item xs={12}>
+                      <TextField
+                        required
+                        fullWidth
+                        id="company-name"
+                        label="Company Name"
+                        name="company-name"
+                      />
+                    </Grid>
+                    <Grid item xs={12}>
+                      <TextField
+                        required
+                        fullWidth
+                        id="company-biography"
+                        label="Company Biography"
+                        name="company-biography"
+                        multiline
+                      />
+                    </Grid>
+                  </>
+                )}
+                {registrantRole === "employee" && (
+                  <>
+                    <Grid item xs={12}>
+                      <TextField
+                        id="outlined-select-company"
+                        select
+                        label="Select Your Company"
+                        value={company || ''}
+                        onChange={handleChangeCompany}
+                        fullWidth
+                      >
+                        {companies.map((value) => (
+                          <MenuItem key={value} value={value}>
+                            {value}
+                          </MenuItem>
+                        ))}
+                      </TextField>
+                    </Grid>
+                  </>
+                )}
+              </Grid>
+              <Box sx={{ flexGrow: 1, maxHeight: "auto" }} />
+              <Grid sx={{ width: "100%", mt: 0.5, mb: 1 }} container spacing={2}>
+                <Grid item xs={6}>
+                  <Button
+                    // item
+                    type="submit"
+                    variant="contained"
+                    sx={{ width: "100%" }}
+                  >
+                    Submit
+                  </Button>
+                </Grid>
+                <Grid item xs={6}>
+                  <Button
+                    // item
+                    onClick={() => {
+                      navigate("/login");
+                    }}
+                    variant="outlined"
+                    sx={{ width: "100%" }}
+                  >
+                    Login
+                  </Button>
+                </Grid>
+              </Grid>
+            </Box>
+            <Copyright sx={{ mb: 3 }} />
+          </Box>
+        </Card>
+      </Container>
     </div >
   );
 }
 
 const Signup_Company = () => {
-	return <SignUp />;
+  return <SignUp />;
 };
 
 export default Signup_Company;

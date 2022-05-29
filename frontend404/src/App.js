@@ -36,8 +36,9 @@ function App() {
   const api = useAPI();
   const [ title, setTitle ] = useState(null);
   useEffect(() => {
-    console.log(token);
-    console.log(location);
+    // console.log(user);
+    // console.log(token);
+    // console.log(location.pathname);
     if (!token && !tokenlessPages.includes(location.pathname)) {
       navigate('/login');
     } else if (token && tokenlessPages.includes(location.pathname)) {
