@@ -96,90 +96,72 @@ const AddDocument = () => {
   };
 
   return (
-    <Box
-      component="main"
+    <Card
       sx={{
-        flexGrow: 1,
+        width: "100%",
+        height: "fit-content",
+        // width: {
+        //   xs: "md",
+        //   md: "lg",
+        // },
+        p: 1,
       }}
     >
-      <Container
-        maxWidth={false}
-        sx={{
-          p: 3,
-          height: "100%",
-        }}
-      >
-        <Card
-          sx={{
-            width: "100%",
-            height: "100%",
-            p: 1,
-          }}
-        >
-          <Stack spacing={1} sx={{ height: "100%", width: "100%" }}>
-            <Stack spacing={1} direction="row" sx={{
-								alignItems: "center",
-							}}>
-              <IconButton onClick={() => navigate(-1)}>
-                <ArrowBackIcon />
-              </IconButton>
-              <Typography variant="h5">New Document</Typography>
-            </Stack>
-            <Divider />
-						<Stack spacing={1} sx={{p: 1}}>
-							<TextField
-								error={error.hasOwnProperty("title")}
-								helperText={error.hasOwnProperty("title") ? error.title[0] : " "}
-								size="small" fullWidth label="Title"
-								value={title} onChange={handleTitleChange} />
-							<TextField fullWidth multiline
-								error={error.hasOwnProperty("content")}
-								helperText={error.hasOwnProperty("content") ? error.content[0] : " "}
-							rows={27} value={content} onChange={handleContentChange} />
-							<Stack spacing={1} direction="row" sx={{alignItems: "center"}}>
-								<Button variant="contained" onClick={handleSubmit}>Submit</Button>
-								<IconButton color="primary" component="label">
-									<input onChange={handleAddFile}
-										type="file"
-										hidden
-                  	multiple
-									/>
-									<AttachFileIcon />
-								</IconButton>
-								{
-									files.length == 0
-									? <Typography variant="body1">No files attached</Typography>
-									: <Stack direction="row" spacing={1} sx={{
-                    flexGrow: 1,
-                    maxWidth: "auto",
-                    overflowX: "auto"
-                  }}>
-                    {
-                      files.map(file => 
-                        <Card sx={{
-                          pr: 1, pl: 2, py: 0,
-                          width: "max-content",
-                          height: "100%",
-                          backgroundColor: "divider",
-                          display: "flex",
-                          flexDirection: "row",
-                          flexShrink: 0,
-                          alignItems: "center"}}
-                        >
-                          <Typography sx={{mt: 1}} noWrap variant="body1">{file.name}</Typography>
-                          <IconButton onClick={event => handleRemoveFile(event, file.name)}>
-                            <ClearIcon/>
-                          </IconButton>
-                        </Card>)
-                    }
-                  </Stack>
-								}
-							</Stack>
-						</Stack>
+      <Stack spacing={1} sx={{ height: "100%", width: "100%" }}>
+        <Typography variant="h5">New Document</Typography>
+        <Divider />
+        <Stack sx={{p: 1}}>
+          <TextField
+            error={error.hasOwnProperty("title")}
+            helperText={error.hasOwnProperty("title") ? error.title[0] : " "}
+            size="small" fullWidth label="Title"
+            value={title} onChange={handleTitleChange} />
+          <TextField fullWidth multiline
+            error={error.hasOwnProperty("content")}
+            helperText={error.hasOwnProperty("content") ? error.content[0] : " "}
+          minRows={5} maxRows={15} value={content} onChange={handleContentChange} />
+          <Stack spacing={1} direction="row" sx={{alignItems: "center"}}>
+            <Button variant="contained" onClick={handleSubmit}>Submit</Button>
+            <IconButton color="primary" component="label">
+              <input onChange={handleAddFile}
+                type="file"
+                hidden
+                multiple
+              />
+              <AttachFileIcon />
+            </IconButton>
+            {
+              files.length == 0
+              ? <Typography variant="body1">No files attached</Typography>
+              : <Stack direction="row" spacing={1} sx={{
+                flexGrow: 1,
+                maxWidth: "auto",
+                overflowX: "auto"
+              }}>
+                {
+                  files.map(file => 
+                    <Card sx={{
+                      pr: 1, pl: 2, py: 0,
+                      width: "max-content",
+                      height: "100%",
+                      backgroundColor: "divider",
+                      display: "flex",
+                      flexDirection: "row",
+                      flexShrink: 0,
+                      alignItems: "center"}}
+                    >
+                      <Typography sx={{mt: 1}} noWrap variant="body1">{file.name}</Typography>
+                      <IconButton onClick={event => handleRemoveFile(event, file.name)}>
+                        <ClearIcon/>
+                      </IconButton>
+                    </Card>)
+                }
+              </Stack>
+            }
           </Stack>
-        </Card>
-      </Container>
-    </Box>
+        </Stack>
+      </Stack>
+    </Card>
   );
 };
 export default AddDocument;
