@@ -24,6 +24,7 @@ import AddDocument from "views/Documents/addDocument";
 import ViewDocument from "views/Documents/viewDocument";
 import Documents from "views/Documents/documents";
 import BulletinBoard from "views/BulletinBoard";
+import ServiceCounterEmp from "./Pages/ServiceCounterEmp/index";
 
 ReactDOM.render(
   <React.StrictMode>
@@ -48,9 +49,14 @@ ReactDOM.render(
             <Route exact path="timetracker" element={<TimeTracker />} />
             <Route exact path="bulletin_board" element={<BulletinBoard />} />
             <Route exact path="dormitoryemp" element={<DormitoryEmp />} />
+            <Route
+              exact
+              path="servicecounteremp"
+              element={<ServiceCounterEmp />}
+            />
             <Route exact path="reports" element={<Board />} />
             <Route exact path="hr_desk" element={<HrDesk />} />
-						<Route exact path="food_manager" element={<FoodManager />} />
+            <Route exact path="food_manager" element={<FoodManager />} />
             <Route path="*" element={<NotFound />} />
           </Route>
           <Route path="*" element={<NotFound />} />

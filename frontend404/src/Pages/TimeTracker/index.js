@@ -1,22 +1,22 @@
 import * as React from "react";
-import {Fragment} from "react";
-import CircularProgress from '@mui/material/CircularProgress';
-import Box from '@mui/material/Box';
+import { Fragment } from "react";
+import CircularProgress from "@mui/material/CircularProgress";
+import Box from "@mui/material/Box";
 import { Typography, Paper } from "@mui/material";
 import Collapse from "@mui/material/Collapse";
 import TextField from "@mui/material/TextField";
 import MuiAlert from "@mui/material/Alert";
-import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import Card from "@mui/material/Card";
-import { DesktopDatePicker as DatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
-import { TimePicker } from '@mui/x-date-pickers/TimePicker';
+import { DesktopDatePicker as DatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
+import { TimePicker } from "@mui/x-date-pickers/TimePicker";
 import OutlinedInput from "@mui/material/OutlinedInput";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
-import ReportTracker from './report';
+import ReportTracker from "./report";
 import useAPI from "useAPI";
 import {
   Grid,
@@ -38,10 +38,9 @@ const MenuProps = {
   },
 };
 
-
 const TimeTracker = (props) => {
-	const api = useAPI();
-  const [list ,setList] = React.useState([]);
+  const api = useAPI();
+  const [list, setList] = React.useState([]);
   const minute = [];
   for (var i = 0; i <= 120; i += 5) minute.push(i);
   const [previousDays, setPrevioisDays] = React.useState(false);
@@ -72,8 +71,8 @@ const TimeTracker = (props) => {
       .then(function (response) {
         const arr = [];
         response.data.map((item) => {
-          arr.push(item)
-        })
+          arr.push(item);
+        });
         setList(arr);
         setShowReport(true);
         setIsLoading(false);
@@ -85,7 +84,7 @@ const TimeTracker = (props) => {
       });
   };
 
-  React.useEffect(() =>{
+  React.useEffect(() => {
     getReportList();
   }, []);
 
@@ -122,7 +121,6 @@ const TimeTracker = (props) => {
           console.log(response.data);
           getReportList();
           setIsOpenSnackbar(true);
-
         })
         .catch(function (error) {
           console.log(error);
@@ -288,9 +286,9 @@ const TimeTracker = (props) => {
   };
 
   const inputValidatinTime = (enter, exit, wasted) => {
-    console.log('enter: ', enter);
-    console.log('exit:', exit);
-    console.log('wasted:', wasted);
+    console.log("enter: ", enter);
+    console.log("exit:", exit);
+    console.log("wasted:", wasted);
     const sh = enter.getHours();
     const sm = enter.getMinutes();
     const fh = exit.getHours();
@@ -323,158 +321,179 @@ const TimeTracker = (props) => {
   return (
     <LocalizationProvider dateAdapter={AdapterDateFns}>
       <Fragment>
-      <Paper
-        elevation={0}
-        style={{ padding: 0, margin: 0, backgroundColor: "#fafafa" }}
-      >
-        {isLoading ? (
-           <Box sx={{ display: 'flex' , width: '90%', height: '80vh', justifyContent: 'center',alignItems: 'center', }}>
-             <CircularProgress />
-           </Box>
-        ):(
-          <Grid container spacing={0} style={{ padding: 32,}}>
-          <Grid item xs={4} md={4} style={{ padding: 0, marginRight: 30,}}>
-              <Card>
-                <Grid container spacing={2} style={{ margin: 1,}}>
-                  <Grid item xs={4} md={4} style={{ margin: 5,}}>
-                  <Typography style={{ padding: 5,}} color="primary">Enter Time</Typography>
-                    <TimePicker
-                      value={enterTime}
-                      onChange={setEnterTime}
-                      renderInput={(params) => <TextField {...params} />}
-                    />
+        <Paper
+          elevation={0}
+          style={{ padding: 0, margin: 0, backgroundColor: "#fafafa" }}
+        >
+          {isLoading ? (
+            <Box
+              sx={{
+                display: "flex",
+                width: "90%",
+                height: "80vh",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              <CircularProgress />
+            </Box>
+          ) : (
+            <Grid container spacing={0} style={{ padding: 32 }}>
+              <Grid item xs={4} md={4} style={{ padding: 0, marginRight: 30 }}>
+                <Card>
+                  <Grid container spacing={2} style={{ margin: 1 }}>
+                    <Grid item xs={4} md={4} style={{ margin: 5 }}>
+                      <Typography style={{ padding: 5 }} color="primary">
+                        Enter Time
+                      </Typography>
+                      <TimePicker
+                        value={enterTime}
+                        onChange={setEnterTime}
+                        renderInput={(params) => <TextField {...params} />}
+                      />
+                    </Grid>
+                    <Grid item xs={4} md={4} style={{ margin: 5 }}>
+                      <Typography style={{ padding: 5 }} color="primary">
+                        Exit Time
+                      </Typography>
+                      <TimePicker
+                        value={exitTime}
+                        onChange={setExitTime}
+                        renderInput={(params) => <TextField {...params} />}
+                      />
+                    </Grid>
+                    <Grid item style={{ margin: 5 }}>
+                      <Typography style={{ padding: 5 }} color="primary">
+                        Wasted Time
+                      </Typography>
+                      <FormControl sx={{ marginTop: 0, width: 80 }}>
+                        <InputLabel>Min</InputLabel>
+                        <Select
+                          value={wastedTime}
+                          onChange={(e) => setWastedTime(e.target.value)}
+                          input={<OutlinedInput label="Mins" />}
+                          MenuProps={MenuProps}
+                        >
+                          {minute.map((min) => (
+                            <MenuItem value={min}>{min}</MenuItem>
+                          ))}
+                        </Select>
+                      </FormControl>
+                    </Grid>
                   </Grid>
-                  <Grid item xs={4} md={4} style={{ margin: 5,}}>
-                  <Typography style={{ padding: 5,}} color="primary">Exit Time</Typography>
-                    <TimePicker
-                      value={exitTime}
-                      onChange={setExitTime}
-                      renderInput={(params) => <TextField {...params} />}
-                    />
-                  </Grid>
-                  <Grid item style={{ margin: 5,}}>
-                  <Typography style={{ padding: 5,}} color="primary">Wasted Time</Typography>
-                    <FormControl sx={{ marginTop: 0, width: 80, }}>
-                      <InputLabel>Min</InputLabel>
-                      <Select
-                        value={wastedTime}
-                        onChange={(e) => setWastedTime(e.target.value)}
-                        input={<OutlinedInput label="Mins" />}
-                        MenuProps={MenuProps}
-                      >
-                        {minute.map((min) => (
-                          <MenuItem
-                            value={min}
-                          >
-                            {min}
-                          </MenuItem>
-                        ))}
-                      </Select>
-                    </FormControl>
-                  </Grid >
-                </Grid>
-                <Button
-                style={{ margin: 20,}}
-                color="primary"
-                variant="contained" 
-                onClick={() => ApplyHandler()} >
-                  Apply
-                </Button>
-              </Card>
-              <Button 
-              style={{ marginTop: 20, marginBottom: 20,}}
-                color="primary"
-                variant="outlined"  
-                onClick={() => setPrevioisDays(!previousDays)}>
-                  Previous Days
-              </Button>
-              <Card >
-                <Collapse in={previousDays} sx={{ width: "100%" }}>
-                  <Card
+                  <Button
+                    style={{ margin: 20 }}
+                    color="primary"
+                    variant="contained"
+                    onClick={() => ApplyHandler()}
                   >
-                    <Grid container spacing={2} style={{ margin: 1,}}>
-                      <Grid item xs={4} md={4} style={{ margin: 5,}}>
-                      <Typography style={{ padding: 5,}} color="primary">Date</Typography>
-                        <DatePicker
-                          value={pdate}
-                          onChange={setpdate}
-                          renderInput={(params) => <TextField {...params} />}
-                        />
+                    Apply
+                  </Button>
+                </Card>
+                <Button
+                  style={{ marginTop: 20, marginBottom: 20 }}
+                  color="primary"
+                  variant="outlined"
+                  onClick={() => setPrevioisDays(!previousDays)}
+                >
+                  Previous Days
+                </Button>
+                <Card>
+                  <Collapse in={previousDays} sx={{ width: "100%" }}>
+                    <Card>
+                      <Grid container spacing={2} style={{ margin: 1 }}>
+                        <Grid item xs={4} md={4} style={{ margin: 5 }}>
+                          <Typography style={{ padding: 5 }} color="primary">
+                            Date
+                          </Typography>
+                          <DatePicker
+                            value={pdate}
+                            onChange={setpdate}
+                            renderInput={(params) => <TextField {...params} />}
+                          />
+                        </Grid>
+                        <Grid item xs={4} md={4} style={{ margin: 5 }}>
+                          <Typography style={{ padding: 5 }} color="primary">
+                            ID
+                          </Typography>
+                          <TextField
+                            id="standard-number"
+                            label="Number"
+                            type="number"
+                            value={PId}
+                            onChange={(e) => setPId(e.target.value)}
+                            InputLabelProps={{
+                              shrink: true,
+                            }}
+                            variant="standard"
+                          />
+                        </Grid>
                       </Grid>
-                      <Grid item xs={4} md={4} style={{ margin: 5,}} >
-                      <Typography style={{ padding: 5,}} color="primary">ID</Typography>
-                        <TextField
-                          id="standard-number"
-                          label="Number"
-                          type="number"
-                          value={PId}
-                          onChange={(e) => setPId(e.target.value)}
-                          InputLabelProps={{
-                            shrink: true,
-                          }}
-                          variant="standard"
-                        />
-                      </Grid>
-                    </Grid>
-                    <Grid container spacing={2} style={{ margin: 1,}}>
-                      <Grid item xs={4} md={4} style={{ margin: 5,}} >
-                      <Typography style={{ padding: 5,}} color="primary">Enter Time</Typography>
-                        <TimePicker
-                          value={penterTime}
-                          onChange={setpenterTime}
-                          renderInput={(params) => <TextField {...params} />}
-                        />
-                      </Grid>
-                      <Grid item xs={4} md={4} style={{ margin: 5,}} >
-                      <Typography style={{ padding: 5,}} color="primary">Exit Time</Typography>
-                        <TimePicker
-                          value={pexitTime}
-                          onChange={setpexitTime}
-                          renderInput={(params) => <TextField {...params} />}
-                        />
-                      </Grid>
-                      <Grid item style={{ margin: 5,}} >
-                      <Typography style={{ padding: 5,}} color="primary">Wasted Time</Typography>
-                        <FormControl sx={{ marginTop: 0, width: 80, height: 30 }}>
-                          <InputLabel>Min</InputLabel>
-                          <Select
-                            value={pwastedTime}
-                            onChange={(e) => setpWastedTime(e.target.value)}
-                            input={<OutlinedInput label="Mins" />}
-                            MenuProps={MenuProps}
+                      <Grid container spacing={2} style={{ margin: 1 }}>
+                        <Grid item xs={4} md={4} style={{ margin: 5 }}>
+                          <Typography style={{ padding: 5 }} color="primary">
+                            Enter Time
+                          </Typography>
+                          <TimePicker
+                            value={penterTime}
+                            onChange={setpenterTime}
+                            renderInput={(params) => <TextField {...params} />}
+                          />
+                        </Grid>
+                        <Grid item xs={4} md={4} style={{ margin: 5 }}>
+                          <Typography style={{ padding: 5 }} color="primary">
+                            Exit Time
+                          </Typography>
+                          <TimePicker
+                            value={pexitTime}
+                            onChange={setpexitTime}
+                            renderInput={(params) => <TextField {...params} />}
+                          />
+                        </Grid>
+                        <Grid item style={{ margin: 5 }}>
+                          <Typography style={{ padding: 5 }} color="primary">
+                            Wasted Time
+                          </Typography>
+                          <FormControl
+                            sx={{ marginTop: 0, width: 80, height: 30 }}
                           >
-                            {minute.map((min) => (
-                              <MenuItem
-                                value={min}
-                              >
-                                {min}
-                              </MenuItem>
-                            ))}
-                          </Select>
-                        </FormControl>
+                            <InputLabel>Min</InputLabel>
+                            <Select
+                              value={pwastedTime}
+                              onChange={(e) => setpWastedTime(e.target.value)}
+                              input={<OutlinedInput label="Mins" />}
+                              MenuProps={MenuProps}
+                            >
+                              {minute.map((min) => (
+                                <MenuItem value={min}>{min}</MenuItem>
+                              ))}
+                            </Select>
+                          </FormControl>
+                        </Grid>
                       </Grid>
-                    </Grid>
-                    <Button
-                      style={{ margin: 20,}}
-                      color="primary"
-                      variant="outlined" 
-                      onClick={() => PApplyHandler()}
-                    >
-                      Apply
-                    </Button>
-                  </Card>
-                </Collapse>
-              </Card>
+                      <Button
+                        style={{ margin: 20 }}
+                        color="primary"
+                        variant="outlined"
+                        onClick={() => PApplyHandler()}
+                      >
+                        Apply
+                      </Button>
+                    </Card>
+                  </Collapse>
+                </Card>
               </Grid>
               <Grid item xs={4} md={5}>
-            <Card style={{ width: '100%',}}>
-            <Typography style={{ padding: 15,}} color="secondary">Report Tracker</Typography>
-              {showReport?(<ReportTracker list={list} />) : null}
-              {/* <ReportTracker list={list} /> */}
-            </Card>
+                <Card style={{ width: "100%" }}>
+                  <Typography style={{ padding: 15 }} color="secondary">
+                    Report Tracker
+                  </Typography>
+                  {showReport ? <ReportTracker list={list} /> : null}
+                  {/* <ReportTracker list={list} /> */}
+                </Card>
+              </Grid>
             </Grid>
-          </Grid>
-        ) }
+          )}
         </Paper>
 
         <Dialog
@@ -487,13 +506,9 @@ const TimeTracker = (props) => {
             },
           }}
         >
-          <DialogContent>
-            {errorMessage}
-          </DialogContent>
+          <DialogContent>{errorMessage}</DialogContent>
           <DialogActions>
-            <Button onClick={handleCloseDialog}>
-              OK
-            </Button>
+            <Button onClick={handleCloseDialog}>OK</Button>
           </DialogActions>
         </Dialog>
         <Snackbar
