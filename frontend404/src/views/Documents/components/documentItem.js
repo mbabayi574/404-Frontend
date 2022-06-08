@@ -19,7 +19,7 @@ import FileItem from "./fileItem";
 import useAPI from "useAPI";
 
 
-const DocumentItem = ({ document }) => {
+const DocumentItem = ({ document, reload }) => {
 
   const { state } = useLocation();
   const { id, title, text, files_set } = document;
@@ -42,7 +42,7 @@ const DocumentItem = ({ document }) => {
       .then((response) => {
         console.log(response.data);
         if (response.status === 200) {
-          navigate('/my/documents');
+          reload();
         }
       })
       .catch((error) => {

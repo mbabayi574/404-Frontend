@@ -82,7 +82,7 @@ const Documents = () => {
                 {documents.map((document) => (
                   <Grid item xs={12} md={6}>
                     <Box height="35vh">
-                      <DocumentItem document={document} />
+                      <DocumentItem document={document} reload={getDocuments} />
                     </Box>
                   </Grid>
                 ))}
