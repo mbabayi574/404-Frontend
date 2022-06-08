@@ -14,6 +14,7 @@ import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate';
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import useAPI from "useAPI";
+import ImageItem from "./imageItem";
 
 const AddDocument = ({reload}) => {
   const navigate = useNavigate();
@@ -144,15 +145,7 @@ const AddDocument = ({reload}) => {
           <Stack spacing={1} direction="row" sx={{ maxWidth: "400px", height: "120px", alignItems: "center" }} >
             {
               imagePreviews.map(image => (
-                <Box sx={{
-                  height: "120px"
-                }}
-                >
-                  <img src={image.url}
-                    style={{
-                      height: "100%"
-                    }} />
-                </Box>
+                <ImageItem src={image.url} />
               ))
             }
           </Stack>
