@@ -20,6 +20,10 @@ const Documents = () => {
   const api = useAPI();
 
   useEffect(() => {
+    getDocuments();
+  }, []);
+
+  const getDocuments = () => {
     var config = {
       method: "get",
       url: "notepad/note/showmynotes",
@@ -34,7 +38,7 @@ const Documents = () => {
       .catch((error) => {
         console.log(error);
       });
-  }, []);
+  }
 
   return (
     <Box
@@ -51,8 +55,8 @@ const Documents = () => {
         }}
       >
         <Stack spacing={1} direction="row" sx={{ p: 1, height: "100%", width: "100%" }}>
-          <Box flexGrow={1}>
-            <AddDocument />
+          <Box flexGrow={1} maxWidth="auto">
+            <AddDocument reload={getDocuments}/>
           </Box>
           <Box sx={{
             height: "100%",
