@@ -1,43 +1,43 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Box from "@mui/material/Box";
+import Card from "@mui/material/Card";
 import Modal from "@mui/material/Modal";
 
-const ImageItem = ({ src }) => {
+const ImageItem = ({ image }) => {
   const [open, setOpen] = useState(false);
+  const { name, url } = image;
 
-  const handleClose = () => {
-    setOpen(false);
-  }
+  useEffect(() => {
+    console.log(`OPEN: ${open}`);
+  }, [open])
 
   const viewModal = (
     <Modal
       open={open}
-      onClose={handleClose}
-      aria-labelledby="modal-modal-title"
-      aria-describedby="modal-modal-description"
+      onClose={() => setOpen(false)}
     >
-      <Box sx={{
+      <Card sx={{
         position: 'absolute',
         top: '50%',
         left: '50%',
         transform: 'translate(-50%, -50%)',
       }}>
-        <img src={src}
+        <img src={url}
           style={{
             maxWidth: "90vw",
             maxHeight: "90vh",
           }} />
-      </Box>
+      </Card>
     </Modal>
   )
   return (
     <Box
-      onClick={() => setOpen(true)}
       sx={{
         height: "120px"
       }}
     >
-      <img src={src}
+      <img src={url}
+        onClick={() => setOpen(true)}
         style={{
           height: "100%"
         }} />

@@ -145,7 +145,7 @@ const AddDocument = ({reload}) => {
           <Stack spacing={1} direction="row" sx={{ maxWidth: "400px", height: "120px", alignItems: "center" }} >
             {
               imagePreviews.map(image => (
-                <ImageItem src={image.url} />
+                <ImageItem image={image} />
               ))
             }
           </Stack>
