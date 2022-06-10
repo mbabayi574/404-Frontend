@@ -15,18 +15,20 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import useAPI from "useAPI";
 import ImageItem from "./imageItem";
+import FileItem from "./fileItem";
 
 const AddDocument = ({ reload }) => {
   const navigate = useNavigate();
   const api = useAPI();
   const [error, setError] = useState("");
-  const [alert, setAlert] = useState("none");
+  const [success, setSuccess] = useState(false);
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [loading, setLoading] = useState(false);
   const [files, setFiles] = useState([]);
   const [images, setImages] = useState([]);
   const [imagePreviews, setImagePreviews] = useState([]);
+  const [fileId, setFileId] = useState(0);
 
   const clear = () => {
     setTitle("");
@@ -49,26 +51,17 @@ const AddDocument = ({ reload }) => {
     setContent(event.target.value);
   };
   const handleAddFile = (event) => {
-    const findDuplicate = (file) => (
-      files.find(f => (
-        file.name === f.name &&
-        file.lastModified === f.lastModified &&
-        file.size === f.size &&
-        file.type === f.type
-      ))
-    );
     let newFiles = []
     for (let i = 0; i < event.target.files.length; i++) {
       let file = event.target.files[i];
-      let duplicate = findDuplicate(file);
-      if (!duplicate) {
-        newFiles.push(file);
-      }
+      let id = fileId + i;
+      newFiles.push({ file: file, id: id });
     }
     setFiles([...files, ...newFiles]);
+    setFileId(fileId + event.target.files.length);
   }
-  const handleRemoveFile = (event, name) => {
-    setFiles(files.filter(file => file.name !== name));
+  const handleDeleteFile = (id) => {
+    setFiles(files.filter(file => file.id !== id));
   }
 
   const handleAddImage = (event) => {
@@ -78,28 +71,29 @@ const AddDocument = ({ reload }) => {
     setImages(images.filter(image => image.name !== name));
   }
 
-  const handleCloseAlert = () => setAlert("none");
-
-  useEffect(() => {
-    if (error) {
-      setAlert("error");
-    }
-  }, [error]);
+  const handleCloseAlert = () => {
+    setError(null);
+    setSuccess(false);
+  }
 
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    setError(null);
+    let newError = null;
     if (!title)
-      setError("Title cannot be empty.");
+      newError = "Document title cannot be empty.";
     if (!content)
-      setError("Content cannot be empty.");
+      newError = "Document text cannot be empty.";
+    setError(newError);
+    if (newError) {
+      return;
+    }
 
     let formData = new FormData();
     formData.append("title", title);
     formData.append("text", content);
     files.forEach(file => {
-      formData.append("files", file);
+      formData.append("files", file.file);
     });
     images.forEach(image => {
       formData.append("files", image);
@@ -119,14 +113,13 @@ const AddDocument = ({ reload }) => {
     api(config)
       .then((response) => {
         if (response.status === 200) {
-          setAlert("success");
+          setSuccess(true);
           clear();
           reload();
         }
         setLoading(false);
       })
       .catch((error) => {
-        setAlert("error");
         error.response.data.forEach(key => {
           setError(error.response.data[key]);
           return;
@@ -137,7 +130,7 @@ const AddDocument = ({ reload }) => {
 
   const errorAlert = (
     <Snackbar
-      open={alert === "error"}
+      open={error}
       autoHideDuration={3000}
       onClose={handleCloseAlert}
       anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
@@ -155,7 +148,7 @@ const AddDocument = ({ reload }) => {
 
   const successAlert = (
     <Snackbar
-      open={alert === "success"}
+      open={success}
       autoHideDuration={3000}
       onClose={handleCloseAlert}
       anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
@@ -245,22 +238,11 @@ const AddDocument = ({ reload }) => {
               }}>
                 {
                   files.map(file =>
-                    <Card sx={{
-                      pr: 1, pl: 2, py: 0,
-                      width: "max-content",
-                      height: "100%",
-                      backgroundColor: "divider",
-                      display: "flex",
-                      flexDirection: "row",
-                      flexShrink: 0,
-                      alignItems: "center"
-                    }}
-                    >
-                      <Typography sx={{ mt: 1 }} noWrap variant="body1">{file.name}</Typography>
-                      <IconButton onClick={event => handleRemoveFile(event, file.name)}>
-                        <ClearIcon />
-                      </IconButton>
-                    </Card>)
+                    <FileItem noDownload
+                      file={{ file: file.file.name }}
+                      onDelete={() => handleDeleteFile(file.id)}
+                    />
+                  )
                 }
               </Stack>
           }

@@ -50,6 +50,23 @@ const DocumentItem = ({ document, reload }) => {
       });
   }
 
+  const handleDeleteFile = (id) => {
+    var config = {
+      method: "delete",
+      url: `notepad/note/showmynotes/deletefile/${id}`,
+    };
+    api(config)
+      .then((response) => {
+        console.log(response.data);
+        if (response.status === 200) {
+          deleteFile(id);
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+
   const deleteFile = (id) => {
     setFiles(files.filter(file => file.id !== id));
   }
@@ -127,7 +144,7 @@ const DocumentItem = ({ document, reload }) => {
                 overflowX: "auto"
               }}>
                 {
-                  files.map(file => <FileItem file={file} delete={deleteFile} />)
+                  files.map(file => <FileItem file={file} onDelete={() => handleDeleteFile(file.id)} />)
                 }
               </Stack>
             }

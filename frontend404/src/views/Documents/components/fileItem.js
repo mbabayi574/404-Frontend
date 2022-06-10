@@ -7,7 +7,7 @@ import { useState } from "react";
 import { saveAs } from 'file-saver'
 import useAPI from "useAPI";
 
-const FileItem = ({ file, delete: deleteFile }) => {
+const FileItem = ({ file, onDelete, noDownload }) => {
   const api = useAPI();
   const name = file.file.split("/").pop();
   const [anchorEl, setAnchorEl] = useState(null);
@@ -35,21 +35,8 @@ const FileItem = ({ file, delete: deleteFile }) => {
   }
 
   const handleDelete = () => {
-    var config = {
-      method: "delete",
-      url: `notepad/note/showmynotes/deletefile/${file.id}`,
-    };
-    api(config)
-      .then((response) => {
-        console.log(response.data);
-        if (response.status === 200) {
-          deleteFile(file.id);
-        }
-        handleClose();
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    handleClose();
+    onDelete();
   }
 
   const options = (
@@ -58,11 +45,13 @@ const FileItem = ({ file, delete: deleteFile }) => {
       open={open}
       onClose={handleClose}
     >
-      <MenuItem onClick={handleDownload}>
+      {
+        noDownload || <MenuItem onClick={handleDownload}>
         <Typography variant="caption">
           Download
         </Typography>
       </MenuItem>
+      }
       <MenuItem onClick={handleDelete}>
         <Typography color="" variant="caption">
           Remove
