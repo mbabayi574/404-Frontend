@@ -2,19 +2,26 @@ import { useEffect, useState } from "react";
 import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
 import Modal from "@mui/material/Modal";
+import Stack from "@mui/material/Stack";
+import Typography from "@mui/material/Typography";
+import IconButton from "@mui/material/IconButton";
+import DeleteIcon from "@mui/icons-material/Delete";
 
-const ImageItem = ({ image }) => {
+const ImageItem = ({ image, onDelete }) => {
   const [open, setOpen] = useState(false);
   const { name, url } = image;
 
-  useEffect(() => {
-    console.log(`OPEN: ${open}`);
-  }, [open])
+  const handleClose = () => setOpen(false);
+
+  const handleDelete = () => {
+    handleClose();
+    onDelete(name);
+  }
 
   const viewModal = (
     <Modal
       open={open}
-      onClose={() => setOpen(false)}
+      onClose={handleClose}
     >
       <Card sx={{
         position: 'absolute',
@@ -27,6 +34,15 @@ const ImageItem = ({ image }) => {
             maxWidth: "90vw",
             maxHeight: "90vh",
           }} />
+        <Stack spacing={0} direction="row" sx={{ pl: 2, pr: 1, pb: 1, width: "100%", alignItems: "center" }}>
+          <Typography variant="body1">
+            {name}
+          </Typography>
+          <Box flexGrow={1} />
+          <IconButton onClick={handleDelete} size="small">
+            <DeleteIcon />
+          </IconButton>
+        </Stack>
       </Card>
     </Modal>
   )

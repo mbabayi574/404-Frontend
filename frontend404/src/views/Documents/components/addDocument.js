@@ -72,7 +72,7 @@ const AddDocument = ({reload}) => {
   const handleAddImage = (event) => {
     setImages([...images, event.target.files[0]]);
   }
-  const handleRemoveImage = (event, name) => {
+  const handleRemoveImage = (name) => {
     setImages(images.filter(image => image.name !== name));
   }
 
@@ -145,7 +145,7 @@ const AddDocument = ({reload}) => {
           <Stack spacing={1} direction="row" sx={{ maxWidth: "400px", height: "120px", alignItems: "center" }} >
             {
               imagePreviews.map(image => (
-                <ImageItem image={image} />
+                <ImageItem image={image} onDelete={handleRemoveImage} />
               ))
             }
           </Stack>
