@@ -2,26 +2,28 @@ import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
 import Stack from "@mui/material/Stack";
 import Button from "@mui/material/Button";
-import Divider from "@mui/material/Divider";
-import Container from "@mui/material/Container";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import IconButton from "@mui/material/IconButton";
+import CircularProgress from "@mui/material/CircularProgress";
 import ClearIcon from '@mui/icons-material/Clear';
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import AttachFileIcon from '@mui/icons-material/AttachFile';
 import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate';
+import Snackbar from "@mui/material/Snackbar";
+import Alert from "@mui/material/Alert";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import useAPI from "useAPI";
 import ImageItem from "./imageItem";
 
-const AddDocument = ({reload}) => {
+const AddDocument = ({ reload }) => {
   const navigate = useNavigate();
   const api = useAPI();
-  const [error, setError] = useState({});
+  const [error, setError] = useState("");
+  const [alert, setAlert] = useState("none");
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
+  const [loading, setLoading] = useState(false);
   const [files, setFiles] = useState([]);
   const [images, setImages] = useState([]);
   const [imagePreviews, setImagePreviews] = useState([]);
@@ -76,20 +78,22 @@ const AddDocument = ({reload}) => {
     setImages(images.filter(image => image.name !== name));
   }
 
+  const handleCloseAlert = () => setAlert("none");
+
+  useEffect(() => {
+    if (error) {
+      setAlert("error");
+    }
+  }, [error]);
+
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    let newError = {};
+    setError(null);
     if (!title)
-      newError.title = ["This field may not be null."];
+      setError("Title cannot be empty.");
     if (!content)
-      newError.content = ["This field may not be null."];
-
-    console.log(newError);
-    if (Object.keys(newError).length !== 0) {
-      setError(newError);
-      return;
-    }
+      setError("Content cannot be empty.");
 
     let formData = new FormData();
     formData.append("title", title);
@@ -102,7 +106,6 @@ const AddDocument = ({reload}) => {
     });
     console.log(formData);
 
-
     var config = {
       method: "post",
       url: "notepad/note/",
@@ -112,17 +115,61 @@ const AddDocument = ({reload}) => {
       data: formData,
     };
 
+    setLoading(true);
     api(config)
       .then((response) => {
         if (response.status === 200) {
+          setAlert("success");
           clear();
           reload();
         }
+        setLoading(false);
       })
       .catch((error) => {
-        setError(error.response.data);
+        setAlert("error");
+        error.response.data.forEach(key => {
+          setError(error.response.data[key]);
+          return;
+        })
+        setLoading(false);
       });
   };
+
+  const errorAlert = (
+    <Snackbar
+      open={alert === "error"}
+      autoHideDuration={3000}
+      onClose={handleCloseAlert}
+      anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+    >
+      <Alert
+        onClose={handleCloseAlert}
+        variant="filled"
+        severity="error"
+        sx={{ width: "100%" }}
+      >
+        {error}
+      </Alert>
+    </Snackbar>
+  )
+
+  const successAlert = (
+    <Snackbar
+      open={alert === "success"}
+      autoHideDuration={3000}
+      onClose={handleCloseAlert}
+      anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+    >
+      <Alert
+        onClose={handleCloseAlert}
+        variant="filled"
+        severity="success"
+        sx={{ width: "100%" }}
+      >
+        Document Added!
+      </Alert>
+    </Snackbar>
+  )
 
   return (
     <Card
@@ -151,7 +198,27 @@ const AddDocument = ({reload}) => {
           </Stack>
         }
         <Stack spacing={0} direction="row" sx={{ maxWidth: "400px", alignItems: "center" }}>
-          <Button variant="contained" onClick={handleSubmit} sx={{ mr: 1 }}>Submit</Button>
+          <Box sx={{ mr: 1, position: "relative" }}>
+            <Button
+              variant="contained"
+              onClick={handleSubmit}
+              disabled={loading}
+            >
+              Submit
+            </Button>
+            {loading && (
+              <CircularProgress
+                size={24}
+                sx={{
+                  position: 'absolute',
+                  top: '50%',
+                  left: '50%',
+                  marginTop: '-12px',
+                  marginLeft: '-12px',
+                }}
+              />
+            )}
+          </Box>
           <IconButton color="primary" component="label">
             <input onChange={handleAddImage}
               type="file"
@@ -199,6 +266,8 @@ const AddDocument = ({reload}) => {
           }
         </Stack>
       </Stack>
+      {successAlert}
+      {errorAlert}
     </Card>
   );
 };
