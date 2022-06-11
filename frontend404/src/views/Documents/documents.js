@@ -89,15 +89,22 @@ const Documents = () => {
         }}
       >
         <Stack spacing={2} direction="row" sx={{ p: 1, height: "100%", width: "100%" }}>
-          <Box flexGrow={1} maxWidth="auto">
+          <Box flexGrow={1}
+            minWidth="300px"
+            width={{
+              xs: "40vw",
+              md: "40vw",
+              lg: "calc(45vw - 280px)"
+            }}
+          >
             <NewDocument reload={getDocuments} />
           </Box>
           <Box sx={{
             height: "100%",
             width: {
               xs: "50vw",
-              md: "60vw",
-              lg: "50vw",
+              md: "50vw",
+              lg: "45vw",
             },
             display: "flex",
             alignItems: "center",

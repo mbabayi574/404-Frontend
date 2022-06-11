@@ -193,7 +193,7 @@ const NewDocument = ({ reload }) => {
         images.length === 0 ||
         <Stack spacing={1} direction="row"
           sx={{
-            maxWidth: "400px", height: "130px",
+            maxWidth: "100%", height: "130px",
             alignItems: "center", overflowX: "auto"
           }}
         >
@@ -209,7 +209,7 @@ const NewDocument = ({ reload }) => {
       }
       <Stack spacing={0} direction="row"
         sx={{
-          maxWidth: "400px",
+          maxWidth: "100%",
           alignItems: "center"
         }}
       >
