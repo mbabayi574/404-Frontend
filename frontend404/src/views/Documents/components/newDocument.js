@@ -1,6 +1,6 @@
 import FileItem from "./fileItem";
 import ImageItem from "./imageItem";
-import useAPI from "useAPI";
+import useForm from "useForm";
 import { useEffect, useState } from "react";
 import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
@@ -17,10 +17,54 @@ import AttachFileIcon from '@mui/icons-material/AttachFile';
 import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate';
 
 const NewDocument = ({ reload }) => {
-  const api = useAPI();
-  const [error, setError] = useState("");
-  const [success, setSuccess] = useState(false);
-  const [loading, setLoading] = useState(false);
+  const clearFiles = () => {
+    setFiles([]);
+    setImages([]);
+  };
+
+  const getValidationError = (formData) => {
+    if (!formData.get("title"))
+      return "Document title cannot be empty.";
+    if (!formData.get("text"))
+      return "Document text cannot be empty.";
+    return null;
+  }
+
+  const prepareData = (formData) => {
+    files.forEach(file => {
+      formData.append("files", file.file);
+    });
+    images.forEach(image => {
+      formData.append("files", image);
+    });
+    console.log(formData.getAll("files"));
+  }
+
+  const makeApiConfig = (formData) => {
+    return {
+      method: "post",
+      url: "notepad/note/",
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+      data: formData,
+    };
+  }
+
+  const onPostSuccess = (response) => {
+    clearFiles();
+    reload();
+  }
+
+  const {
+    loading, success, error,
+    trySubmit, clearFormStatus
+  } = useForm({
+    getValidationError: getValidationError,
+    prepareData: prepareData,
+    makeApiConfig: makeApiConfig,
+    onPostSuccess: onPostSuccess
+  });
   const [files, setFiles] = useState([]);
   const [images, setImages] = useState([]);
   const [imagePreviews, setImagePreviews] = useState([]);
@@ -47,7 +91,7 @@ const NewDocument = ({ reload }) => {
     setFiles([...files, ...newFiles]);
     setFileId(fileId + event.target.files.length);
   }
-  const handleDeleteFile = (id) => {
+  const handleRemoveFile = (id) => {
     setFiles(files.filter(file => file.id !== id));
   }
 
@@ -59,59 +103,6 @@ const NewDocument = ({ reload }) => {
     setImages(images.filter(image => image.id !== id));
   }
 
-  const handleCloseAlert = () => {
-    setError(null);
-    setSuccess(false);
-  }
-
-  const clear = () => {
-    setFiles([]);
-    setImages([]);
-  };
-
-  const getValidationError = (formData) => {
-    if (!formData.get("title"))
-      return "Document title cannot be empty.";
-    if (!formData.get("text"))
-      return "Document text cannot be empty.";
-    return null;
-  }
-
-  const prepareData = (formData) => {
-    files.forEach(file => {
-      formData.append("files", file.file);
-    });
-    images.forEach(image => {
-      formData.append("files", image);
-    });
-    console.log(formData.getAll("files"));
-  }
-
-  const makePostConfig = (formData) => {
-    return {
-      method: "post",
-      url: "notepad/note/",
-      headers: {
-        "Content-Type": "multipart/form-data",
-      },
-      data: formData,
-    };
-  }
-
-  const onPostSuccess = (response) => {
-    setSuccess(true);
-    clear();
-    reload();
-    setLoading(false);
-  }
-
-  const onPostError = (error) => {
-    error.response.data.forEach(key => {
-      setError(error.response.data[key]);
-      return;
-    })
-    setLoading(false);
-  }
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -119,37 +110,15 @@ const NewDocument = ({ reload }) => {
     trySubmit(formData);
   };
 
-  const trySubmit = (formData) => {
-    const validateData = () => {
-      const newError = getValidationError(formData);
-      setError(newError);
-      return newError === null;
-    }
-
-    const postData = (config) => {
-      setLoading(true);
-      api(config)
-        .then(onPostSuccess)
-        .catch(onPostError);
-    }
-
-    if (!validateData(formData)) {
-      return;
-    }
-    prepareData(formData);
-    var config = makePostConfig(formData);
-    postData(config);
-  }
-
   const errorAlert = (
     <Snackbar
       open={error}
       autoHideDuration={3000}
-      onClose={handleCloseAlert}
+      onClose={clearFormStatus}
       anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
     >
       <Alert
-        onClose={handleCloseAlert}
+        onClose={clearFormStatus}
         variant="filled"
         severity="error"
         sx={{ width: "100%" }}
@@ -163,11 +132,11 @@ const NewDocument = ({ reload }) => {
     <Snackbar
       open={success}
       autoHideDuration={3000}
-      onClose={handleCloseAlert}
+      onClose={clearFormStatus}
       anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
     >
       <Alert
-        onClose={handleCloseAlert}
+        onClose={clearFormStatus}
         variant="filled"
         severity="success"
         sx={{ width: "100%" }}
@@ -263,7 +232,7 @@ const NewDocument = ({ reload }) => {
                 files.map(file =>
                   <FileItem noDownload
                     file={{ file: file.file.name }}
-                    onDelete={() => handleDeleteFile(file.id)}
+                    onDelete={() => handleRemoveFile(file.id)}
                   />
                 )
               }
