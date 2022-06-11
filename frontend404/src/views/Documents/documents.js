@@ -8,8 +8,10 @@ import Grid from "@mui/material/Grid";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 import Pagination from "@mui/material/Pagination";
+import Skeleton from "@mui/material/Skeleton";
 
 const Documents = () => {
+  const [loading, setLoading] = useState(true);
   const [page, setPage] = useState(1);
   const [documents, setDocuments] = useState([]);
   const api = useAPI();
@@ -31,21 +33,61 @@ const Documents = () => {
     };
     api(config)
       .then((response) => {
-        console.log(response.data);
-        if (response.status == 200) {
-          setDocuments(response.data);
-        }
+        setDocuments(response.data);
       })
       .catch((error) => {
         console.log(error);
-      });
+      })
+      .finally(() => setLoading(false));
   }
 
   const DocumentsView = () => {
+    const DocumentSkeleton = () => (
+      <Skeleton variant="rectangular"
+        sx={{
+          width: "100%",
+          height: "35vh",
+        }}
+      />
+    )
+    if (loading) {
+      return (
+        <Stack spacing={2} sx={{
+          width: "100%",
+          height: "100%",
+          alignItems: "center",
+        }}
+        >
+          <Grid container spacing={2}>
+            <Grid item xs={12} md={6}>
+              <DocumentSkeleton />
+            </Grid>
+            <Grid item xs={12} md={6}>
+              <DocumentSkeleton />
+            </Grid>
+            <Grid item xs={12} md={6}>
+              <DocumentSkeleton />
+            </Grid>
+            <Grid item xs={12} md={6}>
+              <DocumentSkeleton />
+            </Grid>
+          </Grid>
+          <Pagination
+            count={pageCount}
+            page={page} onChange={(event, value) => setPage(value)}
+          />
+        </Stack>
+      );
+    } else if (documents.length === 0) {
+      return (
+        <Typography variant="h3" color="text.secondary">
+          Documents you add will appear here
+        </Typography>
+      );
+    }
     const paginationStart = documentsPerPage * (page - 1);
     const items = new Array(documentsPerPage).fill()
       .map((_, index) => documents[paginationStart + index]);
-    console.log(items);
     return (
       <Stack spacing={2} sx={{
         width: "100%",
@@ -110,14 +152,7 @@ const Documents = () => {
             alignItems: "center",
             justifyContent: "center",
           }}>
-            {documents.length === 0
-              ?
-              <Typography variant="h3" color="text.secondary">
-                Document you add will appear here
-              </Typography>
-              :
-              <DocumentsView />
-            }
+            <DocumentsView />
           </Box>
         </Stack>
       </Container>
