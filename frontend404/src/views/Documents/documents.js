@@ -1,5 +1,5 @@
 import DocumentItem from "./components/documentItem";
-import AddDocument from "./components/addDocument";
+import NewDocument from "./components/newDocument";
 import useAPI from "useAPI";
 import { useEffect, useState } from "react";
 import Container from "@mui/material/Container";
@@ -90,7 +90,7 @@ const Documents = () => {
       >
         <Stack spacing={2} direction="row" sx={{ p: 1, height: "100%", width: "100%" }}>
           <Box flexGrow={1} maxWidth="auto">
-            <AddDocument reload={getDocuments} />
+            <NewDocument reload={getDocuments} />
           </Box>
           <Box sx={{
             height: "100%",
