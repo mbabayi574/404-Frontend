@@ -27,7 +27,11 @@ const NewDocument = ({ reload }) => {
   const [fileId, setFileId] = useState(0);
 
   useEffect(() => {
-    setImagePreviews(images.map(image => ({ name: image.name, url: URL.createObjectURL(image) })));
+    setImagePreviews(images.map(image => ({
+      id: image.id,
+      name: image.file.name,
+      url: URL.createObjectURL(image.file)
+    })));
     return () => {
       imagePreviews.forEach(objectUrl => URL.revokeObjectURL(objectUrl))
     };
@@ -48,10 +52,11 @@ const NewDocument = ({ reload }) => {
   }
 
   const handleAddImage = (event) => {
-    setImages([...images, event.target.files[0]]);
+    setImages([...images, { file: event.target.files[0], id: fileId }]);
+    setFileId(fileId + 1);
   }
-  const handleRemoveImage = (name) => {
-    setImages(images.filter(image => image.name !== name));
+  const handleRemoveImage = (id) => {
+    setImages(images.filter(image => image.id !== id));
   }
 
   const handleCloseAlert = () => {
@@ -187,15 +192,27 @@ const NewDocument = ({ reload }) => {
       {
         images.length === 0 ||
         <Stack spacing={1} direction="row"
-          sx={{ maxWidth: "400px", height: "120px", alignItems: "center" }} >
+          sx={{
+            maxWidth: "400px", height: "130px",
+            alignItems: "center", overflowX: "auto"
+          }}
+        >
           {
             imagePreviews.map(image => (
-              <ImageItem image={image} onDelete={handleRemoveImage} />
+              <ImageItem image={image}
+                onDelete={handleRemoveImage}
+                sx={{ height: "110px" }}
+              />
             ))
           }
         </Stack>
       }
-      <Stack spacing={0} direction="row" sx={{ maxWidth: "400px", alignItems: "center" }}>
+      <Stack spacing={0} direction="row"
+        sx={{
+          maxWidth: "400px",
+          alignItems: "center"
+        }}
+      >
         <Box sx={{ mr: 1, position: "relative" }}>
           <Button
             variant="contained"
@@ -270,4 +287,5 @@ const NewDocument = ({ reload }) => {
     </Card>
   );
 };
+
 export default NewDocument;

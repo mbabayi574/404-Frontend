@@ -7,15 +7,15 @@ import IconButton from "@mui/material/IconButton";
 import Modal from "@mui/material/Modal";
 import DeleteIcon from "@mui/icons-material/Delete";
 
-const ImageItem = ({ image, onDelete }) => {
+const ImageItem = ({ image, onDelete, sx }) => {
   const [open, setOpen] = useState(false);
-  const { name, url } = image;
+  const { id, name, url } = image;
 
   const handleClose = () => setOpen(false);
 
   const handleDelete = () => {
     handleClose();
-    onDelete(name);
+    onDelete(id);
   }
 
   const viewModal = (
@@ -48,9 +48,7 @@ const ImageItem = ({ image, onDelete }) => {
   )
   return (
     <Box
-      sx={{
-        height: "120px"
-      }}
+      sx={sx}
     >
       <img src={url}
         onClick={() => setOpen(true)}
