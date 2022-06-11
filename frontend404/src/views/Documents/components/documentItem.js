@@ -1,30 +1,23 @@
+import FileItem from "./fileItem";
+import useAPI from "useAPI";
+import { useState, useEffect } from "react";
 import Box from "@mui/material/Box";
-import Card from "@mui/material/Card";
 import Stack from "@mui/material/Stack";
-import Button from "@mui/material/Button";
-import Divider from "@mui/material/Divider";
-import Tooltip from "@mui/material/Tooltip";
-import Container from "@mui/material/Container";
+import Card from "@mui/material/Card";
 import Typography from "@mui/material/Typography";
+import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
+import Tooltip from "@mui/material/Tooltip";
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DeleteIcon from '@mui/icons-material/Delete';
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import { useState, useEffect } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
-import FileItem from "./fileItem";
-import useAPI from "useAPI";
 
 
 const DocumentItem = ({ document, reload }) => {
-
-  const { state } = useLocation();
   const { id, title, text, files_set } = document;
   const [files, setFiles] = useState([]);
-  const navigate = useNavigate();
   const api = useAPI();
   useEffect(() => {
     setFiles(files_set);
@@ -144,7 +137,11 @@ const DocumentItem = ({ document, reload }) => {
                 overflowX: "auto"
               }}>
                 {
-                  files.map(file => <FileItem file={file} onDelete={() => handleDeleteFile(file.id)} />)
+                  files.map(file => (
+                    <FileItem file={file}
+                      onDelete={() => handleDeleteFile(file.id)}
+                    />
+                  ))
                 }
               </Stack>
             }

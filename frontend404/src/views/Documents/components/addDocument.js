@@ -1,24 +1,22 @@
+import FileItem from "./fileItem";
+import ImageItem from "./imageItem";
+import useAPI from "useAPI";
+import { useEffect, useState } from "react";
 import Box from "@mui/material/Box";
-import Card from "@mui/material/Card";
 import Stack from "@mui/material/Stack";
-import Button from "@mui/material/Button";
-import TextField from "@mui/material/TextField";
+import Card from "@mui/material/Card";
 import Typography from "@mui/material/Typography";
+import TextField from "@mui/material/TextField";
+import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
+import Alert from "@mui/material/Alert";
+import Snackbar from "@mui/material/Snackbar";
 import CircularProgress from "@mui/material/CircularProgress";
-import ClearIcon from '@mui/icons-material/Clear';
+import AddIcon from '@mui/icons-material/Add';
 import AttachFileIcon from '@mui/icons-material/AttachFile';
 import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate';
-import Snackbar from "@mui/material/Snackbar";
-import Alert from "@mui/material/Alert";
-import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import useAPI from "useAPI";
-import ImageItem from "./imageItem";
-import FileItem from "./fileItem";
 
 const AddDocument = ({ reload }) => {
-  const navigate = useNavigate();
   const api = useAPI();
   const [error, setError] = useState("");
   const [success, setSuccess] = useState(false);
@@ -30,13 +28,6 @@ const AddDocument = ({ reload }) => {
   const [imagePreviews, setImagePreviews] = useState([]);
   const [fileId, setFileId] = useState(0);
 
-  const clear = () => {
-    setTitle("");
-    setContent("");
-    setFiles([]);
-    setImages([]);
-  };
-
   useEffect(() => {
     setImagePreviews(images.map(image => ({ name: image.name, url: URL.createObjectURL(image) })));
     return () => {
@@ -44,12 +35,20 @@ const AddDocument = ({ reload }) => {
     };
   }, [images])
 
+  const clear = () => {
+    setTitle("");
+    setContent("");
+    setFiles([]);
+    setImages([]);
+  };
+
   const handleTitleChange = (event) => {
     setTitle(event.target.value);
   };
   const handleContentChange = (event) => {
     setContent(event.target.value);
   };
+
   const handleAddFile = (event) => {
     let newFiles = []
     for (let i = 0; i < event.target.files.length; i++) {
@@ -196,8 +195,9 @@ const AddDocument = ({ reload }) => {
               variant="contained"
               onClick={handleSubmit}
               disabled={loading}
+              startIcon={<AddIcon />}
             >
-              Submit
+              Add
             </Button>
             {loading && (
               <CircularProgress

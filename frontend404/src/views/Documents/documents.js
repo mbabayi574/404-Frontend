@@ -1,23 +1,17 @@
+import DocumentItem from "./components/documentItem";
+import AddDocument from "./components/addDocument";
+import useAPI from "useAPI";
+import { useEffect, useState } from "react";
+import Container from "@mui/material/Container";
 import Box from "@mui/material/Box";
-import Card from "@mui/material/Card";
 import Grid from "@mui/material/Grid";
 import Stack from "@mui/material/Stack";
-import Button from "@mui/material/Button";
-import Divider from '@mui/material/Divider';
-import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
 import Pagination from "@mui/material/Pagination";
-import AddIcon from "@mui/icons-material/Add";
-import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import DocumentItem from "./components/documentItem";
-import useAPI from "useAPI";
-import AddDocument from "./components/addDocument";
 
 const Documents = () => {
   const [page, setPage] = useState(1);
   const [documents, setDocuments] = useState([]);
-  const navigate = useNavigate();
   const api = useAPI();
   const documentsPerPage = 4;
   const pageCount = Math.ceil(documents.length / documentsPerPage);

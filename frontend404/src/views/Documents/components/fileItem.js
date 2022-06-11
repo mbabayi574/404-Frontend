@@ -1,11 +1,11 @@
-import Card from "@mui/material/Card";
-import Button from "@mui/material/Button";
-import Menu from '@mui/material/Menu';
-import MenuItem from '@mui/material/MenuItem';
-import Typography from '@mui/material/Typography';
-import { useState } from "react";
-import { saveAs } from 'file-saver'
 import useAPI from "useAPI";
+import { useState } from "react";
+import { saveAs } from "file-saver";
+import Card from "@mui/material/Card";
+import Typography from "@mui/material/Typography";
+import Button from "@mui/material/Button";
+import Menu from "@mui/material/Menu";
+import MenuItem from "@mui/material/MenuItem";
 
 const FileItem = ({ file, onDelete, noDownload }) => {
   const api = useAPI();
