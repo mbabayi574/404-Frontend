@@ -37,10 +37,10 @@ const FinancialReports = () => {
           sx={{height: "100%"}}>
           <Grid item xs={4}>
             <Stack spacing={3} sx={{height: "100%"}}>
-              <Box flexGrow="1">
+              <Box>
                 <NewFinancialEvent />
               </Box>
-              <Box flexGrow="2">
+              <Box flexGrow="1">
                 <ViewFinancialEvents />
               </Box>
             </Stack>
