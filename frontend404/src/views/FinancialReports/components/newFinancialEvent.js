@@ -6,32 +6,45 @@ import Button from "@mui/material/Button";
 import Radio from "@mui/material/Radio";
 import Select from "@mui/material/Select";
 import RadioGroup from "@mui/material/RadioGroup";
+import InputAdornment from "@mui/material/InputAdornment";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import FormControl from "@mui/material/FormControl";
-import FormLabel from "@mui/material/FormLabel";
+import FormHelperText from "@mui/material/FormHelperText";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import Divider from "@mui/material/Divider";
-import { useState } from "react";
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
+import useForm from "useForm";
 
 const NewFinancialEvent = () => {
-  const [period, setPeriod] = useState("");
-  const [date, setDate] = useState(new Date());
-
-  const handleSubmit = (event) => {
-
-  };
-
-  const handleChangePeriod = (event) => {
-    setPeriod(event.target.value);
+  const postData = () => {
+    console.log(values);
   }
 
-  const handleChangeDate = (event) => {
-    setDate(event.target.value);
+  const validate = (values) => {
+    let errors = {};
+    if (!values.name) {
+      errors.name = "Please fill out the name";
+    }
+    if (!values.amount) {
+      errors.amount = "Please fill out the amount of money";
+    } else if (values.amount <= 0) {
+      errors.amount = "The amount of money must be positive";
+    }
+    if (!values.period) {
+      errors.period = "Please select a time period";
+    }
+    return errors;
   }
+
+  const {
+    handleChange,
+    handleSubmit,
+    values,
+    errors
+  } = useForm(postData, validate);
 
   return (
     <Card sx={{
@@ -46,12 +59,23 @@ const NewFinancialEvent = () => {
       <Stack sx={{ mt: 2 }} spacing={1.5}
         component="form" onSubmit={handleSubmit}
       >
-        <TextField fullWidth size="small"
-          name="name" id="name" label="Name" />
+        <TextField
+          id="name"
+          name="name"
+          label="Name"
+          value={values.name || ""}
+          onChange={handleChange}
+          error={errors.name}
+          helperText={errors.name}
+          fullWidth
+          size="small"
+        />
         <RadioGroup
-          defaultValue="expense"
           id="type"
           name="type"
+          value={values.type || "expense"}
+          onChange={handleChange}
+          defaultValue="expense"
           row
           sx={{
             width: "100%",
@@ -60,17 +84,39 @@ const NewFinancialEvent = () => {
           <FormControlLabel value="expense" control={<Radio />} label="Expense" />
           <FormControlLabel value="income" control={<Radio />} label="Income" />
         </RadioGroup>
-        <TextField type="number" fullWidth size="small"
-          name="amount" id="amount" label="Amount" />
-        <FormControl fullWidth size="small">
+        <TextField
+          id="amount"
+          name="amount"
+          label="Amount"
+          value={values.amount || 0}
+          onChange={handleChange}
+          error={errors.amount}
+          helperText={errors.amount}
+          fullWidth
+          required
+          size="small"
+          type="number"
+          InputProps={{
+            startAdornment: (
+              <InputAdornment position="start">
+                $
+              </InputAdornment>
+            )
+          }}
+        />
+        <FormControl
+          fullWidth
+          size="small"
+          error={errors.period}
+          >
           <InputLabel id="period-label">Period</InputLabel>
           <Select
             labelId="period-label"
             id="period"
             name="period"
-            value={period}
             label="Period"
-            onChange={handleChangePeriod}
+            value={values.period || ""}
+            onChange={handleChange}
           >
             <MenuItem value="daily">Daily</MenuItem>
             <MenuItem value="weekly">Weekly</MenuItem>
@@ -78,17 +124,16 @@ const NewFinancialEvent = () => {
             <MenuItem value="yearly">Yearly</MenuItem>
             <MenuItem value="one-time">One Time</MenuItem>
           </Select>
+          <FormHelperText>{errors.period}</FormHelperText>
         </FormControl>
         {
-          period === "one-time" && (
+          values.period === "one-time" && (
             <LocalizationProvider dateAdapter={AdapterDateFns}>
               <DesktopDatePicker
-                id="date"
-                name="date"
                 label="Date"
+                value={values.date || (new Date())}
                 inputFormat="MM/dd/yyyy"
-                value={date}
-                onChange={handleChangeDate}
+                onChange={(value) => handleChange({target: {name: "date", value: value}})}
                 renderInput={(params) => <TextField size="small" {...params} />}
               />
             </LocalizationProvider>
