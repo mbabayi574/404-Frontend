@@ -20,8 +20,6 @@ import HrDesk from "./views/hrDesk/hrDesk";
 import FoodManager from "./views/food/foodManager";
 import SalaryBoard from "views/Salary/Calculator";
 import NotFound from "./404";
-import AddDocument from "views/Documents/addDocument";
-import ViewDocument from "views/Documents/viewDocument";
 import Documents from "views/Documents/documents";
 import BulletinBoard from "views/BulletinBoard";
 import ServiceCounterEmp from "./Pages/ServiceCounterEmp/index";
@@ -41,11 +39,7 @@ ReactDOM.render(
               <Route index element={<Transportation />} />
               <Route exact path="add" element={<TransportationAddService />} />
             </Route>
-            <Route exact path="documents">
-              <Route index element={<Documents />} />
-              <Route exact path="add" element={<AddDocument />} />
-              <Route exact path=":id" element={<ViewDocument />} />
-            </Route>
+            <Route exact path="documents" element={<Documents />} />
             <Route exact path="todoapp" element={<TodoApp />} />
             <Route exact path="timetracker" element={<TimeTracker />} />
             <Route exact path="bulletin_board" element={<BulletinBoard />} />
