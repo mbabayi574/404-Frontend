@@ -1,5 +1,6 @@
 import FileItem from "./fileItem";
 import ImageItem from "./imageItem";
+import useAPI from "useAPI";
 import useForm from "useForm";
 import { useEffect, useState } from "react";
 import Box from "@mui/material/Box";
@@ -17,27 +18,33 @@ import AttachFileIcon from '@mui/icons-material/AttachFile';
 import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate';
 
 const NewDocument = ({ reload }) => {
-  const clearFiles = () => {
-    setFiles([]);
-    setImages([]);
-  };
-
-  const getValidationError = (formData) => {
-    if (!formData.get("title"))
-      return "Document title cannot be empty.";
-    if (!formData.get("text"))
-      return "Document text cannot be empty.";
-    return null;
+  const postData = () => {
+    setLoading(true);
+    const formData = prepareData(values);
+    const config = makeApiConfig(formData);
+    api(config)
+      .then(response => {
+        setSuccess(true);
+        onPostSuccess(response);
+      })
+      .catch(error => {
+        console.log(error);
+      })
+      .finally(() => setLoading(false));
   }
 
-  const prepareData = (formData) => {
+  const prepareData = () => {
+    let formData = new FormData();
+    formData.set("title", values.title);
+    formData.set("text", values.text);
     files.forEach(file => {
       formData.append("files", file.file);
     });
     images.forEach(image => {
-      formData.append("files", image);
+      formData.append("files", image.file);
     });
-    console.log(formData.getAll("files"));
+    console.log(formData);
+    return formData;
   }
 
   const makeApiConfig = (formData) => {
@@ -51,24 +58,41 @@ const NewDocument = ({ reload }) => {
     };
   }
 
+  const clearFiles = () => {
+    setFiles([]);
+    setImages([]);
+  };
+
+  const validate = (values) => {
+    let errors = {}
+    if (!values.title) {
+      errors.title = "Please fill out the title";
+    }
+    if (!values.text) {
+      errors.text = "Please fill out the text";
+    }
+    return errors;
+  }
+
   const onPostSuccess = (response) => {
     clearFiles();
     reload();
   }
 
   const {
-    loading, success, error,
-    trySubmit, clearFormStatus
-  } = useForm({
-    getValidationError: getValidationError,
-    prepareData: prepareData,
-    makeApiConfig: makeApiConfig,
-    onPostSuccess: onPostSuccess
-  });
+    handleChange,
+    handleSubmit,
+    values,
+    errors,
+  } = useForm(postData, validate);
+
   const [files, setFiles] = useState([]);
   const [images, setImages] = useState([]);
   const [imagePreviews, setImagePreviews] = useState([]);
   const [fileId, setFileId] = useState(0);
+  const [loading, setLoading] = useState(false);
+  const [success, setSuccess] = useState(false);
+  const api = useAPI();
 
   useEffect(() => {
     setImagePreviews(images.map(image => ({
@@ -103,40 +127,15 @@ const NewDocument = ({ reload }) => {
     setImages(images.filter(image => image.id !== id));
   }
 
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    let formData = new FormData(event.currentTarget);
-    trySubmit(formData);
-  };
-
-  const errorAlert = (
-    <Snackbar
-      open={error}
-      autoHideDuration={3000}
-      onClose={clearFormStatus}
-      anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
-    >
-      <Alert
-        onClose={clearFormStatus}
-        variant="filled"
-        severity="error"
-        sx={{ width: "100%" }}
-      >
-        {error}
-      </Alert>
-    </Snackbar>
-  )
-
   const successAlert = (
     <Snackbar
       open={success}
       autoHideDuration={3000}
-      onClose={clearFormStatus}
+      onClose={() => setSuccess(false)}
       anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
     >
       <Alert
-        onClose={clearFormStatus}
+        onClose={() => setSuccess(false)}
         variant="filled"
         severity="success"
         sx={{ width: "100%" }}
@@ -150,13 +149,30 @@ const NewDocument = ({ reload }) => {
     <Stack component="form" onSubmit={handleSubmit} spacing={1}
       sx={{ height: "100%", width: "100%" }}>
       <TextField
-        size="small" fullWidth
-        id="title" name="title" label="Title"
+        id="title"
+        name="title"
+        label="Title"
+        value={values.title || ""}
+        onChange={handleChange}
+        error={errors.title}
+        helperText={errors.title}
+        size="small"
+        fullWidth
       />
-      <TextField fullWidth multiline
-        minRows={5} maxRows={15}
-        id="text" name="text"
-        InputProps={{ placeholder: "Type something" }}
+      <TextField
+        id="text"
+        name="text"
+        value={values.text || ""}
+        onChange={handleChange}
+        error={errors.text}
+        helperText={errors.text}
+        fullWidth
+        multiline
+        minRows={5}
+        maxRows={15}
+        InputProps={{
+          placeholder: "Type something"
+        }}
       />
       {
         images.length === 0 ||
@@ -252,7 +268,6 @@ const NewDocument = ({ reload }) => {
     >
       {form}
       {successAlert}
-      {errorAlert}
     </Card>
   );
 };
