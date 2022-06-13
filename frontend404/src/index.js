@@ -25,6 +25,7 @@ import ViewDocument from "views/Documents/viewDocument";
 import Documents from "views/Documents/documents";
 import BulletinBoard from "views/BulletinBoard";
 import ServiceCounterEmp from "./Pages/ServiceCounterEmp/index";
+import FinancialReports from "views/FinancialReports";
 
 ReactDOM.render(
   <React.StrictMode>
@@ -55,6 +56,7 @@ ReactDOM.render(
               element={<ServiceCounterEmp />}
             />
             <Route exact path="salary" element={<SalaryBoard />} />
+            <Route exact path="reports" element={<FinancialReports />} />
             <Route exact path="hr_desk" element={<HrDesk />} />
             <Route exact path="food_manager" element={<FoodManager />} />
             <Route path="*" element={<NotFound />} />

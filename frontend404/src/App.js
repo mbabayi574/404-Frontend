@@ -24,6 +24,7 @@ const pageTitles = {
   "/my/dormitoryemp": "Dormitory",
   "/my/servicecounteremp": "Service Counter",
   "/my/salary": "Salary",
+  "/my/reports": "Financial Reports",
 };
 
 function App() {
