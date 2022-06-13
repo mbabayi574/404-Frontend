@@ -14,6 +14,7 @@ import PeopleIcon from "@mui/icons-material/People";
 import BarChartIcon from "@mui/icons-material/BarChart";
 import FastfoodIcon from "@mui/icons-material/Fastfood";
 import PersonIcon from "@mui/icons-material/Person";
+import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import DirectionsBusIcon from "@mui/icons-material/DirectionsBus";
 import InsertDriveFileIcon from "@mui/icons-material/InsertDriveFile";
@@ -84,6 +85,11 @@ const managerItems = [
     href: "/my/hr_desk",
     icon: <PeopleIcon fontSize="small" />,
     title: "Human Resources",
+  },
+  {
+    href: "/my/salary",
+    icon: <AttachMoneyIcon fontSize="small" />,
+    title: "Salary",
   },
   {
     href: "/my/reports",

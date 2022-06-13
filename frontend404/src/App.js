@@ -23,6 +23,7 @@ const pageTitles = {
   "/my/hr_desk": "Human Resources",
   "/my/dormitoryemp": "Dormitory",
   "/my/servicecounteremp": "Service Counter",
+  "/my/salary": "Salary",
 };
 
 function App() {

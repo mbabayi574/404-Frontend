@@ -18,7 +18,7 @@ import TodoApp from "./views/TODOLIST";
 import DormitoryEmp from "./Pages/DormitoryEmp/index";
 import HrDesk from "./views/hrDesk/hrDesk";
 import FoodManager from "./views/food/foodManager";
-import Board from "views/Salary/Calculator";
+import SalaryBoard from "views/Salary/Calculator";
 import NotFound from "./404";
 import AddDocument from "views/Documents/addDocument";
 import ViewDocument from "views/Documents/viewDocument";
@@ -54,7 +54,7 @@ ReactDOM.render(
               path="servicecounteremp"
               element={<ServiceCounterEmp />}
             />
-            <Route exact path="reports" element={<Board />} />
+            <Route exact path="salary" element={<SalaryBoard />} />
             <Route exact path="hr_desk" element={<HrDesk />} />
             <Route exact path="food_manager" element={<FoodManager />} />
             <Route path="*" element={<NotFound />} />
