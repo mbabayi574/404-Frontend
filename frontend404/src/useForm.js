@@ -1,67 +1,34 @@
-import { useState } from "react";
-import useAPI from "useAPI";
+import { useState, useEffect } from 'react';
 
-const useForm = ({
-  getValidationError,
-  prepareData,
-  makeApiConfig,
-  onPostSuccess,
-  onPostError,
-}) => {
-  const api = useAPI();
-  const [loading, setLoading] = useState(false);
-  const [success, setSuccess] = useState(false);
-  const [error, setError] = useState(null);
+const useForm = (callback, validate) => {
 
-  const trySubmit = (formData) => {
-    const validateData = () => {
-      const newError = getValidationError(formData);
-      setError(newError);
-      return newError === null;
+  const [values, setValues] = useState({});
+  const [errors, setErrors] = useState({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  useEffect(() => {
+    if (Object.keys(errors).length === 0 && isSubmitting) {
+      callback();
+      setIsSubmitting(false);
     }
+  }, [errors]);
 
-    if (!validateData(formData)) {
-      return;
-    }
-    prepareData(formData);
-    var config = makeApiConfig(formData);
-    postData(config);
+  const handleSubmit = (event) => {
+    if (event) event.preventDefault();
+    setErrors(validate(values));
+    setIsSubmitting(true);
   };
 
-  const postData = (config) => {
-    setLoading(true);
-    api(config)
-      .then(response => {
-        setSuccess(true);
-        onPostSuccess(response);
-      })
-      .catch(error => {
-        setPostError(error);
-        onPostError(error);
-      })
-      .finally(() => setLoading(false));
-  }
-
-  const setPostError = (error) => {
-    error.response.data.forEach(key => {
-      setError(error.response.data[key]);
-      return;
-    })
-  }
-
-  const clearFormStatus = () => {
-    setLoading(false);
-    setSuccess(false);
-    setError(null);
-  }
+  const handleChange = (event) => {
+    setValues(values => ({ ...values, [event.target.name]: event.target.value }));
+  };
 
   return {
-    loading,
-    success,
-    error,
-    trySubmit,
-    clearFormStatus,
-  };
-}
+    handleChange,
+    handleSubmit,
+    values,
+    errors,
+  }
+};
 
 export default useForm;
