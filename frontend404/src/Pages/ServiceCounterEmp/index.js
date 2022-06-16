@@ -88,6 +88,7 @@ const ServiceCounterEmp = (props) => {
       ],
     },
   ]);
+  //ready to start debuging...
   const [onGoings, setOnGoings] = React.useState([
     {
       title: "op1",
