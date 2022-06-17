@@ -80,13 +80,18 @@ const NewDocument = ({ reload }) => {
     reload();
   }
 
+  const initialData = {
+    title: "",
+    text: "",
+  };
+
   const {
     handleChange,
     handleSubmit,
     clearForm,
     values,
     errors,
-  } = useForm(postData, validate);
+  } = useForm(postData, validate, initialData);
 
   const [files, setFiles] = useState([]);
   const [images, setImages] = useState([]);
@@ -154,7 +159,7 @@ const NewDocument = ({ reload }) => {
         id="title"
         name="title"
         label="Title"
-        value={values.title || ""}
+        value={values.title}
         onChange={handleChange}
         error={errors.title}
         helperText={errors.title}
@@ -164,7 +169,7 @@ const NewDocument = ({ reload }) => {
       <TextField
         id="text"
         name="text"
-        value={values.text || ""}
+        value={values.text}
         onChange={handleChange}
         error={errors.text}
         helperText={errors.text}
