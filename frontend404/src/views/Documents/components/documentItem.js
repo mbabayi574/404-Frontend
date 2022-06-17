@@ -13,7 +13,7 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DeleteIcon from '@mui/icons-material/Delete';
-
+import DocumentModal from "./documentModal";
 
 const DocumentItem = ({ document, reload }) => {
   const { id, title, text, files_set } = document;
@@ -24,6 +24,7 @@ const DocumentItem = ({ document, reload }) => {
   }, [])
 
   const [openDialog, setOpenDialog] = useState(false);
+  const [openModal, setOpenModal] = useState(false);
 
   const handleDelete = () => {
     setOpenDialog(false);
@@ -86,21 +87,23 @@ const DocumentItem = ({ document, reload }) => {
 
   return (
     <>
-      <Card sx={{
-        p: 2,
-        width: "100%",
-        height: "100%"
-      }}>
+      <Card
+        sx={{
+          p: 2,
+          width: "100%",
+          height: "100%"
+        }}>
         <Stack
           spacing={1}
           sx={{
             height: "100%",
           }}
         >
-          <Box sx={{
-            display: "flex",
-            alignItems: "center",
-          }}>
+          <Box
+            sx={{
+              display: "flex",
+              alignItems: "center",
+            }}>
             <Typography variant="h6">
               {title}
             </Typography>
@@ -116,11 +119,13 @@ const DocumentItem = ({ document, reload }) => {
             variant="body2"
             sx={{
               whiteSpace: "pre-wrap",
+              textOverflow: "ellipsis",
               width: "100%",
               flexGrow: 1,
-              maxHeight: "80%",
-              overflowY: "auto"
+              maxHeight: "auto",
+              overflowY: "hidden"
             }}
+            onClick={() => setOpenModal(true)}
           >
             {text}
           </Typography>
@@ -149,6 +154,11 @@ const DocumentItem = ({ document, reload }) => {
         </Stack>
       </Card>
       {deleteDialog}
+      <DocumentModal
+        document={document}
+        open={openModal}
+        onClose={() => setOpenModal(false)}
+      />
     </>
   );
 };

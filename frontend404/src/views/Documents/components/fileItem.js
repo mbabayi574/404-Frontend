@@ -47,16 +47,19 @@ const FileItem = ({ file, onDelete, noDownload }) => {
     >
       {
         noDownload || <MenuItem onClick={handleDownload}>
-        <Typography variant="caption">
-          Download
-        </Typography>
-      </MenuItem>
+          <Typography variant="caption">
+            Download
+          </Typography>
+        </MenuItem>
       }
-      <MenuItem onClick={handleDelete}>
-        <Typography color="" variant="caption">
-          Remove
-        </Typography>
-      </MenuItem>
+      {
+        onDelete &&
+        <MenuItem onClick={handleDelete}>
+          <Typography color="" variant="caption">
+            Remove
+          </Typography>
+        </MenuItem>
+      }
     </Menu>
   )
 

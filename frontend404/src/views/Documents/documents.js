@@ -46,7 +46,7 @@ const Documents = () => {
       <Skeleton variant="rectangular"
         sx={{
           width: "100%",
-          height: "35vh",
+          height: "36vh",
         }}
       />
     )
@@ -98,7 +98,7 @@ const Documents = () => {
         <Grid container spacing={2}>
           {items.map((document) => (
             <Grid item xs={12} md={6}>
-              <Box height="35vh">
+              <Box height="36vh">
                 {document
                   ? <DocumentItem document={document} reload={getDocuments} />
                   : <Box width="100%" height="100%" />
