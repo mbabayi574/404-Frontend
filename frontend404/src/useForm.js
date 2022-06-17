@@ -23,9 +23,14 @@ const useForm = (callback, validate) => {
     setValues(values => ({ ...values, [event.target.name]: event.target.value }));
   };
 
+  const clearForm = () => {
+    setValues({});
+  }
+
   return {
     handleChange,
     handleSubmit,
+    clearForm,
     values,
     errors,
   }

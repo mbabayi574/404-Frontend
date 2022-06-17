@@ -76,12 +76,14 @@ const NewDocument = ({ reload }) => {
 
   const onPostSuccess = (response) => {
     clearFiles();
+    clearForm();
     reload();
   }
 
   const {
     handleChange,
     handleSubmit,
+    clearForm,
     values,
     errors,
   } = useForm(postData, validate);
