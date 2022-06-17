@@ -13,6 +13,8 @@ const ImageItem = ({ image, onDelete, sx }) => {
 
   const handleClose = () => setOpen(false);
 
+  console.log(image);
+
   const handleDelete = () => {
     handleClose();
     onDelete(id);
@@ -53,7 +55,8 @@ const ImageItem = ({ image, onDelete, sx }) => {
       <img src={url}
         onClick={() => setOpen(true)}
         style={{
-          height: "100%"
+          height: "100%",
+          // width: "100%",
         }} />
       {viewModal}
     </Box>

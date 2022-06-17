@@ -1,4 +1,5 @@
 import FileItem from "./fileItem";
+import ImageItem from "./imageItem";
 import { useState, useEffect } from "react";
 import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
@@ -10,16 +11,43 @@ import Tooltip from "@mui/material/Tooltip";
 import EditIcon from "@mui/icons-material/Edit";
 
 const DocumentModal = (props) => {
-  const {document, ...others} = props;
+  const { document, ...others } = props;
   const { id, title, text, files_set } = document;
   const [files, setFiles] = useState([]);
+  const [images, setImages] = useState([]);
   useEffect(() => {
-    setFiles(files_set);
+    const imageFiles = files_set.filter(file => isImage(file));
+    setImages(imageFiles.map(file => getImageData(file)))
+    // imageFiles.forEach(file => {
+    //   addImage(file);
+    // });
+    setFiles(files_set.filter(file => !isImage(file)));
   }, [])
+
+  useEffect(() => {
+    if (others.open) {
+      console.log(images);
+    }
+  }, [others])
+
+  const getImageData = (file) => {
+    const name = file.file.split("/").pop();
+    const url = "http://404g.pythonanywhere.com" + file.file;
+    return {
+      name: name,
+      url: url,
+      id: file.id,
+    };
+    // setImages([...images, image]);
+  }
+
+  const isImage = (file) => {
+    return file.file.match(/.(jpg|jpeg|png|gif)$/i);
+  }
 
   return (
     <Modal
-    {...others}
+      {...others}
     >
       <Card sx={{
         position: 'absolute',
@@ -65,26 +93,41 @@ const DocumentModal = (props) => {
             {text}
           </Typography>
           <Box flexGrow={1} />
-          <Stack spacing={1} direction="row" sx={{
-            alignItems: "center",
-          }}>
-
-            {
-              files.length === 0
-              || <Stack direction="row" spacing={1} sx={{
-                flexGrow: 1,
-                maxWidth: "auto",
-                overflowX: "auto"
-              }}>
-                {
-                  files.map(file => (
-                    <FileItem file={file}
-                    />
-                  ))
-                }
-              </Stack>
-            }
-          </Stack>
+          {
+            images.length === 0
+            || <Stack direction="row" spacing={0.5} sx={{
+              // width: "fit-content",
+              overflowX: "auto",
+              flexShrink: 0,
+              height: "110px",
+            }}>
+              {
+                images.map(image => (
+                  <ImageItem image={image}
+                  sx={{
+                    height: "100px"
+                    // width: "fit-content"
+                    // width: "fit-content"
+                  }}
+                  />
+                ))
+              }
+            </Stack>
+          }
+          {
+            files.length === 0
+            || <Stack direction="row" spacing={1} sx={{
+              width: "100%",
+              overflowX: "auto"
+            }}>
+              {
+                files.map(file => (
+                  <FileItem file={file}
+                  />
+                ))
+              }
+            </Stack>
+          }
         </Stack>
       </Card>
     </Modal>
