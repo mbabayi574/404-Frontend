@@ -16,8 +16,8 @@ import ViewFinancialReports from "./components/viewFinancialReports";
 
 const FinancialReports = () => {
   const [documents, setDocuments] = useState([]);
-	const navigate = useNavigate();
-	const api = useAPI();
+  const navigate = useNavigate();
+  const api = useAPI();
 
   return (
     <Box
@@ -34,19 +34,19 @@ const FinancialReports = () => {
         }}
       >
         <Grid container spacing={3}
-          sx={{height: "100%"}}>
+          sx={{ height: "100%" }}>
           <Grid item xs={4}>
-            <Stack spacing={3} sx={{height: "100%"}}>
-              <Box>
-                <NewFinancialEvent />
+            <NewFinancialEvent />
+          </Grid>
+          <Grid item xs={8}>
+            <Stack spacing={3} sx={{ height: "100%" }}>
+              <Box flexGrow="1">
+                <ViewFinancialReports />
               </Box>
               <Box flexGrow="1">
                 <ViewFinancialEvents />
               </Box>
             </Stack>
-          </Grid>
-          <Grid item xs={8}>
-            <ViewFinancialReports />
           </Grid>
         </Grid>
       </Container>
