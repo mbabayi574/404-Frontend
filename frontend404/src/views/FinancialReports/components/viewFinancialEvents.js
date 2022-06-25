@@ -1,50 +1,17 @@
 import Card from "@mui/material/Card";
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableHead from '@mui/material/TableHead';
-import TableContainer from '@mui/material/TableContainer';
-import TableRow from '@mui/material/TableRow';
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
+import TableHead from "@mui/material/TableHead";
+import TableContainer from "@mui/material/TableContainer";
+import TableRow from "@mui/material/TableRow";
 import Typography from "@mui/material/Typography";
 import { useState } from "react";
-
-import PropTypes from 'prop-types';
-import Tabs from '@mui/material/Tabs';
-import Tab from '@mui/material/Tab';
-import Box from '@mui/material/Box';
-
-const onetimeEvents = [
-  {
-    id: 1,
-    name: "Install Backup Servers",
-    date: new Date(),
-    type: "expense",
-    amount: "-600000000",
-  },
-  {
-    id: 2,
-    name: "Merchandise Rights",
-    date: new Date(),
-    type: "income",
-    amount: "+2100000000",
-  },
-];
-const periodicEvents = [
-  {
-    id: 1,
-    name: "Transportation",
-    period: "monthly",
-    type: "expense",
-    amount: "-30000000",
-  },
-  {
-    id: 2,
-    name: "Sponsership",
-    period: "yearly",
-    type: "income",
-    amount: "+1700000000",
-  },
-];
+import PropTypes from "prop-types";
+import Tabs from "@mui/material/Tabs";
+import Tab from "@mui/material/Tab";
+import Box from "@mui/material/Box";
+import { dummyEvents } from "../dummy-data";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -75,12 +42,20 @@ TabPanel.propTypes = {
 function a11yProps(index) {
   return {
     id: `simple-tab-${index}`,
-    'aria-controls': `simple-tabpanel-${index}`,
+    "aria-controls": `simple-tabpanel-${index}`,
   };
 }
 
 const ViewFinancialEvents = () => {
+  const [events, setEvents] = useState(dummyEvents);
   const [value, setValue] = useState(0);
+  
+  const isEventOnetime = (event) => {
+    return event.period === "one-time";
+  }
+  const onetimeEvents = events.filter(event => isEventOnetime(event));
+  const periodicEvents = events.filter(event => !isEventOnetime(event));
+
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -202,7 +177,7 @@ const ViewFinancialEvents = () => {
       height: "100%",
       p: 1
     }}>
-      <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+      <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
         <Tabs
           centered
           value={value}
