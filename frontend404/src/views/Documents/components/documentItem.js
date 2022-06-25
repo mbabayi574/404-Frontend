@@ -6,6 +6,7 @@ import Card from "@mui/material/Card";
 import Typography from "@mui/material/Typography";
 import Badge from "@mui/material/Badge";
 import AttachmentIcon from "@mui/icons-material/Attachment";
+import PreviewIcon from "@mui/icons-material/Preview";
 import DocumentModal from "./documentModal";
 
 const DocumentItem = ({ document, reload }) => {
@@ -24,11 +25,13 @@ const DocumentItem = ({ document, reload }) => {
   return (
     <>
       <Card
+        onClick={() => setOpenModal(true)}
         sx={{
           p: 2,
           width: "100%",
           height: "100%"
-        }}>
+        }}
+      >
         <Stack
           spacing={1}
           sx={{
@@ -44,17 +47,15 @@ const DocumentItem = ({ document, reload }) => {
               {title}
             </Typography>
             <Box sx={{ flexGrow: 1 }} />
-            {
-              files.length > 0 && (
-                <Badge
-                  badgeContent={files.length}
-                  color="primary"
-                  max={99}
-                >
-                  <AttachmentIcon color="action" />
-                </Badge>
-              )
-            }
+            <Badge
+              badgeContent={files.length}
+              color="primary"
+              max={99}
+            >
+              <PreviewIcon
+              color="primary"
+              />
+            </Badge>
           </Box>
           <Typography
             variant="body2"
@@ -66,7 +67,6 @@ const DocumentItem = ({ document, reload }) => {
               maxHeight: "auto",
               overflowY: "hidden"
             }}
-            onClick={() => setOpenModal(true)}
           >
             {text}
           </Typography>
