@@ -13,9 +13,10 @@ import { useNavigate } from "react-router-dom";
 import useAPI from "useAPI";
 import ViewFinancialEvents from "./components/viewFinancialEvents";
 import ViewFinancialReports from "./components/viewFinancialReports";
+import UpdateFinancialEvent from "./components/updateFinancialEvent";
 
 const FinancialReports = () => {
-  const [documents, setDocuments] = useState([]);
+  const [editMode, setEditMode] = useState([]);
   const navigate = useNavigate();
   const api = useAPI();
 
@@ -36,7 +37,15 @@ const FinancialReports = () => {
         <Grid container spacing={3}
           sx={{ height: "100%" }}>
           <Grid item xs={4}>
-            <NewFinancialEvent />
+            <Stack spacing={3} sx={{ height: "100%" }}>
+              <Box flexGrow="1">
+                <NewFinancialEvent />
+              </Box>
+              <Box flexGrow="1">
+                <UpdateFinancialEvent />
+              </Box>
+            </Stack>
+            
           </Grid>
           <Grid item xs={8}>
             <Stack spacing={3} sx={{ height: "100%" }}>
