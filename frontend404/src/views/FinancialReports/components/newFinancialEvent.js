@@ -81,8 +81,20 @@ const NewFinancialEvent = () => {
             width: "100%",
           }}
         >
-          <FormControlLabel value="expense" control={<Radio />} label="Expense" />
-          <FormControlLabel value="income" control={<Radio />} label="Income" />
+          <FormControlLabel
+            sx={{
+              flexGrow: 1
+            }}
+            value="expense"
+            control={<Radio />}
+            label="Expense" />
+          <FormControlLabel
+            sx={{
+              flexGrow: 1
+            }}
+            value="income"
+            control={<Radio />}
+            label="Income" />
         </RadioGroup>
         <TextField
           id="amount"
