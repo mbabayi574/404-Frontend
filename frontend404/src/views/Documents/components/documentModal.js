@@ -27,7 +27,6 @@ const DocumentModal = (props) => {
     setFiles(files_set);
   }, [])
 
-  console.log(props);
   const isImage = (file) => {
     return file.file.match(/.(jpg|jpeg|png|gif)$/i);
   }
