@@ -17,20 +17,20 @@ import Tooltip from "@mui/material/Tooltip";
 import useAPI from "useAPI";
 
 const DocumentModal = (props) => {
-  const { document, reload, deleteFile, ...others } = props;
+  const { document, reload, onDeleteFile, ...others } = props;
   const { id, title, text, files_set } = document;
   const [files, setFiles] = useState([]);
-  const [images, setImages] = useState([]);
   const [openDialog, setOpenDialog] = useState(false);
   const api = useAPI();
 
   useEffect(() => {
-      const imageFiles = files_set.filter(file => isImage(file));
-      setImages(imageFiles.map(file => getImageData(file)))
-      setFiles(files_set.filter(file => !isImage(file)));
+    setFiles(files_set);
   }, [])
 
   console.log(props);
+  const isImage = (file) => {
+    return file.file.match(/.(jpg|jpeg|png|gif)$/i);
+  }
 
   const getImageData = (file) => {
     const name = file.file.split("/").pop();
@@ -42,9 +42,9 @@ const DocumentModal = (props) => {
     };
   }
 
-  const isImage = (file) => {
-    return file.file.match(/.(jpg|jpeg|png|gif)$/i);
-  }
+  const imageFiles = files.filter(file => isImage(file));
+  const nonimageFiles = files.filter(file => !isImage(file));
+  const images = imageFiles.map(file => getImageData(file));
 
   const handleDelete = () => {
     setOpenDialog(false);
@@ -74,11 +74,16 @@ const DocumentModal = (props) => {
         console.log(response.data);
         if (response.status === 200) {
           deleteFile(id);
+          onDeleteFile(id);
         }
       })
       .catch((error) => {
         console.log(error);
       });
+  }
+
+  const deleteFile = (id) => {
+    setFiles(files.filter(file => file.id !== id));
   }
 
   const deleteDialog = (
@@ -153,7 +158,6 @@ const DocumentModal = (props) => {
             {
               images.length === 0
               || <Stack direction="row" spacing={0.5} sx={{
-                // width: "fit-content",
                 overflowX: "auto",
                 flexShrink: 0,
                 height: "110px",
@@ -161,10 +165,9 @@ const DocumentModal = (props) => {
                 {
                   images.map(image => (
                     <ImageItem image={image}
+                      onDelete={handleDeleteFile}
                       sx={{
                         height: "100px"
-                        // width: "fit-content"
-                        // width: "fit-content"
                       }}
                     />
                   ))
@@ -178,7 +181,7 @@ const DocumentModal = (props) => {
                 overflowX: "auto"
               }}>
                 {
-                  files.map(file => (
+                  nonimageFiles.map(file => (
                     <FileItem file={file}
                       onDelete={() => handleDeleteFile(file.id)}
                     />

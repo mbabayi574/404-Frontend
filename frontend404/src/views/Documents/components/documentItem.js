@@ -85,7 +85,7 @@ const DocumentItem = ({ document, reload }) => {
       </Card>
       <DocumentModal
         document={document}
-        deleteFile={deleteFile}
+        onDeleteFile={deleteFile}
         reload={reload}
         open={openModal}
         onClose={() => setOpenModal(false)}
