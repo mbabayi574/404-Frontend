@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
 
-const useForm = (callback, validate) => {
+const useForm = (callback, validate, initialData={}) => {
 
-  const [values, setValues] = useState({});
+  const [values, setValues] = useState(initialData);
   const [errors, setErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -23,9 +23,14 @@ const useForm = (callback, validate) => {
     setValues(values => ({ ...values, [event.target.name]: event.target.value }));
   };
 
+  const clearForm = () => {
+    setValues(initialData);
+  }
+
   return {
     handleChange,
     handleSubmit,
+    clearForm,
     values,
     errors,
   }

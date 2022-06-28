@@ -17,7 +17,7 @@ const eventPeriods = [
 
 export const createRandomEvent = () => {
   return {
-    id: faker.datatype.uuid(),
+    id: faker.random.numeric(10),
     name: faker.random.words(),
     amount: faker.commerce.price(),
     type: faker.helpers.arrayElement(eventTypes),

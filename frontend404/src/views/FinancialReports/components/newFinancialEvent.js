@@ -22,6 +22,7 @@ const NewFinancialEvent = (props) => {
   const { addEvent } = props;
   const callback = () => {
     addEvent(values);
+    clearForm();
   }
 
   const validate = (values) => {
@@ -40,12 +41,21 @@ const NewFinancialEvent = (props) => {
     return errors;
   }
 
+  const initialData = {
+    name: "",
+    amount: 0,
+    type: "expense",
+    period: "",
+    date: new Date()
+  };
+
   const {
     handleChange,
     handleSubmit,
+    clearForm,
     values,
     errors
-  } = useForm(callback, validate);
+  } = useForm(callback, validate, initialData);
 
   return (
     <Card sx={{
@@ -64,7 +74,7 @@ const NewFinancialEvent = (props) => {
           id="name"
           name="name"
           label="Name"
-          value={values.name || ""}
+          value={values.name}
           onChange={handleChange}
           error={errors.name}
           helperText={errors.name}
@@ -74,7 +84,7 @@ const NewFinancialEvent = (props) => {
         <RadioGroup
           id="type"
           name="type"
-          value={values.type || "expense"}
+          value={values.type}
           onChange={handleChange}
           defaultValue="expense"
           row
@@ -101,7 +111,7 @@ const NewFinancialEvent = (props) => {
           id="amount"
           name="amount"
           label="Amount"
-          value={values.amount || 0}
+          value={values.amount}
           onChange={handleChange}
           error={errors.amount}
           helperText={errors.amount}
@@ -128,7 +138,7 @@ const NewFinancialEvent = (props) => {
             id="period"
             name="period"
             label="Period"
-            value={values.period || ""}
+            value={values.period}
             onChange={handleChange}
           >
             <MenuItem value="daily">Daily</MenuItem>
@@ -144,7 +154,7 @@ const NewFinancialEvent = (props) => {
             <LocalizationProvider dateAdapter={AdapterDateFns}>
               <DesktopDatePicker
                 label="Date"
-                value={values.date || (new Date())}
+                value={values.date}
                 inputFormat="MM/dd/yyyy"
                 onChange={(value) => handleChange({ target: { name: "date", value: value } })}
                 renderInput={(params) => <TextField size="small" {...params} />}

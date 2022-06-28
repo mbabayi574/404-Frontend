@@ -15,6 +15,7 @@ import ViewFinancialEvents from "./components/viewFinancialEvents";
 import ViewFinancialReports from "./components/viewFinancialReports";
 import UpdateFinancialEvent from "./components/updateFinancialEvent";
 import { dummyEvents } from "./dummy-data";
+import { faker } from "@faker-js/faker";
 
 const FinancialReports = () => {
   const [editMode, setEditMode] = useState([]);
@@ -23,7 +24,11 @@ const FinancialReports = () => {
   const api = useAPI();
 
   const addEvent = (values) => {
-    setEvents([...events, values]);
+    const event = {
+      ...values,
+      id: faker.random.numeric(10),
+    };
+    setEvents([...events, event]);
   }
 
   return (
