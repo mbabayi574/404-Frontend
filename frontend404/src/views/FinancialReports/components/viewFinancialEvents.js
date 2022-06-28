@@ -11,7 +11,6 @@ import PropTypes from "prop-types";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Box from "@mui/material/Box";
-import { dummyEvents } from "../dummy-data";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -46,10 +45,11 @@ function a11yProps(index) {
   };
 }
 
-const ViewFinancialEvents = () => {
-  const [events, setEvents] = useState(dummyEvents);
+const ViewFinancialEvents = (props) => {
+  const { events } = props;
+  // const [events, setEvents] = useState(props.events);
   const [value, setValue] = useState(0);
-  
+
   const isEventOnetime = (event) => {
     return event.period === "one-time";
   }

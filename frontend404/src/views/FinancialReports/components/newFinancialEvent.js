@@ -18,9 +18,10 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
 import useForm from "useForm";
 
-const NewFinancialEvent = () => {
-  const postData = () => {
-    console.log(values);
+const NewFinancialEvent = (props) => {
+  const { addEvent } = props;
+  const callback = () => {
+    addEvent(values);
   }
 
   const validate = (values) => {
@@ -44,7 +45,7 @@ const NewFinancialEvent = () => {
     handleSubmit,
     values,
     errors
-  } = useForm(postData, validate);
+  } = useForm(callback, validate);
 
   return (
     <Card sx={{
@@ -120,7 +121,7 @@ const NewFinancialEvent = () => {
           fullWidth
           size="small"
           error={errors.period}
-          >
+        >
           <InputLabel id="period-label">Period</InputLabel>
           <Select
             labelId="period-label"
@@ -145,7 +146,7 @@ const NewFinancialEvent = () => {
                 label="Date"
                 value={values.date || (new Date())}
                 inputFormat="MM/dd/yyyy"
-                onChange={(value) => handleChange({target: {name: "date", value: value}})}
+                onChange={(value) => handleChange({ target: { name: "date", value: value } })}
                 renderInput={(params) => <TextField size="small" {...params} />}
               />
             </LocalizationProvider>

@@ -14,11 +14,17 @@ import useAPI from "useAPI";
 import ViewFinancialEvents from "./components/viewFinancialEvents";
 import ViewFinancialReports from "./components/viewFinancialReports";
 import UpdateFinancialEvent from "./components/updateFinancialEvent";
+import { dummyEvents } from "./dummy-data";
 
 const FinancialReports = () => {
   const [editMode, setEditMode] = useState([]);
+  const [events, setEvents] = useState(dummyEvents);
   const navigate = useNavigate();
   const api = useAPI();
+
+  const addEvent = (values) => {
+    setEvents([...events, values]);
+  }
 
   return (
     <Box
@@ -39,7 +45,9 @@ const FinancialReports = () => {
           <Grid item xs={4}>
             <Stack spacing={3} sx={{ height: "100%" }}>
               <Box flexGrow="1">
-                <NewFinancialEvent />
+                <NewFinancialEvent
+                  addEvent={addEvent}
+                />
               </Box>
               <Box flexGrow="1">
                 <UpdateFinancialEvent />
@@ -53,7 +61,9 @@ const FinancialReports = () => {
                 <ViewFinancialReports />
               </Box>
               <Box flexGrow="1">
-                <ViewFinancialEvents />
+                <ViewFinancialEvents
+                  events={events}
+                />
               </Box>
             </Stack>
           </Grid>
