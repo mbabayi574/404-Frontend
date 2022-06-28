@@ -21,9 +21,10 @@ import useForm from "useForm";
 import { useEffect } from "react";
 
 const UpdateFinancialEvent = (props) => {
-  const { selectedEvent } = props;
-  const updateData = () => {
+  const { selectedEvent, updateEvent } = props;
+  const callback = () => {
     console.log(values);
+    updateEvent(values);
   }
 
   const validate = (values) => {
@@ -45,11 +46,10 @@ const UpdateFinancialEvent = (props) => {
     clearForm,
     values,
     errors
-  } = useForm(updateData, validate, selectedEvent);
+  } = useForm(callback, validate, selectedEvent);
 
   useEffect(() => {
     clearForm();
-    console.log(values);
   }, [selectedEvent]);
 
   const form = (

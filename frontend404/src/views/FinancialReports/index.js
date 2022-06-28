@@ -30,8 +30,12 @@ const FinancialReports = () => {
     };
     setEvents([...events, event]);
   }
-
-  console.log(events);
+  const updateEvent = (values) => {
+    let newEvents = events;
+    var foundIndex = newEvents.findIndex(event => event.id === values.id);
+    newEvents[foundIndex] = values;
+    setEvents(newEvents);
+  }
 
   const selectedEvent = events.find(event => event.id === selectedEventId);
 
@@ -61,6 +65,7 @@ const FinancialReports = () => {
               <Box flexGrow="1">
                 <UpdateFinancialEvent
                   selectedEvent={selectedEvent}
+                  updateEvent={updateEvent}
                 />
               </Box>
             </Stack>

@@ -57,6 +57,8 @@ const ViewFinancialEvents = (props) => {
   }
   const onetimeEvents = events.filter(event => isEventOnetime(event));
   const periodicEvents = events.filter(event => !isEventOnetime(event));
+  console.log(onetimeEvents);
+  console.log(periodicEvents);
 
 
   const handleChange = (event, newValue) => {
