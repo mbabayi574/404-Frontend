@@ -36,6 +36,9 @@ const FinancialReports = () => {
     newEvents[foundIndex] = values;
     setEvents(newEvents);
   }
+  const deleteEvent = (id) => {
+    setEvents(events.filter(event => event.id !== id));
+  }
 
   const selectedEvent = events.find(event => event.id === selectedEventId);
 
@@ -66,6 +69,7 @@ const FinancialReports = () => {
                 <UpdateFinancialEvent
                   selectedEvent={selectedEvent}
                   updateEvent={updateEvent}
+                  deleteEvent={deleteEvent}
                 />
               </Box>
             </Stack>
