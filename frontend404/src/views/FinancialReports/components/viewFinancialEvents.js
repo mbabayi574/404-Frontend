@@ -45,6 +45,11 @@ const ViewFinancialEvents = (props) => {
         </TableCell>
         <TableCell align="center">
           <Typography variant="caption">
+            {capitalizeFirstLetter(event.type)}
+          </Typography>
+        </TableCell>
+        <TableCell align="center">
+          <Typography variant="caption">
             {event.amount}
           </Typography>
         </TableCell>
@@ -80,6 +85,7 @@ const ViewFinancialEvents = (props) => {
             <TableRow>
               <TableCell />
               <TableCell >Name</TableCell>
+              <TableCell align="center">Type</TableCell>
               <TableCell align="center">Amount</TableCell>
               <TableCell align="center">Period</TableCell>
               <TableCell align="center">Date</TableCell>
