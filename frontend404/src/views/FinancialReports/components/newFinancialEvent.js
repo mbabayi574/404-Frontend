@@ -60,7 +60,7 @@ const NewFinancialEvent = (props) => {
   return (
     <Card sx={{
       width: "100%",
-      height: "100%",
+      height: "fit-content",
       py: 1, px: 2
     }}>
       <Typography variant="h6" sx={{ py: 1 }}>
@@ -149,19 +149,15 @@ const NewFinancialEvent = (props) => {
           </Select>
           <FormHelperText>{errors.period}</FormHelperText>
         </FormControl>
-        {
-          values.period === "one-time" && (
-            <LocalizationProvider dateAdapter={AdapterDateFns}>
-              <DesktopDatePicker
-                label="Date"
-                value={values.date}
-                inputFormat="MM/dd/yyyy"
-                onChange={(value) => handleChange({ target: { name: "date", value: value } })}
-                renderInput={(params) => <TextField size="small" {...params} />}
-              />
-            </LocalizationProvider>
-          )
-        }
+        <LocalizationProvider dateAdapter={AdapterDateFns}>
+          <DesktopDatePicker
+            label="Date"
+            value={values.date}
+            inputFormat="MM/dd/yyyy"
+            onChange={(value) => handleChange({ target: { name: "date", value: value } })}
+            renderInput={(params) => <TextField size="small" {...params} />}
+          />
+        </LocalizationProvider>
         <Button
           variant="contained"
           type="submit"

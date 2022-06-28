@@ -60,11 +60,9 @@ const FinancialReports = () => {
           sx={{ height: "100%" }}>
           <Grid item xs={4}>
             <Stack spacing={3} sx={{ height: "100%" }}>
-              <Box flexGrow="1">
-                <NewFinancialEvent
-                  addEvent={addEvent}
-                />
-              </Box>
+              <NewFinancialEvent
+                addEvent={addEvent}
+              />
               <Box flexGrow="1">
                 <UpdateFinancialEvent
                   selectedEvent={selectedEvent}
@@ -73,7 +71,7 @@ const FinancialReports = () => {
                 />
               </Box>
             </Stack>
-            
+
           </Grid>
           <Grid item xs={8}>
             <Stack spacing={3} sx={{ height: "100%" }}>
