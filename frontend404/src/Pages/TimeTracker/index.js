@@ -43,7 +43,7 @@ const TimeTracker = (props) => {
   const [list, setList] = React.useState([]);
   const minute = [];
   for (var i = 0; i <= 120; i += 5) minute.push(i);
-  const [previousDays, setPrevioisDays] = React.useState(false);
+  const [previousDays, setPreviousDays] = React.useState(false);
   const today = new Date();
   const [enterTime, setEnterTime] = React.useState(new Date());
   const [exitTime, setExitTime] = React.useState(new Date());
@@ -147,7 +147,7 @@ const TimeTracker = (props) => {
           date:
             new Date(pdate).getFullYear() +
             "-" +
-            new Date(pdate).getMonth() +
+            (new Date(pdate).getMonth() + 1) +
             "-" +
             new Date(pdate).getDate(),
           start_point:
@@ -318,6 +318,21 @@ const TimeTracker = (props) => {
     setErrorMessage("");
   };
 
+  const onEditRow = (data) => {
+    setPId(data.id);
+    var event = new Date();
+    setpdate(new Date(data.date.replace("-", "/")));
+    event.setHours(data.start.split(":")[0]);
+    event.setMinutes(data.start.split(":")[1]);
+    setpenterTime(event);
+    var event1 = new Date();
+    event1.setHours(data.end.split(":")[0]);
+    event1.setMinutes(data.end.split(":")[1]);
+    setpexitTime(event1);
+    setpWastedTime(data.wasted);
+    setPreviousDays(true);
+  };
+
   return (
     <LocalizationProvider dateAdapter={AdapterDateFns}>
       <Fragment>
@@ -342,7 +357,7 @@ const TimeTracker = (props) => {
               <Grid item xs={4} md={4} style={{ padding: 0, marginRight: 30 }}>
                 <Card>
                   <Grid container spacing={2} style={{ margin: 1 }}>
-                    <Grid item xs={4} md={4} style={{ margin: 5 }}>
+                    <Grid item xs={4} md={4.25} style={{ margin: 5 }}>
                       <Typography style={{ padding: 5 }} color="primary">
                         Enter Time
                       </Typography>
@@ -352,7 +367,7 @@ const TimeTracker = (props) => {
                         renderInput={(params) => <TextField {...params} />}
                       />
                     </Grid>
-                    <Grid item xs={4} md={4} style={{ margin: 5 }}>
+                    <Grid item xs={4} md={4.25} style={{ margin: 5 }}>
                       <Typography style={{ padding: 5 }} color="primary">
                         Exit Time
                       </Typography>
@@ -394,7 +409,7 @@ const TimeTracker = (props) => {
                   style={{ marginTop: 20, marginBottom: 20 }}
                   color="primary"
                   variant="outlined"
-                  onClick={() => setPrevioisDays(!previousDays)}
+                  onClick={() => setPreviousDays(!previousDays)}
                 >
                   Previous Days
                 </Button>
@@ -402,7 +417,7 @@ const TimeTracker = (props) => {
                   <Collapse in={previousDays} sx={{ width: "100%" }}>
                     <Card>
                       <Grid container spacing={2} style={{ margin: 1 }}>
-                        <Grid item xs={4} md={4} style={{ margin: 5 }}>
+                        <Grid item xs={4} md={5} style={{ margin: 5 }}>
                           <Typography style={{ padding: 5 }} color="primary">
                             Date
                           </Typography>
@@ -412,7 +427,7 @@ const TimeTracker = (props) => {
                             renderInput={(params) => <TextField {...params} />}
                           />
                         </Grid>
-                        <Grid item xs={4} md={4} style={{ margin: 5 }}>
+                        <Grid item xs={4} md={2} style={{ margin: 5 }}>
                           <Typography style={{ padding: 5 }} color="primary">
                             ID
                           </Typography>
@@ -430,7 +445,7 @@ const TimeTracker = (props) => {
                         </Grid>
                       </Grid>
                       <Grid container spacing={2} style={{ margin: 1 }}>
-                        <Grid item xs={4} md={4} style={{ margin: 5 }}>
+                        <Grid item xs={4} md={4.25} style={{ margin: 5 }}>
                           <Typography style={{ padding: 5 }} color="primary">
                             Enter Time
                           </Typography>
@@ -440,7 +455,7 @@ const TimeTracker = (props) => {
                             renderInput={(params) => <TextField {...params} />}
                           />
                         </Grid>
-                        <Grid item xs={4} md={4} style={{ margin: 5 }}>
+                        <Grid item xs={4} md={4.25} style={{ margin: 5 }}>
                           <Typography style={{ padding: 5 }} color="primary">
                             Exit Time
                           </Typography>
@@ -472,9 +487,9 @@ const TimeTracker = (props) => {
                         </Grid>
                       </Grid>
                       <Button
-                        style={{ margin: 20 }}
+                        style={{ margin: 20, marginTop: 40 }}
                         color="primary"
-                        variant="outlined"
+                        variant="contained"
                         onClick={() => PApplyHandler()}
                       >
                         Apply
@@ -483,12 +498,14 @@ const TimeTracker = (props) => {
                   </Collapse>
                 </Card>
               </Grid>
-              <Grid item xs={4} md={5}>
+              <Grid item xs={4} md={7}>
                 <Card style={{ width: "100%" }}>
                   <Typography style={{ padding: 15 }} color="secondary">
                     Report Tracker
                   </Typography>
-                  {showReport ? <ReportTracker list={list} /> : null}
+                  {showReport ? (
+                    <ReportTracker onEdit={onEditRow} list={list} />
+                  ) : null}
                   {/* <ReportTracker list={list} /> */}
                 </Card>
               </Grid>
