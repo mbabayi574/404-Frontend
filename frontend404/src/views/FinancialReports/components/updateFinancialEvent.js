@@ -1,3 +1,4 @@
+import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
 import Card from "@mui/material/Card";
 import Typography from "@mui/material/Typography";
@@ -17,8 +18,10 @@ import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
 import useForm from "useForm";
+import { useEffect } from "react";
 
-const UpdateFinancialEvent = () => {
+const UpdateFinancialEvent = (props) => {
+  const { selectedEvent } = props;
   const updateData = () => {
     console.log(values);
   }
@@ -39,9 +42,104 @@ const UpdateFinancialEvent = () => {
   const {
     handleChange,
     handleSubmit,
+    clearForm,
     values,
     errors
-  } = useForm(updateData, validate);
+  } = useForm(updateData, validate, selectedEvent);
+
+  useEffect(() => {
+    clearForm();
+    console.log(values);
+  }, [selectedEvent]);
+
+  const form = (
+    <Stack sx={{ mt: 2 }} spacing={1.5}
+      component="form" onSubmit={handleSubmit}
+    >
+      <TextField
+        id="name"
+        name="name"
+        label="Name"
+        value={values.name}
+        onChange={handleChange}
+        error={errors.name}
+        helperText={errors.name}
+        InputLabelProps={{ shrink: values.name }}
+        fullWidth
+        size="small"
+      />
+      <RadioGroup
+        id="type"
+        name="type"
+        value={values.type || "expense"}
+        onChange={handleChange}
+        defaultValue="expense"
+        row
+        sx={{
+          width: "100%",
+        }}
+      >
+        <FormControlLabel
+          sx={{
+            flexGrow: 1
+          }}
+          value="expense"
+          control={<Radio />}
+          label="Expense" />
+        <FormControlLabel
+          sx={{
+            flexGrow: 1
+          }}
+          value="income"
+          control={<Radio />}
+          label="Income" />
+      </RadioGroup>
+      <TextField
+        id="amount"
+        name="amount"
+        label="Amount"
+        value={values.amount}
+        onChange={handleChange}
+        error={errors.amount}
+        helperText={errors.amount}
+        fullWidth
+        required
+        size="small"
+        type="number"
+        InputProps={{
+          startAdornment: (
+            <InputAdornment position="start">
+              $
+            </InputAdornment>
+          )
+        }}
+      />
+      <Stack
+        direction="row"
+        sx={{
+          width: "100%"
+        }}
+      >
+        <Button
+          sx={{
+            flexGrow: 1
+          }}
+        >
+          Delete
+        </Button>
+        <Button
+          sx={{
+            flexGrow: 1
+          }}
+          variant="contained"
+          type="submit"
+        >
+          Update
+        </Button>
+      </Stack>
+    </Stack>
+  );
+
 
   return (
     <Card sx={{
@@ -53,90 +151,23 @@ const UpdateFinancialEvent = () => {
         Update Financial Event
       </Typography>
       <Divider />
-      <Stack sx={{ mt: 2 }} spacing={1.5}
-        component="form" onSubmit={handleSubmit}
-      >
-        <TextField
-          id="name"
-          name="name"
-          label="Name"
-          value={values.name || ""}
-          onChange={handleChange}
-          error={errors.name}
-          helperText={errors.name}
-          fullWidth
-          size="small"
-        />
-        <RadioGroup
-          id="type"
-          name="type"
-          value={values.type || "expense"}
-          onChange={handleChange}
-          defaultValue="expense"
-          row
-          sx={{
-            width: "100%",
-          }}
-        >
-          <FormControlLabel
-            sx={{
-              flexGrow: 1
-            }}
-            value="expense"
-            control={<Radio />}
-            label="Expense" />
-          <FormControlLabel
-            sx={{
-              flexGrow: 1
-            }}
-            value="income"
-            control={<Radio />}
-            label="Income" />
-        </RadioGroup>
-        <TextField
-          id="amount"
-          name="amount"
-          label="Amount"
-          value={values.amount || 0}
-          onChange={handleChange}
-          error={errors.amount}
-          helperText={errors.amount}
-          fullWidth
-          required
-          size="small"
-          type="number"
-          InputProps={{
-            startAdornment: (
-              <InputAdornment position="start">
-                $
-              </InputAdornment>
-            )
-          }}
-        />
-        <Stack
-          direction="row"
-          sx={{
-            width: "100%"
-          }}
-        >
-          <Button
-            sx={{
-              flexGrow: 1
-            }}
-          >
-            Delete
-          </Button>
-          <Button
-            sx={{
-              flexGrow: 1
-            }}
-            variant="contained"
-            type="submit"
-          >
-            Update
-          </Button>
-        </Stack>
-      </Stack>
+      {selectedEvent ? form
+        : (
+          <Box sx={{
+            display: "flex",
+            height: "100%",
+            alignItems: "center",
+            justifyContent: "center",
+          }}>
+            <Typography 
+            variant="h3"
+            color="text.secondary"
+            >
+              Select financial event to edit
+            </Typography>
+          </Box>
+        )
+      }
     </Card>
   )
 };

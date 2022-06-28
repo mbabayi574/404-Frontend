@@ -1,3 +1,4 @@
+import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -6,11 +7,13 @@ import TableHead from "@mui/material/TableHead";
 import TableContainer from "@mui/material/TableContainer";
 import TableRow from "@mui/material/TableRow";
 import Typography from "@mui/material/Typography";
+import Tooltip from "@mui/material/Tooltip";
+import IconButton from "@mui/material/IconButton";
+import EditIcon from "@mui/icons-material/Edit";
 import { useState } from "react";
 import PropTypes from "prop-types";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
-import Box from "@mui/material/Box";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -46,8 +49,7 @@ function a11yProps(index) {
 }
 
 const ViewFinancialEvents = (props) => {
-  const { events } = props;
-  // const [events, setEvents] = useState(props.events);
+  const { events, setSelectedEventId } = props;
   const [value, setValue] = useState(0);
 
   const isEventOnetime = (event) => {
@@ -65,10 +67,26 @@ const ViewFinancialEvents = (props) => {
     return str.charAt(0).toUpperCase() + str.slice(1);
   };
 
+  const EventRowEditButton = (props) => {
+    const {event} = props;
+    return (
+    <Tooltip title="edit">
+      <IconButton
+      onClick={() => setSelectedEventId(event.id)}
+      >
+        <EditIcon />
+      </IconButton>
+    </Tooltip>
+    );
+  }
+
   const OnetimeEventTableRow = (props) => {
     const { event } = props;
     return (
       <TableRow>
+        <TableCell>
+          <EventRowEditButton event={event} />
+        </TableCell>
         <TableCell>
           <Typography variant="body2">
             {event.name}
@@ -102,7 +120,8 @@ const ViewFinancialEvents = (props) => {
       >
         <TableHead>
           <TableRow>
-            <TableCell >Name</TableCell>
+            <TableCell></TableCell>
+            <TableCell>Name</TableCell>
             <TableCell align="center">Amount</TableCell>
             <TableCell align="center">Date</TableCell>
           </TableRow>
@@ -122,6 +141,9 @@ const ViewFinancialEvents = (props) => {
     const { event } = props;
     return (
       <TableRow>
+        <TableCell>
+          <EventRowEditButton event={event} />
+        </TableCell>
         <TableCell>
           <Typography variant="body2">
             {event.name}

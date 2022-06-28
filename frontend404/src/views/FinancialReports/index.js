@@ -18,7 +18,7 @@ import { dummyEvents } from "./dummy-data";
 import { faker } from "@faker-js/faker";
 
 const FinancialReports = () => {
-  const [editMode, setEditMode] = useState([]);
+  const [selectedEventId, setSelectedEventId] = useState(null);
   const [events, setEvents] = useState(dummyEvents);
   const navigate = useNavigate();
   const api = useAPI();
@@ -30,6 +30,10 @@ const FinancialReports = () => {
     };
     setEvents([...events, event]);
   }
+
+  console.log(events);
+
+  const selectedEvent = events.find(event => event.id === selectedEventId);
 
   return (
     <Box
@@ -55,7 +59,9 @@ const FinancialReports = () => {
                 />
               </Box>
               <Box flexGrow="1">
-                <UpdateFinancialEvent />
+                <UpdateFinancialEvent
+                  selectedEvent={selectedEvent}
+                />
               </Box>
             </Stack>
             
@@ -68,6 +74,7 @@ const FinancialReports = () => {
               <Box flexGrow="1">
                 <ViewFinancialEvents
                   events={events}
+                  setSelectedEventId={setSelectedEventId}
                 />
               </Box>
             </Stack>
