@@ -12,7 +12,7 @@ import {
 export default function RequestHistory(props) {
   const columns = [
     { field: "option", headerName: "Option", width: 130 },
-    { field: "date", headerName: "Date", width: 130 },
+    { field: "date", headerName: "Request Date", width: 130 },
     { field: "status", headerName: "Status", width: 130 },
   ];
   const rows = [];
