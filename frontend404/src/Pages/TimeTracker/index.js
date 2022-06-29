@@ -506,7 +506,6 @@ const TimeTracker = (props) => {
                   {showReport ? (
                     <ReportTracker onEdit={onEditRow} list={list} />
                   ) : null}
-                  {/* <ReportTracker list={list} /> */}
                 </Card>
               </Grid>
             </Grid>

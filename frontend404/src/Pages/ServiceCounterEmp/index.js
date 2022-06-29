@@ -2,12 +2,15 @@ import * as React from "react";
 import Card from "@mui/material/Card";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { Fragment } from "react";
+import RequestHistory from "./reqHistory";
 import CircularProgress from "@mui/material/CircularProgress";
 import Box from "@mui/material/Box";
 import { Typography, Paper } from "@mui/material";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import Skeleton from "@mui/material/Skeleton";
 // import { TokenContext } from "App";
+import { DesktopDatePicker as DatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
+import { TimePicker } from "@mui/x-date-pickers/TimePicker";
 import Divider from "@mui/material/Divider";
 import MenuItem from "@mui/material/MenuItem";
 import MenuList from "@mui/material/MenuList";
@@ -37,9 +40,11 @@ const ServiceCounterEmp = (props) => {
       title: "op1",
       form: [
         { type: "text", value: "start date" },
-        { type: "text field", value: "" },
+        { type: "date picker", value: new Date() },
         { type: "text", value: "end date" },
-        { type: "text field", value: "" },
+        { type: "date picker", value: new Date() },
+        { type: "text", value: "time" },
+        { type: "time picker", value: new Date() },
         { type: "text", value: "extra description" },
         { type: "text field", value: "" },
       ],
@@ -88,27 +93,37 @@ const ServiceCounterEmp = (props) => {
       ],
     },
   ]);
-  //ready to start debuging...
   const [onGoings, setOnGoings] = React.useState([
     {
       title: "op1",
       user: "userName",
+      reqDate:
+        new Date().getFullYear() +
+        "-" +
+        new Date().getMonth() +
+        "-" +
+        new Date().getDate(),
       status: "pending",
       form: [
         { type: "text", value: "start date" },
-        { type: "text field", value: "12/4/2022" },
+        { type: "date picker", value: new Date() },
         { type: "text", value: "end date" },
-        { type: "text field", value: "20/4/2022" },
+        { type: "date picker", value: new Date() },
+        { type: "text", value: "time" },
+        { type: "time picker", value: new Date() },
         { type: "text", value: "extra description" },
-        {
-          type: "text field",
-          value: "my wife is pregnant i need to take care of her",
-        },
+        { type: "text field", value: "" },
       ],
     },
     {
       title: "op4",
       user: "userName",
+      reqDate:
+        new Date().getFullYear() +
+        "-" +
+        new Date().getMonth() +
+        "-" +
+        new Date().getDate(),
       status: "accepted",
       form: [
         { type: "text", value: "start date" },
@@ -120,6 +135,118 @@ const ServiceCounterEmp = (props) => {
     {
       title: "op5",
       user: "userName",
+      reqDate:
+        new Date().getFullYear() +
+        "-" +
+        new Date().getMonth() +
+        "-" +
+        new Date().getDate(),
+      status: "declined",
+      form: [
+        { type: "text", value: "extra description" },
+        { type: "text field", value: "I need you to raise my salary" },
+      ],
+    },
+    {
+      title: "op1",
+      user: "userName",
+      reqDate:
+        new Date().getFullYear() +
+        "-" +
+        new Date().getMonth() +
+        "-" +
+        new Date().getDate(),
+      status: "pending",
+      form: [
+        { type: "text", value: "start date" },
+        { type: "date picker", value: new Date() },
+        { type: "text", value: "end date" },
+        { type: "date picker", value: new Date() },
+        { type: "text", value: "time" },
+        { type: "time picker", value: new Date() },
+        { type: "text", value: "extra description" },
+        { type: "text field", value: "" },
+      ],
+    },
+    {
+      title: "op4",
+      user: "userName",
+      reqDate:
+        new Date().getFullYear() +
+        "-" +
+        new Date().getMonth() +
+        "-" +
+        new Date().getDate(),
+      status: "accepted",
+      form: [
+        { type: "text", value: "start date" },
+        { type: "text field", value: "1/1/2022" },
+        { type: "text", value: "end date" },
+        { type: "text field", value: "2/1/2022" },
+      ],
+    },
+    {
+      title: "op5",
+      user: "userName",
+      reqDate:
+        new Date().getFullYear() +
+        "-" +
+        new Date().getMonth() +
+        "-" +
+        new Date().getDate(),
+      status: "declined",
+      form: [
+        { type: "text", value: "extra description" },
+        { type: "text field", value: "I need you to raise my salary" },
+      ],
+    },
+    {
+      title: "op1",
+      user: "userName",
+      reqDate:
+        new Date().getFullYear() +
+        "-" +
+        new Date().getMonth() +
+        "-" +
+        new Date().getDate(),
+      status: "pending",
+      form: [
+        { type: "text", value: "start date" },
+        { type: "date picker", value: new Date() },
+        { type: "text", value: "end date" },
+        { type: "date picker", value: new Date() },
+        { type: "text", value: "time" },
+        { type: "time picker", value: new Date() },
+        { type: "text", value: "extra description" },
+        { type: "text field", value: "" },
+      ],
+    },
+    {
+      title: "op4",
+      user: "userName",
+      reqDate:
+        new Date().getFullYear() +
+        "-" +
+        new Date().getMonth() +
+        "-" +
+        new Date().getDate(),
+      status: "accepted",
+      form: [
+        { type: "text", value: "start date" },
+        { type: "text field", value: "1/1/2022" },
+        { type: "text", value: "end date" },
+        { type: "text field", value: "2/1/2022" },
+      ],
+    },
+    {
+      title: "op5",
+      user: "userName",
+      reqDate:
+        new Date().getFullYear() +
+        "-" +
+        new Date().getMonth() +
+        "-" +
+        new Date().getDate(),
       status: "declined",
       form: [
         { type: "text", value: "extra description" },
@@ -127,7 +254,7 @@ const ServiceCounterEmp = (props) => {
       ],
     },
   ]);
-  const [list] = React.useState([]);
+  const [showReport, setShowReport] = React.useState(true); // it should change to false
 
   const handleCloseDialog = () => {
     setDialogOpen(false);
@@ -135,26 +262,27 @@ const ServiceCounterEmp = (props) => {
   };
 
   React.useEffect(() => {
-    fillList();
+    // fillList();
     // initialize();
+    setIsLoading(false);
   }, []);
 
-  const fillList = () => {
-    list.splice(0, list.length);
-    options.map((option) => {
-      let state = "";
-      let tempForm = option.form;
-      onGoings.map((req) => {
-        if (req.title === option.title) {
-          state = req.status;
-          tempForm = req.form;
-        }
-      });
-      list.push({ title: option.title, form: tempForm, status: state });
-    });
-    console.log("list is : ", list);
-    setIsLoading(false);
-  };
+  // const fillList = () => {
+  //   list.splice(0, list.length);
+  //   options.map((option) => {
+  //     let state = "";
+  //     let tempForm = option.form;
+  //     onGoings.map((req) => {
+  //       if (req.title === option.title) {
+  //         state = req.status;
+  //         tempForm = req.form;
+  //       }
+  //     });
+  //     list.push({ title: option.title, form: tempForm, status: state });
+  //   });
+  //   console.log("list is : ", list);
+  //   setIsLoading(false);
+  // };
 
   const handleOptionClick = (item) => {
     setSelectedItem(item);
@@ -173,6 +301,7 @@ const ServiceCounterEmp = (props) => {
       .then(function (response) {
         console.log("response: ", response);
         setOptions(response.data);
+        setShowReport(true);
       })
       .catch(function (error) {
         console.log(error);
@@ -190,7 +319,7 @@ const ServiceCounterEmp = (props) => {
       .then(function (response) {
         console.log("response: ", response);
         setOnGoings(response.data);
-        fillList();
+        // fillList();
       })
       .catch(function (error) {
         console.log(error);
@@ -221,7 +350,7 @@ const ServiceCounterEmp = (props) => {
           setSelectedItem(null);
           setIsOpenSnackbar(true);
           initialize();
-          fillList();
+          // fillList();
         })
         .catch(function (error) {
           console.log(error);
@@ -245,7 +374,7 @@ const ServiceCounterEmp = (props) => {
         setSelected(false);
         setSelectedItem(null);
         initialize();
-        fillList();
+        // fillList();
       })
       .catch(function (error) {
         console.log(error);
@@ -254,61 +383,8 @@ const ServiceCounterEmp = (props) => {
       });
   };
 
-  const menuBar = () =>
-    list.map((item) => {
-      if (item.status === "pending")
-        return (
-          <div onClick={() => handleOptionClick(item)}>
-            <MenuItem>
-              <div style={{ display: "flex", flexDirection: "column" }}>
-                <Typography>{item.title}</Typography>
-                <Typography
-                  style={{
-                    paddingLeft: 15,
-                    fontStyle: "italic",
-                    fontSize: 13,
-                    color: "gray",
-                  }}
-                >
-                  {item.status}
-                </Typography>
-              </div>
-            </MenuItem>
-            <Divider sx={{ my: 0.5 }} />
-          </div>
-        );
-      if (item.status === "accepted")
-        return (
-          <div onClick={() => handleOptionClick(item)}>
-            <MenuItem>
-              <div style={{ display: "flex", flexDirection: "column" }}>
-                <Typography>{item.title}</Typography>
-                <Typography
-                  style={{ paddingLeft: 15, fontSize: 13, color: "green" }}
-                >
-                  {item.status}
-                </Typography>
-              </div>
-            </MenuItem>
-            <Divider sx={{ my: 0.5 }} />
-          </div>
-        );
-      if (item.status === "declined")
-        return (
-          <div onClick={() => handleOptionClick(item)}>
-            <MenuItem>
-              <div style={{ display: "flex", flexDirection: "column" }}>
-                <Typography>{item.title}</Typography>
-                <Typography
-                  style={{ paddingLeft: 15, fontSize: 13, color: "red" }}
-                >
-                  {item.status}
-                </Typography>
-              </div>
-            </MenuItem>
-            <Divider sx={{ my: 0.5 }} />
-          </div>
-        );
+  const optionsBar = () =>
+    options.map((item) => {
       return (
         <div onClick={() => handleOptionClick(item)}>
           <MenuItem>
@@ -326,13 +402,11 @@ const ServiceCounterEmp = (props) => {
         <TextField
           multiline
           variant="outlined"
-          style={{ margin: 5 }}
-          disabled={selectedItem.status.length > 0 ? true : false}
+          style={{ margin: 5, width: 240 }}
           value={value}
           onChange={(e) => {
             const tempSelected = {
               title: selectedItem.title,
-              status: selectedItem.status,
               form: [],
             };
             selectedItem.form.map((item, index) => {
@@ -347,119 +421,51 @@ const ServiceCounterEmp = (props) => {
           }}
         />
       );
+    if (type === "date picker")
+      return (
+        <DatePicker
+          value={value}
+          onChange={(e) => {
+            const tempSelected = {
+              title: selectedItem.title,
+              form: [],
+            };
+            selectedItem.form.map((item, index) => {
+              if (index === i)
+                tempSelected.form.push({
+                  type: item.type,
+                  value: e,
+                });
+              else tempSelected.form.push(item);
+            });
+            setSelectedItem(tempSelected);
+          }}
+          renderInput={(params) => <TextField {...params} />}
+        />
+      );
+    if (type === "time picker")
+      return (
+        <TimePicker
+          value={value}
+          onChange={(e) => {
+            const tempSelected = {
+              title: selectedItem.title,
+              form: [],
+            };
+            selectedItem.form.map((item, index) => {
+              if (index === i)
+                tempSelected.form.push({
+                  type: item.type,
+                  value: e,
+                });
+              else tempSelected.form.push(item);
+            });
+            setSelectedItem(tempSelected);
+          }}
+          renderInput={(params) => <TextField {...params} />}
+        />
+      );
     return <Typography style={{ margin: 5 }}>{value}</Typography>;
-  };
-
-  const rightSideHandler = () => {
-    if (selectedItem.status === "pending")
-      return (
-        <div style={{ paddingTop: 40 }}>
-          <Button variant="contained" disabled>
-            Send Request
-          </Button>
-          <Grid
-            container
-            style={{
-              marginTop: 90,
-            }}
-            spacing={4}
-          >
-            <Grid item>
-              <Typography
-                style={{
-                  borderColor: "gray",
-                  borderWidth: 1,
-                  borderStyle: "solid",
-                  borderRadius: 8,
-                  padding: 5,
-                  fontWeight: "bold",
-                  color: "gray",
-                  fontStyle: "italic",
-                }}
-              >
-                <span style={{ color: "black", fontStyle: "normal" }}>
-                  status:{" "}
-                </span>{" "}
-                {selectedItem.status}...
-              </Typography>
-            </Grid>
-            <Grid item></Grid>
-          </Grid>
-        </div>
-      );
-    if (selectedItem.status === "accepted")
-      return (
-        <div style={{ paddingTop: 40 }}>
-          <Button variant="contained" disabled>
-            Send Request
-          </Button>
-          <Grid container style={{ marginTop: 90 }} spacing={4}>
-            <Grid item>
-              <Typography
-                style={{
-                  borderColor: "gray",
-                  borderWidth: 1,
-                  borderStyle: "solid",
-                  borderRadius: 8,
-                  padding: 5,
-                  fontWeight: "bold",
-                  color: "green",
-                }}
-              >
-                <span style={{ color: "black", fontStyle: "normal" }}>
-                  status:{" "}
-                </span>{" "}
-                {selectedItem.status}
-              </Typography>
-            </Grid>
-            <Grid item>
-              <Button variant="contained" onClick={() => closeReqHandler()}>
-                Close Request
-              </Button>
-            </Grid>
-          </Grid>
-        </div>
-      );
-    if (selectedItem.status === "declined")
-      return (
-        <div style={{ paddingTop: 40 }}>
-          <Button variant="contained" disabled>
-            Send Request
-          </Button>
-          <Grid container style={{ marginTop: 90 }} spacing={4}>
-            <Grid item>
-              <Typography
-                style={{
-                  borderColor: "gray",
-                  borderWidth: 1,
-                  borderStyle: "solid",
-                  borderRadius: 8,
-                  padding: 5,
-                  fontWeight: "bold",
-                  color: "red",
-                }}
-              >
-                <span style={{ color: "black", fontStyle: "normal" }}>
-                  status:{" "}
-                </span>{" "}
-                {selectedItem.status}
-              </Typography>
-            </Grid>
-            <Grid item>
-              <Button variant="contained" onClick={() => closeReqHandler()}>
-                Close Request
-              </Button>
-            </Grid>
-          </Grid>
-        </div>
-      );
-    return (
-      <div style={{ paddingTop: 40 }}>
-        <Button variant="contained" onClick={() => sendRequestHandler()}>
-          Send Request
-        </Button>
-      </div>
-    );
   };
 
   return (
@@ -484,17 +490,21 @@ const ServiceCounterEmp = (props) => {
           ) : (
             <Grid
               container
-              spacing={0}
-              style={{ paddingLeft: 32, paddingTop: 10, paddingRight: 20 }}
+              spacing={4}
+              style={{
+                paddingLeft: 32,
+                paddingTop: 30,
+                paddingRight: 10,
+              }}
             >
-              <Grid item xs={4} md={16}>
+              <Grid item xs={4} md={7}>
                 <Card>
                   <Grid container spacing={5} style={{ padding: 32 }}>
-                    <Grid item sx={4} md={2}>
+                    <Grid item sx={4} md={3}>
                       <Typography style={{ padding: 15 }} variant="h6">
                         Options
                       </Typography>
-                      {list && list.length > 0 ? (
+                      {options && options.length > 0 ? (
                         <MenuList
                           style={{
                             overflow: "auto",
@@ -502,26 +512,26 @@ const ServiceCounterEmp = (props) => {
                             height: 450,
                           }}
                         >
-                          {menuBar(list)}
+                          {optionsBar(options)}
                         </MenuList>
                       ) : (
                         <>no item show</>
                       )}
                     </Grid>
-                    <Grid item sx={4} md={7}>
+                    <Grid item sx={4} md={5}>
                       {selected ? (
-                        <Card
+                        <Grid
                           sx={{
-                            width: 850,
-                            height: 600,
+                            width: 450,
+                            height: 550,
                             padding: 1,
                             paddingBottom: 1,
-                            backgroundColor: "#fafafa",
+                            // backgroundColor: "#fafafa",
                           }}
                         >
-                          <Card
+                          <Grid
                             sx={{
-                              backgroundColor: "#fffff",
+                              // backgroundColor: "#fffff",
                               height: 580,
                             }}
                           >
@@ -533,34 +543,54 @@ const ServiceCounterEmp = (props) => {
                               container
                               spacing={10}
                             >
-                              <Grid item md={5}>
+                              <Grid item md={7}>
                                 <Typography
                                   style={{ padding: 15 }}
                                   variant="h6"
                                 >
                                   {selectedItem.title}
                                 </Typography>
-                                <List sx={{ overflow: "auto", maxHeight: 500 }}>
+                                <List
+                                  sx={{
+                                    overflow: "auto",
+                                    maxHeight: 400,
+                                    width: 400,
+                                  }}
+                                >
                                   {selectedItem.form.map((item, index) =>
                                     formGenerator(item, index)
                                   )}
                                 </List>
-                              </Grid>
-                              <Grid item md={7} style={{ marginTop: 30 }}>
-                                {rightSideHandler()}
+                                <div style={{ paddingTop: 40 }}>
+                                  <Button
+                                    variant="contained"
+                                    onClick={() => sendRequestHandler()}
+                                  >
+                                    Send Request
+                                  </Button>
+                                </div>
                               </Grid>
                             </Grid>
-                          </Card>
-                        </Card>
+                          </Grid>
+                        </Grid>
                       ) : (
                         <Skeleton
                           variant="rectangular"
-                          width={850}
-                          height={600}
+                          width={450}
+                          height={550}
                         />
                       )}
                     </Grid>
                   </Grid>
+                </Card>
+              </Grid>
+              <Grid item xs={4} md={4.5}>
+                <Card style={{ width: "100%", height: "100%" }}>
+                  {" "}
+                  <Typography style={{ padding: 15 }} color="secondary">
+                    Request History
+                  </Typography>
+                  {showReport ? <RequestHistory list={onGoings} /> : null}
                 </Card>
               </Grid>
             </Grid>
