@@ -7,6 +7,10 @@ import {
   Snackbar,
   TextField,
 } from "@mui/material";
+
+import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
+import "react-tabs/style/react-tabs.css";
+
 import JoditEditor from "jodit-react";
 import React, { useRef, useState } from "react";
 import useAPI from "useAPI";
@@ -75,6 +79,12 @@ const BulletinBoardManager = ({}) => {
 
   /////////////
 
+  const [value, setValue] = React.useState("1");
+
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
+  };
+
   return (
     <>
       <Snackbar
@@ -109,45 +119,55 @@ const BulletinBoardManager = ({}) => {
         </Alert>
       </Snackbar>
 
-      <Container>
-        <Grid
-          container
-          direction="column"
-          alignItems="center"
-          justifyContent="center"
-          spacing={1}
-        >
-          <Grid item xs={12}>
-            <Paper style={{ margin: 16, padding: 16 }}>
-              <TextField
-                label="Title"
-                size="small"
-                fullWidth
-                value={title}
-                onChange={(e) => setTitle(e.target.value)}
-              />
-              <div style={{ marginBottom: "10px" }}></div>
-              <JoditEditor
-                ref={editor}
-                value={content}
-                config={config}
-                tabIndex={1} // tabIndex of textarea
-                onBlur={(newContent) => setContent(newContent)} // preferred to use only this option to update the content for performance reasons
-                onChange={(newContent) => {}}
-              />
-            </Paper>
-          </Grid>
-          <Grid item xs={6}>
-            <Button fullWidth variant="contained" onClick={handleSubmit}>
-              SEND ANNOUNCMENT
-            </Button>
-          </Grid>
-        </Grid>
-      </Container>
+      <Tabs>
+        <TabList>
+          <Tab>Send Announcment</Tab>
+          <Tab>History</Tab>
+        </TabList>
 
-      {/*  */}
-      <BulletinBoardEmployee />
-      {/*  */}
+        <TabPanel>
+          <Container>
+            <Grid
+              container
+              direction="column"
+              alignItems="center"
+              justifyContent="center"
+              spacing={1}
+            >
+              <Grid item xs={12}>
+                <Paper style={{ margin: 16, padding: 16 }}>
+                  <TextField
+                    label="Title"
+                    size="small"
+                    fullWidth
+                    value={title}
+                    onChange={(e) => setTitle(e.target.value)}
+                  />
+                  <div style={{ marginBottom: "10px" }}></div>
+                  <JoditEditor
+                    ref={editor}
+                    value={content}
+                    config={config}
+                    tabIndex={1} // tabIndex of textarea
+                    onBlur={(newContent) => setContent(newContent)} // preferred to use only this option to update the content for performance reasons
+                    onChange={(newContent) => {}}
+                  />
+                </Paper>
+              </Grid>
+              <Grid item xs={6}>
+                <Button fullWidth variant="contained" onClick={handleSubmit}>
+                  SEND ANNOUNCMENT
+                </Button>
+              </Grid>
+            </Grid>
+          </Container>
+        </TabPanel>
+        <TabPanel>
+          {/*  */}
+          <BulletinBoardEmployee />
+          {/*  */}
+        </TabPanel>
+      </Tabs>
     </>
   );
 };
