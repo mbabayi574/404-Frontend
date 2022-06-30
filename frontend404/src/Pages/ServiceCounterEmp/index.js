@@ -37,65 +37,69 @@ const ServiceCounterEmp = (props) => {
   const [dialogOpen, setDialogOpen] = React.useState(false);
   const [options, setOptions] = React.useState([
     {
-      title: "op1",
+      title: "Vacation request",
       form: [
-        { type: "text", value: "start date" },
+        { type: "text", value: "since" },
         { type: "date picker", value: new Date() },
-        { type: "text", value: "end date" },
+        { type: "text", value: "till" },
         { type: "date picker", value: new Date() },
-        { type: "text", value: "time" },
-        { type: "time picker", value: new Date() },
-        { type: "text", value: "extra description" },
+        { type: "text", value: "Reason" },
         { type: "text field", value: "" },
       ],
     },
     {
-      title: "op2",
+      title: "Salary raise",
       form: [
-        { type: "text", value: "start date" },
+        { type: "text", value: "How much" },
         { type: "text field", value: "" },
-        { type: "text", value: "end date" },
+        { type: "text", value: "description" },
         { type: "text field", value: "" },
       ],
     },
     {
-      title: "op3",
+      title: "Loan request",
       form: [
-        { type: "text", value: "extra description" },
+        { type: "text", value: "How much" },
+        { type: "text field", value: "" },
+        { type: "text", value: "Return in how many months?" },
+        { type: "text field", value: "" },
+        { type: "text", value: "Payment amount" },
+        { type: "text field", value: "" },
+        { type: "text", value: "description" },
         { type: "text field", value: "" },
       ],
     },
     {
-      title: "op4",
+      title: "Quit request",
       form: [
-        { type: "text", value: "start date" },
-        { type: "text field", value: "" },
-        { type: "text", value: "end date" },
-        { type: "text field", value: "" },
-        { type: "text", value: "extra description" },
+        { type: "text", value: "Quit date" },
+        { type: "date picker", value: new Date() },
+        { type: "text", value: "Reason" },
         { type: "text field", value: "" },
       ],
     },
     {
-      title: "op5",
+      title: "Equipment request",
       form: [
-        { type: "text", value: "start date" },
+        { type: "text", value: "Needed equipments" },
         { type: "text field", value: "" },
-        { type: "text", value: "end date" },
+        { type: "text", value: "how many" },
+        { type: "text field", value: "" },
+        { type: "text", value: "Description" },
         { type: "text field", value: "" },
       ],
     },
     {
-      title: "op6",
+      title: "Other requests",
       form: [
-        { type: "text", value: "extra description" },
+        { type: "text", value: "Request" },
         { type: "text field", value: "" },
       ],
     },
   ]);
   const [onGoings, setOnGoings] = React.useState([
     {
-      title: "op1",
+      title: "Vacation request",
       user: "userName",
       reqDate:
         new Date().getFullYear() +
@@ -116,7 +120,7 @@ const ServiceCounterEmp = (props) => {
       ],
     },
     {
-      title: "op4",
+      title: "Quit request",
       user: "userName",
       reqDate:
         new Date().getFullYear() +
@@ -133,7 +137,7 @@ const ServiceCounterEmp = (props) => {
       ],
     },
     {
-      title: "op5",
+      title: "Equipment request",
       user: "userName",
       reqDate:
         new Date().getFullYear() +
@@ -148,7 +152,7 @@ const ServiceCounterEmp = (props) => {
       ],
     },
     {
-      title: "op1",
+      title: "Vacation request",
       user: "userName",
       reqDate:
         new Date().getFullYear() +
@@ -169,7 +173,7 @@ const ServiceCounterEmp = (props) => {
       ],
     },
     {
-      title: "op4",
+      title: "Quit request",
       user: "userName",
       reqDate:
         new Date().getFullYear() +
@@ -186,7 +190,7 @@ const ServiceCounterEmp = (props) => {
       ],
     },
     {
-      title: "op5",
+      title: "Equipment request",
       user: "userName",
       reqDate:
         new Date().getFullYear() +
@@ -201,7 +205,7 @@ const ServiceCounterEmp = (props) => {
       ],
     },
     {
-      title: "op1",
+      title: "Vacation request",
       user: "userName",
       reqDate:
         new Date().getFullYear() +
@@ -222,7 +226,7 @@ const ServiceCounterEmp = (props) => {
       ],
     },
     {
-      title: "op4",
+      title: "Quit request",
       user: "userName",
       reqDate:
         new Date().getFullYear() +
@@ -239,7 +243,7 @@ const ServiceCounterEmp = (props) => {
       ],
     },
     {
-      title: "op5",
+      title: "Equipment request",
       user: "userName",
       reqDate:
         new Date().getFullYear() +
@@ -500,7 +504,7 @@ const ServiceCounterEmp = (props) => {
               <Grid item xs={4} md={7}>
                 <Card>
                   <Grid container spacing={5} style={{ padding: 32 }}>
-                    <Grid item sx={4} md={3}>
+                    <Grid item sx={4} md={3.5}>
                       <Typography style={{ padding: 15 }} variant="h6">
                         Options
                       </Typography>

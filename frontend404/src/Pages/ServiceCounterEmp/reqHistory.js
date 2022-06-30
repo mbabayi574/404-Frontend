@@ -11,7 +11,7 @@ import {
 
 export default function RequestHistory(props) {
   const columns = [
-    { field: "option", headerName: "Option", width: 130 },
+    { field: "option", headerName: "Option", width: 140 },
     { field: "date", headerName: "Request Date", width: 130 },
     { field: "status", headerName: "Status", width: 130 },
   ];
@@ -31,7 +31,7 @@ export default function RequestHistory(props) {
   console.log(rows);
 
   return (
-    <div style={{ height: 530, width: 420, paddingLeft: 20, paddingRight: 0 }}>
+    <div style={{ height: 530, width: 430, paddingLeft: 20, paddingRight: 0 }}>
       <DataGrid
         getRowId={(row) => row.index}
         rows={rows}
