@@ -266,6 +266,7 @@ const ServiceCounterEmp = (props) => {
   };
 
   React.useEffect(() => {
+    console.log("onGoings: ", onGoings);
     // fillList();
     // initialize();
     setIsLoading(false);
