@@ -144,7 +144,7 @@ const NewFinancialEvent = (props) => {
             <MenuItem value="daily">Daily</MenuItem>
             <MenuItem value="weekly">Weekly</MenuItem>
             <MenuItem value="monthly">Monthly</MenuItem>
-            <MenuItem value="yearly">Yearly</MenuItem>
+            <MenuItem value="annual">Annual</MenuItem>
             <MenuItem value="one-time">One Time</MenuItem>
           </Select>
           <FormHelperText>{errors.period}</FormHelperText>

@@ -12,7 +12,7 @@ const eventPeriods = [
   "daily",
   "weekly",
   "monthly",
-  "yearly",
+  "annual",
   "one-time",
 ];
 
