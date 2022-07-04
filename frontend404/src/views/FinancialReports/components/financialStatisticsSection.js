@@ -15,6 +15,7 @@ import {
   ResponsiveContainer
 } from "recharts";
 import { useReportData } from "../dummy-data";
+import FinancialStatisticsDataSelection from "./financialStatisticsDataSelection";
 
 const FinancialStatisticsSection = () => {
   const { reportData, getReportData } = useReportData();
@@ -32,13 +33,17 @@ const FinancialStatisticsSection = () => {
     <Card sx={{
       width: "100%",
       height: "fit-content",
-      p: 1,
+      p: 2,
     }}>
       <Box sx={{
         width: "100%",
-        height: "50vh",
+        height: "70vh",
+        display: "flex"
       }}>
-        <ResponsiveContainer width="100%" height="100%">
+        <FinancialStatisticsDataSelection
+          getStatistics={getReportData}
+        />
+        <ResponsiveContainer width="75%" height="100%">
           <ComposedChart
             width={500}
             height={400}
