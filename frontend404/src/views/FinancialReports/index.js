@@ -1,46 +1,52 @@
-import NewFinancialEvent from "./components/newFinancialEvent";
-import Box from "@mui/material/Box";
-import Grid from "@mui/material/Grid";
-import Card from "@mui/material/Card";
-import Stack from "@mui/material/Stack";
-import Button from "@mui/material/Button";
-import Divider from '@mui/material/Divider';
+import * as React from 'react';
+import PropTypes from 'prop-types';
+import Tabs from '@mui/material/Tabs';
+import Tab from '@mui/material/Tab';
+import Typography from '@mui/material/Typography';
+import Box from '@mui/material/Box';
+import FinancialStatisticsSection from "./components/financialStatisticsSection";
+import FinancialEventsSection from './components/financialEventsSection';
 import Container from "@mui/material/Container";
-import Typography from "@mui/material/Typography";
-import AddIcon from "@mui/icons-material/Add";
-import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import useAPI from "useAPI";
-import ViewFinancialEvents from "./components/viewFinancialEvents";
-import ViewFinancialReports from "./components/viewFinancialReports";
-import UpdateFinancialEvent from "./components/updateFinancialEvent";
-import { dummyEvents } from "./dummy-data";
-import { faker } from "@faker-js/faker";
+
+function TabPanel(props) {
+  const { children, value, index, ...other } = props;
+
+  return (
+    <div
+      role="tabpanel"
+      hidden={value !== index}
+      id={`simple-tabpanel-${index}`}
+      aria-labelledby={`simple-tab-${index}`}
+      {...other}
+    >
+      {value === index && (
+        <Box sx={{ p: 3, height: "100%" }}>
+          {children}
+        </Box>
+      )}
+    </div>
+  );
+}
+
+TabPanel.propTypes = {
+  children: PropTypes.node,
+  index: PropTypes.number.isRequired,
+  value: PropTypes.number.isRequired,
+};
+
+function a11yProps(index) {
+  return {
+    id: `tab-${index}`,
+    'aria-controls': `tabpanel-${index}`,
+  };
+}
 
 const FinancialReports = () => {
-  const [selectedEventId, setSelectedEventId] = useState(null);
-  const [events, setEvents] = useState(dummyEvents);
-  const navigate = useNavigate();
-  const api = useAPI();
+  const [selectedTab, setSelectedTab] = React.useState(0);
 
-  const addEvent = (values) => {
-    const event = {
-      ...values,
-      id: faker.random.numeric(10),
-    };
-    setEvents([...events, event]);
-  }
-  const updateEvent = (values) => {
-    let newEvents = events;
-    var foundIndex = newEvents.findIndex(event => event.id === values.id);
-    newEvents[foundIndex] = values;
-    setEvents(newEvents);
-  }
-  const deleteEvent = (id) => {
-    setEvents(events.filter(event => event.id !== id));
-  }
-
-  const selectedEvent = events.find(event => event.id === selectedEventId);
+  const handleChange = (event, newValue) => {
+    setSelectedTab(newValue);
+  };
 
   return (
     <Box
@@ -53,40 +59,38 @@ const FinancialReports = () => {
         maxWidth={false}
         sx={{
           p: 3,
-          height: "93vh",
+          height: "90vh",
         }}
       >
-        <Grid container spacing={3}
-          sx={{ height: "100%" }}>
-          <Grid item xs={4}>
-            <Stack spacing={3} sx={{ height: "100%" }}>
-              <NewFinancialEvent
-                addEvent={addEvent}
-              />
-              <Box flexGrow="1">
-                <UpdateFinancialEvent
-                  selectedEvent={selectedEvent}
-                  updateEvent={updateEvent}
-                  deleteEvent={deleteEvent}
-                />
-              </Box>
-            </Stack>
-
-          </Grid>
-          <Grid item xs={8}>
-            <Stack spacing={3} sx={{ height: "100%" }}>
-              <Box flexGrow="1">
-                <ViewFinancialReports />
-              </Box>
-              <Box flexGrow="1">
-                <ViewFinancialEvents
-                  events={events}
-                  setSelectedEventId={setSelectedEventId}
-                />
-              </Box>
-            </Stack>
-          </Grid>
-        </Grid>
+        <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+          <Tabs
+            value={selectedTab}
+            onChange={handleChange}
+            aria-label="financial reports tab"
+            centered
+          >
+            <Tab label="Financial Events" {...a11yProps(0)} />
+            <Tab label="Statistics" {...a11yProps(1)} />
+          </Tabs>
+        </Box>
+        <TabPanel
+          value={selectedTab}
+          index={0}
+          style={{
+            height: "80vh"
+          }}
+        >
+          <FinancialEventsSection />
+        </TabPanel>
+        <TabPanel
+          value={selectedTab}
+          index={1}
+          style={{
+            height: "80vh"
+          }}
+        >
+          <FinancialStatisticsSection />
+        </TabPanel>
       </Container>
     </Box>
   );
