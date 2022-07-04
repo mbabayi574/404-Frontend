@@ -4,16 +4,16 @@ import Card from "@mui/material/Card";
 import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
-import Radio from "@mui/material/Radio";
-import RadioGroup from "@mui/material/RadioGroup";
 import InputAdornment from "@mui/material/InputAdornment";
-import FormControlLabel from "@mui/material/FormControlLabel";
 import Divider from "@mui/material/Divider";
 import useForm from "useForm";
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
+import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
 import { useState, useEffect } from "react";
 
 const UpdateFinancialEvent = (props) => {
@@ -90,32 +90,6 @@ const UpdateFinancialEvent = (props) => {
         fullWidth
         size="small"
       />
-      <RadioGroup
-        id="type"
-        name="type"
-        value={values.type || "expense"}
-        onChange={handleChange}
-        defaultValue="expense"
-        row
-        sx={{
-          width: "100%",
-        }}
-      >
-        <FormControlLabel
-          sx={{
-            flexGrow: 1
-          }}
-          value="expense"
-          control={<Radio />}
-          label="Expense" />
-        <FormControlLabel
-          sx={{
-            flexGrow: 1
-          }}
-          value="income"
-          control={<Radio />}
-          label="Income" />
-      </RadioGroup>
       <TextField
         id="amount"
         name="amount"
@@ -136,6 +110,15 @@ const UpdateFinancialEvent = (props) => {
           )
         }}
       />
+      <LocalizationProvider dateAdapter={AdapterDateFns}>
+        <DesktopDatePicker
+          label="Date"
+          value={values.date}
+          inputFormat="MM/dd/yyyy"
+          onChange={(value) => handleChange({ target: { name: "date", value: value } })}
+          renderInput={(params) => <TextField size="small" {...params} />}
+        />
+      </LocalizationProvider>
       <Stack
         direction="row"
         sx={{
@@ -170,9 +153,18 @@ const UpdateFinancialEvent = (props) => {
       height: "100%",
       py: 1, px: 2
     }}>
-      <Typography variant="h6" sx={{ py: 1 }}>
-        Update Financial Event
-      </Typography>
+      <Stack
+        direction="row"
+        spacing={2}
+        sx={{ alignItems: "center" }}
+      >
+        <Typography variant="h6" sx={{ py: 1 }}>
+          Update Financial Event
+        </Typography>
+        <Typography variant="subtitle2">
+          {values.period} {values.type}
+        </Typography>
+      </Stack>
       <Divider />
       {selectedEvent ? form
         : (
