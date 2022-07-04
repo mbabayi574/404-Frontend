@@ -12,6 +12,7 @@ const FinancialStatisticsDataSelection = (props) => {
   const { getStatistics } = props;
   const callback = () => {
     console.log(values); 
+    getStatistics(values);
   }
 
   const validate = (values) => {

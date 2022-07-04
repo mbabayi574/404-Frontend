@@ -37,7 +37,7 @@ export const useReportData = () => {
     let tempData = [];
     let totalRevenue = 0;
     const step = getDateStep(precision);
-    for (let date = startDate; date.valueOf() < endDate.valueOf(); date = increaseDate(date, precision)) {
+    for (let date = new Date(startDate); date.valueOf() < endDate.valueOf(); date = increaseDate(date, precision)) {
       const item = addRandomDataItem(date, totalRevenue);
       tempData.push(item);
       totalRevenue = item.total_revenue;
