@@ -56,8 +56,6 @@ const FinancialStatisticsSection = () => {
     startDate.setMonth(0);
     const endDate = new Date();
 
-    console.log("start: " + startDate.toDateString());
-    console.log("end: " + endDate.toDateString());
     getStatistics({
       startDate: startDate,
       endDate: endDate,
