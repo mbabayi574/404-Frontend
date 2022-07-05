@@ -2,7 +2,7 @@ import * as React from 'react';
 import Grid from "@mui/material/Grid";
 import Container from "@mui/material/Container";
 import NotificationList from './components/notificationList';
-import TodoList from './components/todoList';
+import DashboardTodosCard from './components/todosCard';
 import DashboardProfileCard from "./components/profileCard";
 import TimeTrackerCard from "./components/timeTrackerCard";
 import TimeTrackerReportCard from "./components/timeTrackerReportCard";
@@ -38,7 +38,7 @@ const Dashboard = () => {
 						<NotificationList />
 					</Grid>
 					<Grid item xs={4}>
-						<TodoList />
+						<DashboardTodosCard />
 					</Grid>
 					<Grid item container direction="column" xs={6} spacing={3}>
 						<Grid item>

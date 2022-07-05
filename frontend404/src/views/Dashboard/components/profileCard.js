@@ -1,8 +1,7 @@
 import Card from "@mui/material/Card";
 import Typography from "@mui/material/Typography";
-import Button from '@mui/material/Button';
-import Box from '@mui/material/Box';
-import Stack from '@mui/material/Stack';
+import Box from "@mui/material/Box";
+import Stack from "@mui/material/Stack";
 import profileImage from "data/profile-image.png";
 import useUser from "useUser";
 
