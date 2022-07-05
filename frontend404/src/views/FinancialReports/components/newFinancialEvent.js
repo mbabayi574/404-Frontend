@@ -67,7 +67,7 @@ const NewFinancialEvent = (props) => {
         New Financial Event
       </Typography>
       <Divider />
-      <Stack sx={{ mt: 2 }} spacing={1.5}
+      <Stack sx={{ mt: 1 }} spacing={1}
         component="form" onSubmit={handleSubmit}
       >
         <TextField

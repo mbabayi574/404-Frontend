@@ -20,7 +20,7 @@ function TabPanel(props) {
       {...other}
     >
       {value === index && (
-        <Box sx={{ p: 3, height: "100%" }}>
+        <Box sx={{ p: 2, height: "100%" }}>
           {children}
         </Box>
       )}
@@ -58,7 +58,8 @@ const FinancialReports = () => {
       <Container
         maxWidth={false}
         sx={{
-          p: 3,
+          px: 2,
+          pt: 1,
           height: "90vh",
         }}
       >
@@ -77,7 +78,7 @@ const FinancialReports = () => {
           value={selectedTab}
           index={0}
           style={{
-            height: "80vh"
+            height: "84vh"
           }}
         >
           <FinancialEventsSection />
@@ -86,7 +87,7 @@ const FinancialReports = () => {
           value={selectedTab}
           index={1}
           style={{
-            height: "80vh"
+            height: "84vh"
           }}
         >
           <FinancialStatisticsSection />

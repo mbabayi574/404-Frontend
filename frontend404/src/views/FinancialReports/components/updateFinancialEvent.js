@@ -75,7 +75,7 @@ const UpdateFinancialEvent = (props) => {
   );
 
   const form = (
-    <Stack sx={{ mt: 2 }} spacing={1.5}
+    <Stack sx={{ mt: 1 }} spacing={1}
       component="form" onSubmit={handleSubmit}
     >
       <TextField
@@ -175,7 +175,7 @@ const UpdateFinancialEvent = (props) => {
             justifyContent: "center",
           }}>
             <Typography
-              variant="h3"
+              variant="h5"
               color="text.secondary"
             >
               Select financial event to edit

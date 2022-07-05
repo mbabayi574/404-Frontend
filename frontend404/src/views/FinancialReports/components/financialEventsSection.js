@@ -42,7 +42,8 @@ const FinancialEventsSection = (props) => {
 
   return (
     <Grid container spacing={3}
-      sx={{ height: "100%" }}>
+      sx={{ height: "100%" }}
+    >
       <Grid item xs={4}>
         <Stack spacing={3} sx={{ height: "100%" }}>
           <NewFinancialEvent

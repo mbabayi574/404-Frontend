@@ -27,7 +27,7 @@ export const createRandomEvent = () => {
   };
 };
 
-Array.from({ length: 5 }).forEach(() => {
+Array.from({ length: 12 }).forEach(() => {
   dummyEvents.push(createRandomEvent());
 });
 

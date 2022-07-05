@@ -114,13 +114,12 @@ const FinancialStatisticsDataSelection = (props) => {
         component="form"
         onSubmit={handleSubmit}
       >
-        <Typography variant="h6">
-          Select range
-        </Typography>
         <Stack
           spacing={2}
         >
-          <Divider />
+        <Typography variant="h6">
+          Select range
+        </Typography>
           <LocalizationProvider dateAdapter={AdapterDateFns}>
             <DesktopDatePicker
               label="Start Date"
@@ -159,9 +158,9 @@ const FinancialStatisticsDataSelection = (props) => {
           mt: 3
         }}
       >
+        <Divider />
         <Typography
           variant="h6"
-          textAlign="center"
         >
           Quick Select
         </Typography>

@@ -70,7 +70,7 @@ const FinancialStatisticsSection = () => {
     }}>
       <Box sx={{
         width: "100%",
-        height: "70vh",
+        height: "71vh",
         display: "flex"
       }}>
         <FinancialStatisticsDataSelection
