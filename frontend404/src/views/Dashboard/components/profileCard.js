@@ -2,7 +2,7 @@ import Card from "@mui/material/Card";
 import Typography from "@mui/material/Typography";
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
-import profileImage from "../../data/profile-image.png";
+import profileImage from "data/profile-image.png";
 
 const profile = {
     image: profileImage,
