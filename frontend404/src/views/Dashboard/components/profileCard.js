@@ -2,83 +2,41 @@ import Card from "@mui/material/Card";
 import Typography from "@mui/material/Typography";
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
+import Stack from '@mui/material/Stack';
 import profileImage from "data/profile-image.png";
+import useUser from "useUser";
 
-const profile = {
-    image: profileImage,
-    name: "Diyar Hamedi",
-    company: "404! Group",
-    role: "React Developer",
-    birthDate: "2002-8-18",
-    phoneNumber: "+98 930 454 3403",
-    email: "diyar_hamedi@comp.iust.ac.ir",
-    joinDate: "2022-2-23",
+const DashboardProfileCard = () => {
+  const { user } = useUser();
+
+  const role = user.role === "E" ? "Employee" : "Manager";
+
+  return <Card sx={{
+    p: 1
+  }}>
+    <Stack
+      direction="row"
+      spacing={1}
+      sx={{
+        width: "100%",
+        alignItems: "center",
+      }}
+    >
+      <Box p={1}>
+        <img src={profileImage} style={{
+          height: "48px"
+        }} />
+      </Box>
+      <Stack flexGrow={1}>
+        <Typography variant="h6" component="h2">
+          {user.first_name} {user.last_name}
+        </Typography>
+        <Typography variant="body2" component="h2">
+          {role} at {user.company}
+        </Typography>
+      </Stack>
+    </Stack>
+  </Card>
 };
 
-const ProfileCard = () => {
-    return <Card sx={{
-        padding: 2
-    }}>
-        <Box style={{
-            width: "100%",
-            display: "flex",
-            flexDirection: "column",
-        }}>
-            <Box display="flex" justifyContent="center">
-                <img src={profile.image} style={{
-                    width: "60%"
-                }} />
-            </Box>
-            <Box display="flex" flexDirection="row" marginTop={2}>
-                <Box>
-                    <Typography variant="h5" component="h2">
-                        {profile.name}
-                    </Typography>
-                </Box>
-                <Box marginLeft="auto">
-                    <Button>
-                        Update Profile
-                    </Button>
-                </Box>
-            </Box>
-            <Box display="flex" flexDirection="row" marginTop={1}>
-                <Box>
-                    <Typography variant="body1" component="h3">
-                        {profile.company}
-                    </Typography>
-                </Box>
-                <Box marginLeft="auto">
-                    <Typography variant="body1" component="h3">
-                        {profile.role}
-                    </Typography>
-                </Box>
-            </Box>
-            <Box display="flex" flexDirection="row" marginTop={1}>
-                <Box>
-                    <Typography variant="body2" component="h3">
-                        Joined on {profile.joinDate}
-                    </Typography>
-                </Box>
-                <Box marginLeft="auto">
-                    <Typography variant="body2" component="h3">
-                        Born on {profile.birthDate}
-                    </Typography>
-                </Box>
-            </Box>
-            <Box display="flex" flexDirection="row" marginTop={1}>
-                <Box>
-                    <Typography variant="body2" component="h3">
-                        {profile.phoneNumber}
-                    </Typography>
-                </Box>
-                <Box marginLeft="auto">
-                    <Typography variant="body2" component="h3">
-                        {profile.email}
-                    </Typography>
-                </Box>
-            </Box>
-        </Box>
-    </Card>
-};
-
-export default ProfileCard;
+export default DashboardProfileCard;

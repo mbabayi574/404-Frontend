@@ -3,7 +3,7 @@ import Grid from "@mui/material/Grid";
 import Container from "@mui/material/Container";
 import NotificationList from './components/notificationList';
 import TodoList from './components/todoList';
-import ProfileCard from "./components/profileCard";
+import DashboardProfileCard from "./components/profileCard";
 import TimeTrackerCard from "./components/timeTrackerCard";
 import TimeTrackerReportCard from "./components/timeTrackerReportCard";
 import FinancialReportCard from "./components/financialReportCard";
@@ -25,7 +25,7 @@ const Dashboard = () => {
 				<Grid container spacing={3}>
 					<Grid item container direction="column" xs={4} spacing={3}>
 						<Grid item>
-							<ProfileCard/>
+							<DashboardProfileCard/>
 						</Grid>
 						<Grid item>
 							<TimeTrackerCard />
