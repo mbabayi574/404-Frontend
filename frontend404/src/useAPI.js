@@ -9,6 +9,7 @@ const apiURL = "http://404g.pythonanywhere.com/";
 const useAPI = () => {
     // const { token } = useContext(TokenContext);
     const { token } = useToken();
+    // console.log(token);
     const api = axios.create({
       baseURL: apiURL
     });
