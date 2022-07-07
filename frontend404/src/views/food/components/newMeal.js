@@ -68,7 +68,7 @@ const NewMeal = (props) => {
         New Meal
       </Typography>
       <Divider />
-      <Stack sx={{ mt: 1 }} spacing={1}
+      <Stack sx={{ mt: 2 }} spacing={2}
         component="form" onSubmit={handleSubmit}
       >
         <TextField
