@@ -1,44 +1,13 @@
 import React, { useState } from "react";
 
-import { Box, Container, Grid } from "@mui/material";
-import {
-  Avatar,
-  Button,
-  Card,
-  Divider,
-  Typography,
-  TextField,
-  CardActions,
-  CardContent,
-  CardMedia,
-  Stack,
-  Item,
-  TableContainer,
-  Table,
-  TableHead,
-  TableRow,
-  TableCell,
-  TableBody,
-  Paper,
-  Input,
-  // DeleteIcon,
-  IconButton,
-} from "@mui/material";
-import DeleteIcon from "@mui/icons-material/Delete";
-import EditIcon from "@mui/icons-material/Edit";
-import axios from "axios";
+import Stack from "@mui/material/Stack";
+import Grid from "@mui/material/Grid";
+import Container from "@mui/material/Container";
+import Box from "@mui/material/Box";
 import NewFood from "./components/newFood";
 import ViewMeals from "./components/viewMeals";
+import UpdateMeal from "./components/updateMeal";
 
-function createData(name, calories, fat, carbs, protein) {
-  return { name, calories, fat, carbs, protein };
-}
-
-const rows = [
-  createData("Frozen yoghurt", 159, 6.0, 24, 4.0),
-  createData("Ice cream sandwich", 237, 9.0, 37, 4.3),
-  createData("Eclair", 262, 16.0, 24, 6.0),
-];
 const FoodManager = () => {
   const [selectedMealId, setSelectedMealId] = useState(null);
   const [meals, setMeals] = useState([]);
@@ -50,6 +19,18 @@ const FoodManager = () => {
     };
     setMeals([...meals, meal]);
   };
+  const updateMeal = (values) => {
+    let newMeals = meals;
+    var foundIndex = newMeals.findIndex(meal => meal.id === values.id);
+    newMeals[foundIndex] = values;
+    setMeals(newMeals);
+  }
+  const deleteMeal = (id) => {
+    setMeals(meals.filter(meal => meal.id !== id));
+  }
+
+  const selectedMeal = meals.find(meal => meal.id === selectedMealId);
+
   return (
     <Box
       component="main"
@@ -65,9 +46,19 @@ const FoodManager = () => {
         <Grid
           container
           spacing={3}
+          height="100%"
         >
           <Grid item lg={4} md={6} xs={12}>
-            <NewFood addFood={addMeal} />
+            <Stack spacing={3} height="100%">
+              <NewFood addFood={addMeal} />
+              <Box flexGrow={1}>
+                <UpdateMeal
+                  updateMeal={updateMeal}
+                  deleteMeal={deleteMeal}
+                  selectedMeal={selectedMeal}
+                />
+              </Box>
+            </Stack>
           </Grid>
           <Grid item lg={8} md={6} xs={12}>
             <ViewMeals
