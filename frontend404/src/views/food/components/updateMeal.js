@@ -85,56 +85,56 @@ const UpdateMeal = (props) => {
     </Dialog>
   );
 
-  console.log(values);
-
   const form = (
     <Stack sx={{ mt: 2 }} spacing={2}
       component="form" onSubmit={handleSubmit}
     >
       <TextField
-          id="name"
-          name="name"
-          label="Name"
-          value={values.name}
-          onChange={handleChange}
-          error={errors.name}
-          helperText={errors.name}
-          fullWidth
-          size="small"
-        />
-        <TextField
-          id="price"
-          name="price"
-          label="Price"
-          value={values.price}
-          onChange={handleChange}
-          error={errors.price}
-          helperText={errors.price}
-          fullWidth
-          size="small"
-          type="number"
-          InputProps={{
-            startAdornment: (
-              <InputAdornment position="start">
-                $
-              </InputAdornment>
-            )
-          }}
-        />
-        <Typography
+        id="name"
+        name="name"
+        label="Name"
+        value={values.name}
+        onChange={handleChange}
+        error={errors.name}
+        helperText={errors.name}
+        fullWidth
+        size="small"
+      />
+      <TextField
+        id="price"
+        name="price"
+        label="Price"
+        value={values.price}
+        onChange={handleChange}
+        error={errors.price}
+        helperText={errors.price}
+        fullWidth
+        size="small"
+        type="number"
+        InputProps={{
+          startAdornment: (
+            <InputAdornment position="start">
+              $
+            </InputAdornment>
+          )
+        }}
+      />
+      <Typography
         variant="body2"
         component="p"
         sx={{
           px: 1
         }}
-        >
-          This meal is served on {values.day.toLowerCase()}s.
-        </Typography>
+      >
+        {values.day && `This meal is served on ${values.day.toLowerCase()}s.`}
+      </Typography>
+      <Box flexGrow={1} />
       <Stack
         direction="row"
         sx={{
           width: "100%"
         }}
+        spacing={2}
       >
         <Button
           sx={{
@@ -164,21 +164,15 @@ const UpdateMeal = (props) => {
       height: "100%",
       py: 1, px: 2
     }}>
-      <Stack
-        direction="row"
-        spacing={2}
-        alignItems="center"
-      >
-        <Typography variant="h6" sx={{ py: 1 }}>
-          Update Meal
-        </Typography>
-      </Stack>
+      <Typography variant="h6" sx={{ py: 1 }}>
+        Update Meal
+      </Typography>
       <Divider />
       {selectedMeal ? form
         : (
           <Box sx={{
             display: "flex",
-            height: "100%",
+            height: "30vh",
             alignItems: "center",
             justifyContent: "center",
           }}>

@@ -39,8 +39,7 @@ const FoodManager = () => {
       <Container
         maxWidth={false}
         sx={{
-          p: 2,
-          height: "90vh",
+          p: 3,
         }}
       >
         <Grid
@@ -48,19 +47,31 @@ const FoodManager = () => {
           spacing={3}
           height="100%"
         >
-          <Grid item lg={4} md={6} xs={12}>
-            <Stack spacing={3} height="100%">
+          <Grid
+            item
+            md={4}
+            xs={12}
+            container
+            spacing={3}
+            sx={{
+              direction: {
+                xs: "row",
+                md: "column"
+              }
+            }}
+          >
+            <Grid item md={12} sm={6} xs={12}>
               <NewMeal addMeal={addMeal} />
-              <Box flexGrow={1}>
-                <UpdateMeal
-                  updateMeal={updateMeal}
-                  deleteMeal={deleteMeal}
-                  selectedMeal={selectedMeal}
-                />
-              </Box>
-            </Stack>
+            </Grid>
+            <Grid item md={12} sm={6} xs={12}>
+              <UpdateMeal
+                updateMeal={updateMeal}
+                deleteMeal={deleteMeal}
+                selectedMeal={selectedMeal}
+              />
+            </Grid>
           </Grid>
-          <Grid item lg={8} md={6} xs={12}>
+          <Grid item md={8} xs={12}>
             <ViewMeals
               meals={meals}
               setSelectedMealId={setSelectedMealId}

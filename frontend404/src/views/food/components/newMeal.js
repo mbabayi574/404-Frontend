@@ -61,7 +61,7 @@ const NewMeal = (props) => {
   return (
     <Card sx={{
       width: "100%",
-      height: "fit-content",
+      height: "100%",
       py: 1, px: 2
     }}>
       <Typography variant="h6" sx={{ py: 1 }}>
