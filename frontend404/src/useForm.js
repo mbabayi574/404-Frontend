@@ -1,55 +1,8 @@
-// import { useState } from "react";
-// import useAPI from "useAPI";
-
-// const useForm = ({
-//   getValidationError,
-//   prepareData,
-//   makeApiConfig,
-//   onPostSuccess,
-//   onPostError,
-// }) => {
-//   const api = useAPI();
-//   const [loading, setLoading] = useState(false);
-//   const [success, setSuccess] = useState(false);
-//   const [error, setError] = useState(null);
-
-//   const trySubmit = (formData) => {
-//     const validateData = () => {
-//       const newError = getValidationError(formData);
-//       setError(newError);
-//       return newError === null;
-//     }
-
-//     if (!validateData(formData)) {
-//       return;
-//     }
-//     prepareData(formData);
-//     var config = makeApiConfig(formData);
-//     postData(config);
-//   };
-
-//   const clearFormStatus = () => {
-//     setLoading(false);
-//     setSuccess(false);
-//     setError(null);
-//   }
-
-//   return {
-//     loading,
-//     success,
-//     error,
-//     trySubmit,
-//     clearFormStatus,
-//   };
-// }
-
-// export default useForm;
-
 import { useState, useEffect } from 'react';
 
-const useForm = (callback, validate) => {
+const useForm = (callback, validate, initialData={}) => {
 
-  const [values, setValues] = useState({});
+  const [values, setValues] = useState(initialData);
   const [errors, setErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -70,9 +23,14 @@ const useForm = (callback, validate) => {
     setValues(values => ({ ...values, [event.target.name]: event.target.value }));
   };
 
+  const clearForm = () => {
+    setValues(initialData);
+  }
+
   return {
     handleChange,
     handleSubmit,
+    clearForm,
     values,
     errors,
   }
