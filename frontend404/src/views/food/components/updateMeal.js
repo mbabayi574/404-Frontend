@@ -23,7 +23,7 @@ const UpdateMeal = (props) => {
     "Saturday",
     "Sunday",
     "Monday",
-    "Teusday",
+    "Tuesday",
     "Wednesday",
     "Thursday",
     "Friday",
@@ -85,6 +85,8 @@ const UpdateMeal = (props) => {
     </Dialog>
   );
 
+  console.log(values);
+
   const form = (
     <Stack sx={{ mt: 1 }} spacing={1}
       component="form" onSubmit={handleSubmit}
@@ -119,28 +121,15 @@ const UpdateMeal = (props) => {
             )
           }}
         />
-        <FormControl
-          fullWidth
-          size="small"
-          error={errors.day}
+        <Typography
+        variant="body2"
+        component="p"
+        sx={{
+          px: 1
+        }}
         >
-          <InputLabel id="day-label">Day to serve</InputLabel>
-          <Select
-            labelId="day-label"
-            id="day"
-            name="day"
-            label="Day to serve"
-            value={values.period}
-            onChange={handleChange}
-          >
-            {daysOfWeek.map(day => (
-              <MenuItem value={day.toLowerCase()}>
-                {day}
-              </MenuItem>
-            ))}
-          </Select>
-          <FormHelperText>{errors.day}</FormHelperText>
-        </FormControl>
+          This meal is served on {values.day.toLowerCase()}s.
+        </Typography>
       <Stack
         direction="row"
         sx={{

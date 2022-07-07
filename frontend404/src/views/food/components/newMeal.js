@@ -17,7 +17,7 @@ const NewMeal = (props) => {
     "Saturday",
     "Sunday",
     "Monday",
-    "Teusday",
+    "Tuesday",
     "Wednesday",
     "Thursday",
     "Friday",
@@ -112,7 +112,7 @@ const NewMeal = (props) => {
             id="day"
             name="day"
             label="Day to serve"
-            value={values.period}
+            value={values.day}
             onChange={handleChange}
           >
             {daysOfWeek.map(day => (
