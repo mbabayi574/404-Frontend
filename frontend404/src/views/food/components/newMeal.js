@@ -12,7 +12,7 @@ import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 import useForm from "useForm";
 
-const NewFood = (props) => {
+const NewMeal = (props) => {
   const daysOfWeek = [
     "Saturday",
     "Sunday",
@@ -22,9 +22,9 @@ const NewFood = (props) => {
     "Thursday",
     "Friday",
   ];
-  const { addFood } = props;
+  const { addMeal } = props;
   const callback = () => {
-    addFood(values);
+    addMeal(values);
     clearForm();
   }
 
@@ -65,7 +65,7 @@ const NewFood = (props) => {
       py: 1, px: 2
     }}>
       <Typography variant="h6" sx={{ py: 1 }}>
-        New Food
+        New Meal
       </Typography>
       <Divider />
       <Stack sx={{ mt: 1 }} spacing={1}
@@ -134,4 +134,4 @@ const NewFood = (props) => {
   )
 };
 
-export default NewFood;
+export default NewMeal;

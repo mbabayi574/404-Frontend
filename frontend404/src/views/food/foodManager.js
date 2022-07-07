@@ -4,7 +4,7 @@ import Stack from "@mui/material/Stack";
 import Grid from "@mui/material/Grid";
 import Container from "@mui/material/Container";
 import Box from "@mui/material/Box";
-import NewFood from "./components/newFood";
+import NewMeal from "./components/newMeal";
 import ViewMeals from "./components/viewMeals";
 import UpdateMeal from "./components/updateMeal";
 
@@ -50,7 +50,7 @@ const FoodManager = () => {
         >
           <Grid item lg={4} md={6} xs={12}>
             <Stack spacing={3} height="100%">
-              <NewFood addFood={addMeal} />
+              <NewMeal addMeal={addMeal} />
               <Box flexGrow={1}>
                 <UpdateMeal
                   updateMeal={updateMeal}
