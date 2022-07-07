@@ -47,7 +47,7 @@ const mainItems = [
     title: "Settings",
   },
   {
-    href: "/my/food_manager",
+    href: "/my/food",
     icon: <FastfoodIcon fontSize="small" />,
     title: "Food & Nutrition",
   },

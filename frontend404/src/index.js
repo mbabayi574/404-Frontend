@@ -17,7 +17,7 @@ import Dashboard from "./views/Dashboard/dashboard";
 import TodoApp from "./views/TODOLIST";
 import DormitoryEmp from "./Pages/DormitoryEmp/index";
 import HrDesk from "./views/hrDesk/hrDesk";
-import FoodManager from "./views/food/foodManager";
+import FoodPage from "./views/food/";
 import Board from "views/Salary/Calculator";
 import NotFound from "./404";
 import Documents from "views/Documents/documents";
@@ -50,7 +50,7 @@ ReactDOM.render(
             />
             <Route exact path="reports" element={<Board />} />
             <Route exact path="hr_desk" element={<HrDesk />} />
-            <Route exact path="food_manager" element={<FoodManager />} />
+            <Route exact path="food" element={<FoodPage />} />
             <Route path="*" element={<NotFound />} />
           </Route>
           <Route path="*" element={<NotFound />} />

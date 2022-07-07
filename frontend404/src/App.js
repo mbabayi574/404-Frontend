@@ -15,6 +15,7 @@ const pageTitles = {
   "/login": "Login",
   "/signup": "Signup",
   "/my/home": "Dashboard",
+  "/my/food": "Food & Nutrition",
   "/my/timetracker": "Time Tracker",
   "/my/todoapp": "Todos",
   "/my/transportation": "Transportation",
