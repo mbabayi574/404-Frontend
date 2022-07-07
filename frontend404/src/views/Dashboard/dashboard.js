@@ -8,7 +8,7 @@ import DashboardTimeTrackerCard from "./components/timeTrackerCard";
 import FinancialReportCard from "./components/financialReportCard";
 import ServiceCounterCard from "./components/serviceCounterCard";
 import SalaryCard from "./components/salaryCard";
-import NutritionCard from "./components/nutritionCard";
+import DashboardFoodCard from "./components/foodCard";
 import Box from '@mui/material/Box';
 
 const Dashboard = () => {
@@ -30,7 +30,7 @@ const Dashboard = () => {
               <DashboardTodosCard />
             </Grid>
             <Grid item>
-              <NutritionCard />
+              <DashboardFoodCard />
             </Grid>
           </Grid>
           <Grid item xs={8}>

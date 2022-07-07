@@ -6,9 +6,11 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { BarChart, Bar, XAxis, YAxis } from "recharts";
 import useAPI from "useAPI";
+import { useNavigate } from "react-router-dom";
 
 
 const DashboardTimeTrackerCard = () => {
+  const navigate = useNavigate();
   const api = useAPI();
   const [data, setData] = useState([]);
   const [workHours, setWorkHours] = useState(0);
@@ -29,7 +31,6 @@ const DashboardTimeTrackerCard = () => {
     const today = new Date();
     const previousWeek = new Date(new Date().setDate(today.getDate() - 7));
     let tempData = [];
-    console.log(today);
     for (let date = new Date(previousWeek);
       date.valueOf() <= today.valueOf();
       date.setDate(date.getDate() + 1)) {
@@ -49,15 +50,11 @@ const DashboardTimeTrackerCard = () => {
   const getEffectiveTime = (times, date) => {
     const filtered = times.filter(item => {
       const itemDate = new Date(item.date);
-      console.log(itemDate);
       return areSameDay(itemDate, date);
     });
-    console.log(filtered.length);
     const hours = filtered.map(item => {
-      console.log(item.end_point);
       const endTime = getDatetimeFromTime(date, item.end_point);
       const startTime = getDatetimeFromTime(date, item.start_point);
-      console.log(endTime);
       const difference = Math.ceil((endTime - startTime) / (60 * 1000));
 
       return difference - item.wasted_time;
@@ -115,9 +112,12 @@ const DashboardTimeTrackerCard = () => {
             >
               You have submitted {workHours} hours and {workMinutes} minutes of work today.
             </Typography>
-            <Button sx={{
+            <Button
+            onClick={() => navigate("/my/timetracker")}
+            sx={{
               mt: "auto"
-            }}>
+            }}
+            >
               Manage Time Tracker
             </Button>
           </Stack>
