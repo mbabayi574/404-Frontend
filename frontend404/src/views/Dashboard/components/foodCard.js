@@ -56,7 +56,7 @@ const DashboardFoodCard = () => {
         </Typography>
         <Divider />
         <Typography variant="body1" component="p" textAlign="start">
-          You have reserved {reserved || "Nothing"} for today!
+          You have reserved {reserved || "nothing"} for today!
         </Typography>
         <Stack
           direction="row"

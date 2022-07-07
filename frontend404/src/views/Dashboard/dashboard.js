@@ -6,7 +6,7 @@ import DashboardTodosCard from './components/todosCard';
 import DashboardProfileCard from "./components/profileCard";
 import DashboardTimeTrackerCard from "./components/timeTrackerCard";
 import FinancialReportCard from "./components/financialReportCard";
-import ServiceCounterCard from "./components/serviceCounterCard";
+import DashboardServiceCounterCard from "./components/serviceCounterCard";
 import SalaryCard from "./components/salaryCard";
 import DashboardFoodCard from "./components/foodCard";
 import Box from '@mui/material/Box';
@@ -32,6 +32,9 @@ const Dashboard = () => {
             <Grid item>
               <DashboardFoodCard />
             </Grid>
+            <Grid item>
+              <DashboardServiceCounterCard />
+            </Grid>
           </Grid>
           <Grid item xs={8}>
             <DashboardTimeTrackerCard />
@@ -39,9 +42,6 @@ const Dashboard = () => {
           <Grid item container direction="column" xs={6} spacing={3}>
             <Grid item>
               <NotificationList />
-            </Grid>
-            <Grid item>
-              <ServiceCounterCard />
             </Grid>
           </Grid>
           <Grid item container direction="column" xs={6} spacing={3}>
