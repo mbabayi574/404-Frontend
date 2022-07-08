@@ -79,10 +79,10 @@ const BulletinBoardManager = ({}) => {
 
   /////////////
 
-  const [value, setValue] = React.useState("1");
+  const [value, setValue] = React.useState(false);
 
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
+  const handleChange = (event) => {
+    setValue(!value);
   };
 
   return (
@@ -118,56 +118,68 @@ const BulletinBoardManager = ({}) => {
           {`Announcement sent successfully :)`}
         </Alert>
       </Snackbar>
-
-      <Tabs>
-        <TabList>
-          <Tab>Send Announcment</Tab>
-          <Tab>History</Tab>
-        </TabList>
-
-        <TabPanel>
-          <Container>
-            <Grid
-              container
-              direction="column"
-              alignItems="center"
-              justifyContent="center"
-              spacing={1}
-            >
-              <Grid item xs={12}>
-                <Paper style={{ margin: 16, padding: 16 }}>
-                  <TextField
-                    label="Title"
-                    size="small"
-                    fullWidth
-                    value={title}
-                    onChange={(e) => setTitle(e.target.value)}
-                  />
-                  <div style={{ marginBottom: "10px" }}></div>
-                  <JoditEditor
-                    ref={editor}
-                    value={content}
-                    config={config}
-                    tabIndex={1} // tabIndex of textarea
-                    onBlur={(newContent) => setContent(newContent)} // preferred to use only this option to update the content for performance reasons
-                    onChange={(newContent) => {}}
-                  />
-                </Paper>
-              </Grid>
-              <Grid item xs={6}>
-                <Button fullWidth variant="contained" onClick={handleSubmit}>
-                  SEND ANNOUNCMENT
-                </Button>
-              </Grid>
+      {value ? (
+        <Container>
+          <Grid
+            container
+            direction="column"
+            alignItems="center"
+            justifyContent="center"
+            spacing={1}
+          >
+            <Grid item xs={12}>
+              <Paper style={{ margin: 16, padding: 16 }}>
+                <TextField
+                  label="Title"
+                  size="small"
+                  fullWidth
+                  value={title}
+                  onChange={(e) => setTitle(e.target.value)}
+                />
+                <div style={{ marginBottom: "10px" }}></div>
+                <JoditEditor
+                  ref={editor}
+                  value={content}
+                  config={config}
+                  tabIndex={1} // tabIndex of textarea
+                  onBlur={(newContent) => setContent(newContent)} // preferred to use only this option to update the content for performance reasons
+                  onChange={(newContent) => {}}
+                />
+              </Paper>
             </Grid>
-          </Container>
-        </TabPanel>
-        <TabPanel>
+            <Grid item xs={6}>
+              <Button fullWidth variant="contained" onClick={handleSubmit}>
+                SEND ANNOUNCMENT
+              </Button>
+              <Button onClick={handleChange} fullWidth>
+                History
+              </Button>
+            </Grid>
+          </Grid>
+        </Container>
+      ) : (
+        <>
+          <div>
+            <Button
+              variant="contained"
+              style={{
+                width: "15vw",
+                float: "right",
+                marginTop: "3vh",
+                marginRight: "3.5vw",
+              }}
+              onClick={handleChange}
+            >
+              Send New Announcement
+            </Button>
+          </div>
           {/*  */}
-          <BulletinBoardEmployee />
+          <div style={{ marginTop: "-7vh" }}>
+            <BulletinBoardEmployee />
+          </div>
           {/*  */}
-        </TabPanel>
-      </Tabs>
+        </>
+      )}
     </>
   );
 };
