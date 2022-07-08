@@ -199,6 +199,7 @@ const DormitoryEmp = (props) => {
         remainingCapacity: item.current_capacity,
       });
     }
+    
     // item.users.map((user)=> {
     //   if( user.token === token) {
     //   setReservedRoom(
