@@ -108,7 +108,6 @@ const Transportation = () => {
                     <TableCell align="center">Return Time</TableCell>
                     <TableCell align="center" colSpan={7}>Days</TableCell>
                     <TableCell align="right">Capacity</TableCell>
-                    <TableCell />
                   </TableRow>
                   <TableRow>
                     <TableCell />
@@ -118,7 +117,6 @@ const Transportation = () => {
                     {daysOfWeek.map((day) => (
                       <TableCell size="small" align="center">{day}</TableCell>
                     ))}
-                    <TableCell />
                     <TableCell />
                   </TableRow>
                 </TableHead>
