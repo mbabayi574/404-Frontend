@@ -121,7 +121,7 @@ const TransportationAddService = () => {
 
     var config = {
       method: "post",
-      url: "ServiceCounter/transportation/admintransportations/",
+      url: "Transportation/admin/",
       headers: {
         "Content-Type": "application/json",
       },

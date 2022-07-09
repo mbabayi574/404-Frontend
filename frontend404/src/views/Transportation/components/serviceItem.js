@@ -37,7 +37,7 @@ const ServiceItem = ({ service, loadServices }) => {
 	const handleSubscribe = () => {
 		var config = {
 			method: "patch",
-			url: `ServiceCounter/transportation/employee/showlists/reserve/${service.id}`,
+			url: `Transportation/employee/showlists/reserve/${service.id}`,
 			headers: {
 				Accept: "application/json",
 			},
@@ -54,7 +54,7 @@ const ServiceItem = ({ service, loadServices }) => {
 	const handleUnsubscribe = () => {
 		var config = {
 			method: "patch",
-			url: `ServiceCounter/transportation/employee/showlists/unreserve/${service.id}`,
+			url: `Transportation/employee/showlists/unreserve/${service.id}`,
 			headers: {
 				Accept: "application/json",
 			},
@@ -71,7 +71,7 @@ const ServiceItem = ({ service, loadServices }) => {
 	const handleDelete = () => {
 		var config = {
 			method: "delete",
-			url: `ServiceCounter/transportation/admintransportations/service/${service.id}`,
+			url: `Transportation/admin/service/${service.id}`,
 			headers: {
 				Accept: "application/json",
 			},
