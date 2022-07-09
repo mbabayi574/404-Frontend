@@ -24,7 +24,7 @@ const DashboardServiceCounterCard = () => {
   }
 
   const setRequestData = (reponse) => {
-    const requests = reponse.data;
+    const requests = reponse.data.results;
     const recentRequests = requests.filter(isRequestRecent);
     setNumberOfRequests(requests.length);
     setNumberOfRecentRequests(recentRequests.length);

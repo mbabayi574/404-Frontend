@@ -27,7 +27,7 @@ const DashboardTimeTrackerCard = () => {
   }, []);
 
   const setTimeTrackerData = (response) => {
-    const times = response.data;
+    const times = response.data.results;
     const today = new Date();
     const previousWeek = new Date(new Date().setDate(today.getDate() - 7));
     let tempData = [];

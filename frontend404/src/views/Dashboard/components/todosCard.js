@@ -18,12 +18,12 @@ const DashboardTodosCard = () => {
   const [checkedCount, setCheckedCount] = useState(0);
 
   const calculateCheckedCount = (response) => {
-    setCount(response.data.length);
-    const checked = response.data.filter(item => item.checkbox);
-    const highPriority = response.data.filter(item => item.priority === 1);
-    const mediumPriority = response.data.filter(item => item.priority === 2);
-    const lowPriority = response.data.filter(item => item.priority === 3);
-    const unimportant = response.data.filter(item => item.priority === 4);
+    setCount(response.data.count);
+    const checked = response.data.results.filter(item => item.checkbox);
+    const highPriority = response.data.results.filter(item => item.priority === 1);
+    const mediumPriority = response.data.results.filter(item => item.priority === 2);
+    const lowPriority = response.data.results.filter(item => item.priority === 3);
+    const unimportant = response.data.results.filter(item => item.priority === 4);
     setCheckedCount(checked.length);
     setHighPriorityCount(highPriority.length);
     setMediumPriorityCount(mediumPriority.length);
