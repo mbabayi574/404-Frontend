@@ -39,12 +39,6 @@ const Dashboard = () => {
             <Grid item>
               <DashboardTimeTrackerCard />
             </Grid>
-            <Grid item>
-              <FinancialReportCard />
-            </Grid>
-            <Grid item>
-              <SalaryCard />
-            </Grid>
           </Grid>
         </Grid>
       </Container>
