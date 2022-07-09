@@ -14,13 +14,13 @@ const Documents = () => {
   const [loading, setLoading] = useState(true);
   const [page, setPage] = useState(1);
   const [documents, setDocuments] = useState([]);
+  const [pageCount, setPageCount] = useState(1);
   const api = useAPI();
   const documentsPerPage = 4;
-  const pageCount = Math.ceil(documents.length / documentsPerPage);
 
   useEffect(() => {
     getDocuments();
-  }, []);
+  }, [page]);
 
   useEffect(() => {
     setPage(Math.max(Math.min(page, pageCount), 1));
@@ -30,10 +30,15 @@ const Documents = () => {
     var config = {
       method: "get",
       url: "notepad/note/showmynotes",
+      params: {
+        page: page
+      }
     };
     api(config)
       .then((response) => {
-        setDocuments(response.data);
+        setDocuments(response.data.results);
+        const count = response.data.count;
+        setPageCount(Math.ceil(count / documentsPerPage));
       })
       .catch((error) => {
         console.log(error);
@@ -80,14 +85,13 @@ const Documents = () => {
       );
     } else if (documents.length === 0) {
       return (
-        <Typography variant="h3" color="text.secondary">
+        <Typography variant="h3" color="text.secondary" textAlign="center">
           Documents you add will appear here
         </Typography>
       );
     }
-    const paginationStart = documentsPerPage * (page - 1);
     const items = new Array(documentsPerPage).fill()
-      .map((_, index) => documents[paginationStart + index]);
+      .map((_, index) => documents[index]);
     return (
       <Stack spacing={2} sx={{
         width: "100%",
@@ -108,6 +112,7 @@ const Documents = () => {
           ))}
         </Grid>
         <Pagination
+          color="primary"
           count={pageCount}
           page={page} onChange={(event, value) => setPage(value)}
         />
